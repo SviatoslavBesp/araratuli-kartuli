@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>ჩემი ოჯახი — Задания</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Georgian:wght@400;600;700&family=PT+Sans:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+  --bg:#EEF2F1; --paper:#FFFFFF; --ink:#1E2A2F; --muted:#5E6B70;
+  --wine:#8E2A3B; --wine-soft:#F4E4E7; --blank:#2F6FB0; --blank-soft:#E6EFF8;
+  --ok:#2E7D4F; --ok-soft:#E3F2E8; --bad:#C0392B; --bad-soft:#FBE5E2;
+  --line:#D5DDDB; --pop:#1E2A2F; --pop-ink:#FFFFFF;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#141A1C; --paper:#1D2528; --ink:#E7ECEB; --muted:#9AA7AB;
+    --wine:#E07A8C; --wine-soft:#3A2228; --blank:#7AB2EA; --blank-soft:#1F3042;
+    --ok:#6BC98F; --ok-soft:#1C3325; --bad:#F08476; --bad-soft:#3C2220;
+    --line:#33403F; --pop:#F1F4F3; --pop-ink:#141A1C;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#141A1C; --paper:#1D2528; --ink:#E7ECEB; --muted:#9AA7AB;
+  --wine:#E07A8C; --wine-soft:#3A2228; --blank:#7AB2EA; --blank-soft:#1F3042;
+  --ok:#6BC98F; --ok-soft:#1C3325; --bad:#F08476; --bad-soft:#3C2220;
+  --line:#33403F; --pop:#F1F4F3; --pop-ink:#141A1C;
+}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*,*::before,*::after{box-sizing:inherit}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"PT Sans",system-ui,sans-serif;font-size:16px;line-height:1.45}
+.ka{font-family:"Noto Serif Georgian","Sylfaen","DejaVu Sans",serif}
+main{max-width:860px;margin:0 auto;padding:20px 16px 140px}
+.back{display:inline-block;margin-bottom:4px;color:var(--muted);text-decoration:none;font-size:15px}
+.back:hover{color:var(--wine)}
+h1{font-family:"Noto Serif Georgian",serif;font-weight:700;font-size:clamp(1.7rem,5vw,2.4rem);margin:8px 0 2px;color:var(--wine)}
+.sub{color:var(--muted);margin:0 0 18px}
+.name{display:flex;gap:8px;align-items:center;margin-bottom:16px}
+.name input{flex:1;min-width:0;font:inherit;padding:10px 12px;border:1.5px solid var(--line);border-radius:10px;background:var(--paper);color:var(--ink)}
+.name input:focus-visible{outline:2px solid var(--blank);outline-offset:1px}
+.pool-wrap{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);padding:10px 0 8px;border-bottom:1px solid var(--line);margin-bottom:18px}
+.pool{display:flex;flex-wrap:wrap;gap:7px;background:var(--wine-soft);border:2px solid var(--wine);border-radius:16px;padding:10px}
+.chip{font-family:"Noto Serif Georgian",serif;font-size:15px;border:1.5px solid var(--wine);background:var(--paper);color:var(--wine);border-radius:999px;padding:5px 12px;cursor:pointer;touch-action:manipulation;transition:transform .12s}
+.chip.sel{background:var(--wine);color:var(--paper);transform:translateY(-2px)}
+.chip.used{visibility:hidden;width:0;padding:0;margin:0 -3.5px;border:0}
+.chip:focus-visible,.blank:focus-visible,.w:focus-visible{outline:2px solid var(--blank);outline-offset:2px}
+.hint{min-height:1.4em;font-size:14px;color:var(--muted);margin-top:6px}
+.hint b{color:var(--ink)}
+.text{background:var(--paper);border-radius:14px;padding:22px 20px;font-size:clamp(1.05rem,3.6vw,1.25rem);line-height:2.3;border:1px solid var(--line)}
+.w{cursor:pointer;border-radius:4px;padding:1px 1px;border-bottom:1px dashed transparent}
+.w:hover{background:var(--blank-soft)}
+.w.on{background:var(--blank-soft);border-bottom-color:var(--blank)}
+.blank{display:inline-block;min-width:92px;text-align:center;border:none;border-bottom:2.5px dotted var(--blank);background:transparent;color:var(--blank);font:inherit;font-family:"Noto Serif Georgian",serif;font-weight:600;padding:0 6px;line-height:1.5;cursor:pointer;border-radius:6px 6px 0 0}
+.blank.active{background:var(--blank-soft);border-bottom-style:solid}
+.blank.filled{border-bottom-style:solid}
+.blank.ok{color:var(--ok);border-color:var(--ok);background:var(--ok-soft)}
+.blank.bad{color:var(--bad);border-color:var(--bad);background:var(--bad-soft)}
+.blank .n{font-size:.62em;color:var(--muted);font-weight:400;vertical-align:super}
+.bar{position:fixed;left:0;right:0;bottom:0;background:var(--paper);border-top:1px solid var(--line);padding:10px 16px;padding-bottom:calc(10px + env(safe-area-inset-bottom,0px));z-index:10}
+.bar .in{max-width:860px;margin:0 auto;display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.btn{font:inherit;font-weight:700;border-radius:10px;padding:10px 14px;border:1.5px solid var(--line);background:var(--paper);color:var(--ink);cursor:pointer}
+.btn.main{background:var(--wine);border-color:var(--wine);color:#fff;margin-left:auto}
+.btn:focus-visible{outline:2px solid var(--blank);outline-offset:2px}
+.score{font-weight:700}
+.trans{margin-top:16px;background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:16px 20px;display:none}
+.trans.show{display:block}
+.legend{font-size:14px;color:var(--muted);margin-top:14px}
+.pop{position:fixed;z-index:30;max-width:min(300px,calc(100vw - 20px));background:var(--pop);color:var(--pop-ink);border-radius:12px;padding:10px 14px;box-shadow:0 8px 24px rgba(0,0,0,.25);display:none}
+.pop.show{display:block}
+.pop .k{font-family:"Noto Serif Georgian",serif;font-size:20px;font-weight:700}
+.pop .t{opacity:.8;font-size:15px}
+.pop .r{font-size:16px;margin-top:3px}
+.pop .note{font-size:13px;opacity:.75;margin-top:4px}
+.toast{position:fixed;left:50%;bottom:90px;transform:translateX(-50%);background:var(--pop);color:var(--pop-ink);padding:10px 16px;border-radius:10px;display:none;z-index:40;max-width:90vw;text-align:center}
+.toast.show{display:block}
+@media (prefers-reduced-motion:reduce){.chip{transition:none}}
+</style>
+</head>
+<body>
+<main>
+  <a class="back" href="./">← Все задания</a>
+  <h1>02. ჩემი ოჯახი</h1>
+  <p class="sub">Глаголы владения: მაქვს / მყავს и др. Вставьте слова из рамки в пропуски. Нажмите на любое грузинское слово в тексте — появится транскрипция и перевод.</p>
+
+  <label class="name"><span>Имя:</span><input id="name" type="text" placeholder="Ваше имя" autocomplete="name"></label>
+
+  <div class="pool-wrap">
+    <div class="pool" id="pool"></div>
+    <div class="hint" id="hint">Выберите слово, затем нажмите на пропуск (или наоборот). Нажмите на заполненный пропуск, чтобы вернуть слово.</div>
+  </div>
+
+  <div class="text ka" id="text"></div>
+
+  <div class="trans" id="trans"><b>Перевод:</b> Привет! Я Лука. Мне двадцать лет. Я высокий и стройный парень, у меня чёрные волосы и чёрные глаза. Я студент университета. У меня есть младшая сестра — Ана и брат — Гиорги. Ане пять лет, Гиорги шестнадцать. Ана полненькая, Гиорги худой. У Аны каштановые волосы и карие глаза. У Гиорги карие глаза и чёрные волосы. Гиорги — студент колледжа. Моя мама — высокая стройная женщина. У неё светлые волосы и голубые глаза. У моего папы чёрные волосы и чёрные глаза. Моя мама — директор банка. Мой папа — менеджер кафе. Это фото моей семьи. У нас есть собака — Дона. Дона белая. Дона — большая собака. Это компьютер моей сестры. Это телевизор моей мамы. Это телефон моего папы. У меня есть дедушка и бабушка. У моей мамы две сестры. У моего папы есть брат.</div>
+
+  <p class="legend">Транскрипция: апостроф (к', т', п', ц', ч') — смычногортанный «резкий» согласный; къ — звук ყ (глубокое к); гъ — звук ღ (как французское r).</p>
+</main>
+
+<div class="bar"><div class="in">
+  <span class="score" id="score"></span>
+  <button class="btn" id="check">Проверить</button>
+  <button class="btn" id="reset">Сбросить</button>
+  <button class="btn" id="tr">Перевод</button>
+  <button class="btn main" id="submit">Сдать</button>
+</div></div>
+
+<div class="pop" id="pop" role="dialog"></div>
+<div class="toast" id="toast"></div>
+
+<script>
+const POOL = ["მაქვს","მყავს","მყავს","გვყავს","აქვს","აქვს","აქვს","აქვს","ჰყავს","ჰყავს","დედაჩემის","მამაჩემის","უნივერსიტეტის","კოლეჯის","კაფეს","დის","ბანკის","ოჯახის"];
+
+const TEXT = "გამარჯობა! მე ლუკა ვარ. მე ვარ ოცი წლის. მე ვარ მაღალი და გამხდარი ბიჭი, _1_ შავი თმა და შავი თვალები. მე _2_ სტუდენტი ვარ. მე _3_ პატარა და* – ანა და ძმა – გიორგი. ანა ხუთი წლისაა, გიორგი თექვსმეტი წლის არის. ანა მსუქანია, გიორგი გამხდარია. ანას _4_ ყავისფერი თმა და ყავისფერი თვალები. გიორგის _5_ ყავისფერი თვალები და შავი თმა. გიორგი _6_ სტუდენტია. დედაჩემი მაღალი და გამხდარი ქალია. მას _7_ ქერა თმა და ლურჯი თვალები. მამაჩემს _8_ შავი თმა და შავი თვალები. დედაჩემი _9_ დირექტორია. მამაჩემი _10_ მენეჯერია. ეს ჩემი _11_ ფოტოა. ჩვენ _12_ ძაღლი – დონა. დონა თეთრია. დონა დიდი ძაღლია. ეს ჩემი _13_ კომპიუტერია. ეს _14_ ტელევიზორია. ეს _15_ ტელეფონია. მე _16_ პაპა და ბებია. დედაჩემს _17_ ორი და*. მამაჩემს _18_ ძმა.";
+
+const ANSWERS = {1:"მაქვს",2:"უნივერსიტეტის",3:"მყავს",4:"აქვს",5:"აქვს",6:"კოლეჯის",7:"აქვს",8:"აქვს",9:"ბანკის",10:"კაფეს",11:"ოჯახის",12:"გვყავს",13:"დის",14:"დედაჩემის",15:"მამაჩემის",16:"მყავს",17:"ჰყავს",18:"ჰყავს"};
+const GROUPS = [[9,10],[14,15]]; // взаимозаменяемые пропуски
+const NB = 18;
+
+const HAVE_INAN = "Глагол «иметь» для неодушевлённых (волосы, глаза, вещи).";
+const HAVE_AN = "Глагол «иметь» для одушевлённых (люди, животные).";
+const DICT = {
+ "გამარჯობა":["привет, здравствуйте"],"მე":["я"],"ლუკა":["Лука (имя)"],"ვარ":["(я) есть, являюсь"],
+ "ოცი":["двадцать"],"წლის":["лет (о возрасте); род. п. от წელი — год"],"მაღალი":["высокий"],
+ "და":["и"],"და*":["сестра","Здесь და — не «и», а «сестра»."],"გამხდარი":["худой, стройный"],"ბიჭი":["парень, мальчик"],
+ "შავი":["чёрный"],"თმა":["волосы"],"თვალები":["глаза"],"სტუდენტი":["студент"],"პატარა":["маленький; младший"],
+ "ანა":["Ана (имя)"],"ძმა":["брат"],"გიორგი":["Гиорги (имя)"],"ხუთი":["пять"],"წლისაა":["...лет (есть)","-ა в конце = «есть, является»"],
+ "თექვსმეტი":["шестнадцать"],"არის":["есть, является"],"მსუქანია":["полная, толстая (есть)"],"გამხდარია":["худой (есть)"],
+ "ანას":["Ане, у Аны (дательный падеж)"],"ყავისფერი":["коричневый, карий (досл. «цвета кофе»)"],"გიორგის":["у Гиорги (дательный падеж)"],
+ "სტუდენტია":["студент (является)"],"დედაჩემი":["моя мама"],"ქალია":["женщина (является)"],"მას":["ему / ей, у него / у неё"],
+ "ქერა":["светлый, белокурый"],"ლურჯი":["синий, голубой"],"მამაჩემს":["моему папе, у моего папы"],"დირექტორია":["директор (является)"],
+ "მამაჩემი":["мой папа"],"მენეჯერია":["менеджер (является)"],"ეს":["это"],"ჩემი":["мой, моя"],"ფოტოა":["фото (является)"],
+ "ჩვენ":["мы"],"ძაღლი":["собака"],"დონა":["Дона (кличка)"],"თეთრია":["белая (есть)"],"დიდი":["большой"],"ძაღლია":["собака (является)"],
+ "კომპიუტერია":["компьютер (является)"],"ტელევიზორია":["телевизор (является)"],"ტელეფონია":["телефон (является)"],
+ "პაპა":["дедушка"],"ბებია":["бабушка"],"დედაჩემს":["моей маме, у моей мамы"],"ორი":["два"],
+ "მაქვს":["у меня есть",HAVE_INAN],"მყავს":["у меня есть",HAVE_AN],"გვყავს":["у нас есть",HAVE_AN],
+ "აქვს":["у него / у неё есть",HAVE_INAN],"ჰყავს":["у него / у неё есть",HAVE_AN],
+ "დედაჩემის":["моей мамы (родительный падеж)"],"მამაჩემის":["моего папы (родительный падеж)"],
+ "უნივერსიტეტის":["университета (родительный падеж)"],"კოლეჯის":["колледжа (родительный падеж)"],
+ "კაფეს":["кафе (родительный падеж)"],"დის":["сестры (родительный падеж)"],"ბანკის":["банка (родительный падеж)"],"ოჯახის":["семьи (родительный падеж)"]
+};
+
+const MAP = {"ა":"а","ბ":"б","გ":"г","დ":"д","ე":"е","ვ":"в","ზ":"з","თ":"т","ი":"и","კ":"к'","ლ":"л","მ":"м","ნ":"н","ო":"о","პ":"п'","ჟ":"ж","რ":"р","ს":"с","ტ":"т'","უ":"у","ფ":"п","ქ":"к","ღ":"гъ","ყ":"къ","შ":"ш","ჩ":"ч","ც":"ц","ძ":"дз","წ":"ц'","ჭ":"ч'","ხ":"х","ჯ":"дж","ჰ":"х"};
+function translit(w){let s="";[...w].forEach((c,i)=>{s+=(c==="ე"&&i===0)?"э":(MAP[c]||c)});return s}
+
+const $=id=>document.getElementById(id);
+const poolEl=$("pool"),textEl=$("text"),hint=$("hint"),pop=$("pop");
+let chips=[], fill={}, selChip=null, activeBlank=null, checked=false;
+
+function buildPool(){
+  poolEl.innerHTML="";
+  chips=POOL.map((w,i)=>{
+    const b=document.createElement("button");
+    b.className="chip";b.textContent=w;b.dataset.i=i;b.type="button";
+    b.draggable=true;
+    b.addEventListener("click",()=>onChip(i));
+    b.addEventListener("dragstart",e=>{e.dataTransfer.setData("text/plain",i)});
+    poolEl.appendChild(b);
+    return {w,el:b,used:null};
+  });
+}
+
+function buildText(){
+  const parts=TEXT.split(/(_\d+_|[\u10D0-\u10FF]+\*?)/);
+  parts.forEach(p=>{
+    if(!p)return;
+    let m=p.match(/^_(\d+)_$/);
+    if(m){
+      const n=+m[1];const b=document.createElement("button");
+      b.type="button";b.className="blank";b.dataset.n=n;
+      b.addEventListener("click",()=>onBlank(n));
+      b.addEventListener("dragover",e=>e.preventDefault());
+      b.addEventListener("drop",e=>{e.preventDefault();const i=+e.dataTransfer.getData("text/plain");place(i,n)});
+      textEl.appendChild(b);return;
+    }
+    if(/^[\u10D0-\u10FF]/.test(p)){
+      const s=document.createElement("span");
+      s.className="w";s.tabIndex=0;s.textContent=p.replace("*","");s.dataset.k=p;
+      s.addEventListener("click",e=>{e.stopPropagation();showPop(p,s)});
+      s.addEventListener("keydown",e=>{if(e.key==="Enter"){e.stopPropagation();showPop(p,s)}});
+      textEl.appendChild(s);return;
+    }
+    textEl.appendChild(document.createTextNode(p));
+  });
+}
+
+function renderBlank(n){
+  const b=textEl.querySelector(`.blank[data-n="${n}"]`);
+  const ci=fill[n];
+  b.classList.toggle("filled",ci!=null);
+  b.classList.toggle("active",activeBlank===n);
+  b.classList.remove("ok","bad");
+  b.innerHTML=ci!=null?chips[ci].w:`<span class="n">${n}</span>`;
+}
+function renderAll(){
+  for(let n=1;n<=NB;n++)renderBlank(n);
+  chips.forEach((c,i)=>{c.el.classList.toggle("used",c.used!=null);c.el.classList.toggle("sel",selChip===i)});
+  const f=Object.values(fill).filter(v=>v!=null).length;
+  $("score").textContent=checked?$("score").textContent:`${f} / ${NB}`;
+}
+
+function setHint(i){
+  if(i==null){hint.innerHTML="Выберите слово, затем нажмите на пропуск (или наоборот). Нажмите на заполненный пропуск, чтобы вернуть слово.";return}
+  const w=chips[i].w,d=DICT[w]||[""];
+  hint.innerHTML=`<b class="ka">${w}</b> [${translit(w)}] — ${d[0]}${d[1]?". "+d[1]:""}`;
+}
+
+function onChip(i){
+  hidePop();
+  if(activeBlank!=null){place(i,activeBlank);return}
+  selChip=selChip===i?null:i;setHint(selChip);renderAll();
+}
+function onBlank(n){
+  hidePop();
+  if(selChip!=null){place(selChip,n);return}
+  if(fill[n]!=null){chips[fill[n]].used=null;fill[n]=null;activeBlank=n;uncheck();renderAll();return}
+  activeBlank=activeBlank===n?null:n;renderAll();
+}
+function place(i,n){
+  if(fill[n]!=null)chips[fill[n]].used=null;
+  if(chips[i].used!=null)fill[chips[i].used]=null;
+  fill[n]=i;chips[i].used=n;selChip=null;setHint(null);
+  activeBlank=null;
+  for(let k=n+1;k<=NB;k++)if(fill[k]==null){activeBlank=k;break}
+  uncheck();renderAll();
+}
+function uncheck(){checked=false}
+
+function evaluate(){
+  const res={};
+  for(let n=1;n<=NB;n++){
+    const w=fill[n]!=null?chips[fill[n]].w:null;
+    const g=GROUPS.find(g=>g.includes(n));
+    res[n]=w==null?null:(g?g.map(x=>ANSWERS[x]).includes(w):w===ANSWERS[n]);
+  }
+  return res;
+}
+function doCheck(){
+  const r=evaluate();let ok=0;
+  for(let n=1;n<=NB;n++){
+    const b=textEl.querySelector(`.blank[data-n="${n}"]`);
+    if(r[n]===true){b.classList.add("ok");ok++}else if(r[n]===false)b.classList.add("bad");
+  }
+  checked=true;$("score").textContent=`Верно: ${ok} / ${NB}`;
+  return {r,ok};
+}
+
+function showPop(k,el){
+  const w=k.replace("*",""),d=DICT[k]||DICT[w]||["—"];
+  textEl.querySelectorAll(".w.on").forEach(x=>x.classList.remove("on"));el.classList.add("on");
+  pop.innerHTML=`<div class="k">${w}</div><div class="t">[${translit(w)}]</div><div class="r">${d[0]}</div>${d[1]?`<div class="note">${d[1]}</div>`:""}`;
+  pop.classList.add("show");
+  const r=el.getBoundingClientRect(),p=pop.getBoundingClientRect();
+  let x=r.left+r.width/2-p.width/2;x=Math.max(10,Math.min(x,innerWidth-p.width-10));
+  let y=r.top-p.height-8;if(y<10)y=r.bottom+8;
+  pop.style.left=x+"px";pop.style.top=y+"px";
+}
+function hidePop(){pop.classList.remove("show");textEl.querySelectorAll(".w.on").forEach(x=>x.classList.remove("on"))}
+document.addEventListener("click",e=>{if(!pop.contains(e.target)&&!e.target.classList.contains("w"))hidePop()});
+addEventListener("scroll",hidePop,{passive:true});
+
+function toast(t){const el=$("toast");el.textContent=t;el.classList.add("show");clearTimeout(toast.t);toast.t=setTimeout(()=>el.classList.remove("show"),3000)}
+
+$("check").onclick=doCheck;
+$("reset").onclick=()=>{fill={};chips.forEach(c=>c.used=null);selChip=null;activeBlank=null;checked=false;setHint(null);renderAll()};
+$("tr").onclick=()=>$("trans").classList.toggle("show");
+
+/* ---------- PNG ---------- */
+async function makePNG(res,ok){
+  const KA='"Noto Serif Georgian", Sylfaen, serif', RU='"PT Sans", sans-serif';
+  try{await Promise.all([document.fonts.load(`28px ${KA}`,"ა"),document.fonts.load(`700 28px ${KA}`,"ა"),document.fonts.load(`20px ${RU}`,"Я")])}catch(e){}
+  const W=1400,PAD=70,LH=62,FS=30;
+  const c=document.createElement("canvas"),x=c.getContext("2d");
+  // собрать токены
+  const toks=[];
+  TEXT.split(/(_\d+_)/).forEach(p=>{
+    const m=p.match(/^_(\d+)_$/);
+    if(m){const n=+m[1];toks.push({blank:n,t:fill[n]!=null?chips[fill[n]].w:"…………",st:res[n]});}
+    else p.replace(/\*/g,"").split(/(\s+)/).forEach(s=>{if(s)toks.push({t:s})});
+  });
+  // раскладка
+  const lines=[[]];let cx=0;const maxW=W-PAD*2;
+  function wOf(tk){x.font=(tk.blank?"700 ":"")+FS+"px "+KA;return x.measureText(tk.t).width+(tk.blank?24:0)}
+  toks.forEach(tk=>{
+    const ws=/^\s+$/.test(tk.t);const w=ws?x.measureText(" ").width*1.2:wOf(tk);
+    if(ws&&cx===0)return;
+    if(!ws&&cx+w>maxW&&cx>0){lines.push([]);cx=0}
+    lines[lines.length-1].push({...tk,w,ws});cx+=w;
+  });
+  const top=250,H=top+lines.length*LH+110;
+  c.width=W;c.height=H;
+  x.fillStyle="#FFFFFF";x.fillRect(0,0,W,H);
+  x.fillStyle="#8E2A3B";x.fillRect(0,0,W,12);
+  x.textBaseline="alphabetic";
+  x.fillStyle="#8E2A3B";x.font="700 44px "+KA;x.fillText("ჩემი ოჯახი",PAD,95);
+  x.fillStyle="#1E2A2F";x.font="26px "+RU;
+  const nm=$("name").value.trim()||"—";
+  const d=new Date();const ds=d.toLocaleDateString("ru-RU")+" "+d.toLocaleTimeString("ru-RU",{hour:"2-digit",minute:"2-digit"});
+  x.fillText("Ученик: "+nm,PAD,145);
+  x.fillStyle="#5E6B70";x.fillText("Сдано: "+ds,PAD,183);
+  x.fillStyle=ok===NB?"#2E7D4F":"#1E2A2F";x.font="700 30px "+RU;
+  const sc=`Результат: ${ok} / ${NB}`;x.fillText(sc,W-PAD-x.measureText(sc).width,145);
+  x.fillStyle="#D5DDDB";x.fillRect(PAD,208,W-PAD*2,2);
+  lines.forEach((ln,li)=>{
+    let px=PAD;const y=top+li*LH+30;
+    ln.forEach(tk=>{
+      if(tk.ws){px+=tk.w;return}
+      if(tk.blank){
+        const col=tk.st===true?"#2E7D4F":tk.st===false?"#C0392B":"#2F6FB0";
+        const bg=tk.st===true?"#E3F2E8":tk.st===false?"#FBE5E2":"#E6EFF8";
+        x.fillStyle=bg;x.fillRect(px,y-FS-8,tk.w,FS+22);
+        x.fillStyle=col;x.fillRect(px,y+12,tk.w,3);
+        x.font="700 "+FS+"px "+KA;x.fillText(tk.t,px+12,y);
+        if(tk.st===false){x.font="18px "+RU;x.fillStyle="#C0392B";x.fillText("✗",px+tk.w-14,y-FS+4)}
+      }else{x.fillStyle="#1E2A2F";x.font=FS+"px "+KA;x.fillText(tk.t,px,y)}
+      px+=tk.w;
+    });
+  });
+  return await new Promise(r=>c.toBlob(r,"image/png"));
+}
+
+$("submit").onclick=async()=>{
+  const {r,ok}=doCheck();
+  const empty=Object.values(r).filter(v=>v===null).length;
+  const blob=await makePNG(r,ok);
+  const nm=($("name").value.trim()||"zadanie").replace(/[^\p{L}\p{N}_-]+/gu,"_");
+  const fn=`chemi_ojakhi_${nm}.png`;
+  const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download=fn;document.body.appendChild(a);a.click();a.remove();
+  toast(`Сохранено: ${fn}`+(empty?` (пустых пропусков: ${empty})`:""));
+};
+
+buildPool();buildText();renderAll();
+</script>
+</body>
+</html>

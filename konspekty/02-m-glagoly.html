@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>М‑глаголы чувства и состояния — Конспекты</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Georgian:wght@400;600;700&family=PT+Sans:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+  --bg:#EEF2F1;--paper:#FFF;--ink:#1E2A2F;--muted:#5E6B70;--line:#D5DDDB;--soft:#F5F7F6;
+  --wine:#8E2A3B;--wine-soft:#F4E4E7;--blue:#2F6FB0;--ok:#2E7D4F;--ok-soft:#E3F2E8;--bad:#C0392B;--bad-soft:#FBE5E2;
+  --pv:#6B4FA0;--per:#A8324A;--ver:#B07A10;--root:#2F6FB0;--suf:#1F8A84;--end:#5B6770;--pl:#2E7D4F;--obj:#C2571A;
+  --on:#FFF;--pop:#1E2A2F;--pop-ink:#FFF;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#141A1C;--paper:#1D2528;--ink:#E7ECEB;--muted:#9AA7AB;--line:#33403F;--soft:#232D30;
+  --wine:#E07A8C;--wine-soft:#3A2228;--blue:#7AB2EA;--ok:#6BC98F;--ok-soft:#1C3325;--bad:#F08476;--bad-soft:#3C2220;
+  --pv:#B59BE8;--per:#F08AA0;--ver:#E8B95A;--root:#7AB2EA;--suf:#5FCFC7;--end:#B4C0C6;--pl:#6BC98F;--obj:#F2A06B;
+  --on:#141A1C;--pop:#F1F4F3;--pop-ink:#141A1C;}}
+:root[data-theme="dark"]{
+  --bg:#141A1C;--paper:#1D2528;--ink:#E7ECEB;--muted:#9AA7AB;--line:#33403F;--soft:#232D30;
+  --wine:#E07A8C;--wine-soft:#3A2228;--blue:#7AB2EA;--ok:#6BC98F;--ok-soft:#1C3325;--bad:#F08476;--bad-soft:#3C2220;
+  --pv:#B59BE8;--per:#F08AA0;--ver:#E8B95A;--root:#7AB2EA;--suf:#5FCFC7;--end:#B4C0C6;--pl:#6BC98F;--obj:#F2A06B;
+  --on:#141A1C;--pop:#F1F4F3;--pop-ink:#141A1C;}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*,*::before,*::after{box-sizing:inherit}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"PT Sans",system-ui,sans-serif;font-size:16.5px;line-height:1.5}
+.ka{font-family:"Noto Serif Georgian",Sylfaen,serif}
+main{max-width:820px;margin:0 auto;padding:22px 16px 60px}
+h1{font-family:"Noto Serif Georgian",serif;color:var(--wine);font-size:clamp(1.7rem,5.5vw,2.4rem);margin:6px 0 4px;line-height:1.2}
+h2{font-size:1.25rem;margin:32px 0 10px}
+.lead{color:var(--muted);margin:4px 0 0}
+section{background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:16px 16px 14px;margin-top:12px}
+p{margin:8px 0}
+.muted{color:var(--muted)}
+.tr{color:var(--muted);font-size:.92em}
+
+/* токены */
+.toks{display:flex;flex-wrap:wrap;gap:4px;align-items:flex-end}
+.tok{display:inline-flex;flex-direction:column;align-items:center;gap:2px;border:0;padding:0;background:none;cursor:pointer;font:inherit;color:inherit}
+.tok .b{font-family:"Noto Serif Georgian",serif;font-weight:700;font-size:1.5rem;line-height:1;padding:9px 10px 10px;border-radius:9px;background:var(--c);color:var(--on);min-width:40px;text-align:center}
+.tok .lb{font-size:.68rem;color:var(--c);font-weight:700;text-transform:uppercase;letter-spacing:.03em}
+.tok.empty .b{background:transparent;color:var(--c);border:2px dashed var(--c);padding:7px 8px 8px}
+.tok.sm .b{font-size:1.05rem;padding:5px 7px 6px;min-width:26px;border-radius:7px}
+.tok.sm.empty .b{padding:3px 5px 4px}
+.tok:focus-visible{outline:2px solid var(--blue);outline-offset:2px;border-radius:10px}
+.k-pv{--c:var(--pv)}.k-per{--c:var(--per)}.k-ver{--c:var(--ver)}.k-root{--c:var(--root)}
+.k-suf{--c:var(--suf)}.k-end{--c:var(--end)}.k-pl{--c:var(--pl)}.k-sym{--c:var(--muted)}.k-sym .b{border:0!important}.k-obj{--c:var(--obj)}
+.legend{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:.9rem;margin-top:10px}
+.legend span::before{content:"";display:inline-block;width:12px;height:12px;border-radius:3px;background:var(--c);margin-right:6px;vertical-align:-1px}
+
+.formula{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0}
+.f{flex:1 1 140px;border-radius:10px;padding:8px 10px;text-align:center;background:var(--soft)}
+.f .ka{display:block;font-size:1.25rem;font-weight:700}
+.f small{color:var(--muted)}
+
+/* выбор */
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{font:inherit;border:1.5px solid var(--line);background:var(--paper);color:var(--ink);border-radius:999px;padding:6px 12px;cursor:pointer;line-height:1.2;text-align:left}
+.chip .ka{font-weight:700}
+.chip small{color:var(--muted)}
+.chip.on{border-color:var(--wine);background:var(--wine-soft)}
+.chip.star{border-color:var(--wine)}
+.chip:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+.cat{font-size:.85rem;color:var(--wine);font-weight:700;margin:10px 0 5px}
+details.tt{background:var(--paper);border:1px solid var(--line);border-radius:14px;margin-top:10px;overflow:hidden}
+details.tt summary{list-style:none;cursor:pointer;display:flex;gap:12px;align-items:center;padding:12px 14px}
+details.tt summary::-webkit-details-marker{display:none}
+details.tt summary::after{content:"＋";margin-left:auto;color:var(--muted);font-weight:700}
+details.tt[open] summary::after{content:"－"}
+details.tt summary:focus-visible{outline:2px solid var(--blue);outline-offset:-2px}
+.tt .chipk{flex:none;font-family:"Noto Serif Georgian",serif;font-weight:700;font-size:1.15rem;background:var(--c);color:var(--on);border-radius:8px;padding:6px 9px;min-width:44px;text-align:center}
+.tt .nm{font-weight:700;font-size:1.05rem;display:block}
+.tt .one{font-size:.9rem;color:var(--muted);display:block}
+.tt .body{padding:0 14px 14px;border-top:1px solid var(--line)}
+.tt .body h4{margin:12px 0 4px;font-size:.8rem;text-transform:uppercase;letter-spacing:.04em;color:var(--c)}
+.tt .body p{margin:4px 0}
+.tt .exs{display:grid;gap:8px;margin-top:6px}
+.tt .ex{background:var(--soft);border-radius:10px;padding:8px 10px}
+.tt .ex .w{font-family:"Noto Serif Georgian",serif;font-weight:700;margin-top:4px}
+.lbl{font-size:.82rem;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.04em;margin:14px 0 6px}
+.out{background:var(--soft);border-radius:14px;padding:16px;margin-top:14px}
+.word{font-family:"Noto Serif Georgian",serif;font-size:2rem;font-weight:700;margin-top:10px;line-height:1.2}
+.ru{font-size:1.1rem;font-weight:700}
+.sent{margin-top:12px;padding-top:12px;border-top:1px solid var(--line)}
+.sent .ka{font-size:1.15rem}
+.tip{margin-top:10px;font-size:.92rem;border-left:3px solid var(--wine);padding-left:10px}
+
+.scroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
+table{border-collapse:collapse;width:100%;min-width:520px}
+td,th{padding:7px 6px;border-top:1px solid var(--line);vertical-align:middle;text-align:left}
+th{font-size:.78rem;color:var(--muted);text-transform:uppercase;letter-spacing:.03em;border-top:0}
+td.who{white-space:nowrap;font-size:.9rem}
+td.full{font-family:"Noto Serif Georgian",serif;font-weight:700;font-size:1.1rem;white-space:nowrap}
+tr.cur td{background:var(--wine-soft)}
+.btn{font:inherit;font-weight:700;border-radius:10px;padding:9px 14px;border:1.5px solid var(--line);background:var(--paper);color:var(--ink);cursor:pointer}
+.btn.main{background:var(--wine);border-color:var(--wine);color:#fff}
+.btn:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+
+.rules{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:10px}
+.rule{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:12px 14px}
+.rule h3{margin:0 0 6px;font-size:1rem}
+.rule .toks{margin:6px 0}
+
+.l2{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:10px}
+.l2 .item{background:var(--soft);border-radius:12px;padding:10px 12px}
+
+/* тренажёр */
+.task{font-size:1.25rem;font-weight:700}
+.slot{min-height:64px;border:2px dashed var(--line);border-radius:12px;padding:8px;display:flex;flex-wrap:wrap;gap:4px;align-items:center;margin:10px 0}
+.slot.ok{border-color:var(--ok);background:var(--ok-soft)}
+.slot.bad{border-color:var(--bad);background:var(--bad-soft)}
+.bank{display:flex;flex-wrap:wrap;gap:6px}
+.tile{font-family:"Noto Serif Georgian",serif;font-weight:700;font-size:1.3rem;border:1.5px solid var(--line);background:var(--paper);color:var(--ink);border-radius:9px;padding:6px 12px;cursor:pointer;min-width:44px}
+.tile.used{visibility:hidden}
+.tile:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+.fb{min-height:1.5em;margin-top:8px}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:10px}
+.prog{color:var(--muted);font-size:.9rem;margin-left:auto}
+
+.pop{position:fixed;z-index:30;max-width:min(300px,calc(100vw - 20px));background:var(--pop);color:var(--pop-ink);border-radius:12px;padding:10px 14px;box-shadow:0 8px 24px rgba(0,0,0,.25);display:none;font-size:.95rem}
+.pop.show{display:block}
+.pop b.ka{font-size:1.3rem}
+.back{display:inline-block;margin-bottom:4px;color:var(--muted);text-decoration:none;font-size:15px}
+.back:hover{color:var(--wine)}
+</style>
+</head>
+<body>
+<main>
+<a class="back" href="./">← Все конспекты</a>
+<h1>М‑глаголы: «мне нравится», «я люблю», «мне холодно»</h1>
+<p class="lead">Глаголы чувства и состояния, разобранные на токены. Нажмите на любой цветной токен — появится объяснение. Практика: <a href="../zadaniya/03-maqvs-myavs-60.html">задание «მაქვს / მყავს — 60 предложений»</a>.</p>
+
+<h2>1. Идея: чувствующий — это «кому?»</h2>
+<section>
+  <p>В этих глаголах человек не «делает», а с ним «происходит». Поэтому он стоит в <b>дательном падеже</b>, как в русском «<b>мне</b> нравится», «<b>мне</b> холодно».</p>
+  <div class="formula">
+    <div class="f"><span class="ka">მე</span><small>кому? — дательный</small></div>
+    <div class="f"><span class="ka">მომწონს</span><small>глагол из токенов</small></div>
+    <div class="f"><span class="ka">ეს ფილმი</span><small>что? — именительный</small></div>
+  </div>
+  <p><span class="ka">მე მომწონს ეს ფილმი.</span> <span class="tr">[мэ момц'онс эс пилми]</span> — Мне нравится этот фильм.</p>
+  <p>Главное: «кому» зашито в слово <b>приставкой</b> <span class="ka" style="color:var(--per);font-weight:700">მ‑</span> — отсюда и название «М‑глаголы». Поэтому местоимение <span class="ka">მე</span> можно опустить.</p>
+</section>
+
+<h2>2. Анатомия: из каких токенов собирается глагол</h2>
+<section>
+  <div class="toks" id="anatomy"></div>
+  <div class="legend">
+    <span class="k-pv">преверб</span><span class="k-per">лицо «кому»</span><span class="k-ver">версия</span>
+    <span class="k-root">корень</span><span class="k-suf">суффикс</span><span class="k-end">окончание</span>
+    <span class="k-pl">мн. ‑თ</span><span class="k-obj">«кого/что»</span>
+  </div>
+  <p class="muted" style="margin-top:10px">Не у каждого глагола есть все токены. Неизменны только <b>лицо</b> и <b>корень</b>.</p>
+</section>
+
+<h2>3. Типы токенов: что делает каждый</h2>
+<p class="muted" style="margin:0">Нажмите на карточку, чтобы раскрыть: что это, какая роль, где стоит, примеры.</p>
+<div id="types"></div>
+
+<h2>4. Конструктор</h2>
+<section>
+  <div class="lbl">Глагол · <span id="vcount"></span></div>
+  <div id="verbs"></div>
+  <div class="lbl">Кому?</div>
+  <div class="chips" id="persons"></div>
+  <div class="out" id="out"></div>
+  <div class="row"><button class="btn" id="tabBtn">Показать все 6 форм</button></div>
+  <div class="scroll" id="tabWrap" hidden><table id="tab"></table></div>
+</section>
+
+<h2>5. Правила стыковки токенов</h2>
+<div class="rules" id="rules"></div>
+
+<h2>6. Уровень 2: «ты мне нравишься»</h2>
+<section>
+  <p>Окончание ‑ს значит, что нравится «он / это». Если нравится <b>ты</b> или <b>я</b>, меняется последний токен — ставится форма «быть»: <span class="ka">ხარ</span> (ты есть), <span class="ka">ვარ</span> (я есть).</p>
+  <div class="l2" id="l2"></div>
+</section>
+
+<h2>7. Тренажёр: соберите глагол</h2>
+<section>
+  <div class="task" id="task"></div>
+  <div class="slot" id="slot"></div>
+  <div class="bank" id="bank"></div>
+  <div class="fb" id="fb"></div>
+  <div class="row">
+    <button class="btn" id="undo">← Убрать</button>
+    <button class="btn main" id="go">Проверить</button>
+    <span class="prog" id="prog"></span>
+  </div>
+</section>
+</main>
+<div class="pop" id="pop" role="dialog"></div>
+
+<script>
+const MAP={"ა":"а","ბ":"б","გ":"г","დ":"д","ე":"е","ვ":"в","ზ":"з","თ":"т","ი":"и","კ":"к'","ლ":"л","მ":"м","ნ":"н","ო":"о","პ":"п'","ჟ":"ж","რ":"р","ს":"с","ტ":"т'","უ":"у","ფ":"п","ქ":"к","ღ":"гъ","ყ":"къ","შ":"ш","ჩ":"ч","ც":"ц","ძ":"дз","წ":"ц'","ჭ":"ч'","ხ":"х","ჯ":"дж","ჰ":"х"};
+const tl=s=>s.split(/(\s+)/).map(w=>[...w].map((c,i)=>c==="ე"&&i===0?"э":(MAP[c]||c)).join("")).join("").replace(/[.?!]/g,"");
+
+const DAT_KA=["მე","შენ","მას","ჩვენ","თქვენ","მათ"];
+const DAT_RU=["мне","тебе","ему / ей","нам","вам","им"];
+const PERS_LBL=["я","ты","он / она","мы","вы","они"];
+const KIND={pv:"преверб",per:"лицо",ver:"версия",root:"корень",suf:"суффикс",end:"окончание",pl:"мн.",obj:"кого"};
+
+const CATS=["Чувства и отношение","Желания и потребности","Тело и ощущения","Ум и восприятие","Обладание"];
+const VERBS=[
+ {c:0,g:"მომწონს",r:"нравится",pv:"მო",ver:"",ver3:"",root:"წონ",end:"ს",p3:"ს",dat:"нравится",
+  ex:["მე მომწონს ქართული მუსიკა.","Мне нравится грузинская музыка."],
+  tip:"Единственный глагол в настоящем времени с превербом: მო‑ стоит ПЕРЕД лицом. მო + მ + წონ + ს."},
+ {c:0,g:"მიყვარს",r:"люблю",ver:"ი",ver3:"უ",root:"ყვარ",end:"ს",p3:"",
+  ru:["я люблю","ты любишь","он / она любит","мы любим","вы любите","они любят"],
+  ex:["მე მიყვარს ჩაი.","Я люблю чай."],tip:"Версия ი → უ в 3‑м лице: მიყვარს → უყვარს."},
+ {c:0,g:"მძულს",r:"ненавижу",ver:"",ver3:"",root:"ძულ",end:"ს",p3:"ს",
+  ru:["я ненавижу","ты ненавидишь","он / она ненавидит","мы ненавидим","вы ненавидите","они ненавидят"],
+  ex:["მას სძულს ზამთარი.","Он ненавидит зиму."],tip:"Версии нет. В 3‑м лице приставка ს‑ перед ძ."},
+ {c:0,g:"მიხარია",r:"рад",ver:"ი",ver3:"უ",root:"ხარ",end:"ია",p3:"",
+  ru:["я рад(а)","ты рад(а)","он рад / она рада","мы рады","вы рады","они рады"],
+  ex:["მიხარია, რომ აქ ხარ.","Я рад(а), что ты здесь."],tip:"Как მიყვარს: ი → უ в 3‑м лице."},
+ {c:0,g:"მეშინია",r:"боюсь",ver:"ე",ver3:"ე",root:"შინ",end:"ია",p3:"",
+  ru:["я боюсь","ты боишься","он / она боится","мы боимся","вы боитесь","они боятся"],
+  ex:["ბავშვს ეშინია.","Ребёнок боится."],tip:"Версия ე одинакова во всех лицах."},
+ {c:0,g:"მიკვირს",r:"удивляюсь",ver:"ი",ver3:"უ",root:"კვირ",end:"ს",p3:"",
+  ru:["я удивляюсь","ты удивляешься","он / она удивляется","мы удивляемся","вы удивляетесь","они удивляются"],
+  ex:["ეს მიკვირს.","Меня это удивляет."],tip:"Схема как у მიყვარს: მიკვირს → უკვირს → უკვირთ."},
+ {c:0,g:"მრცხვენია",r:"стыдно",ver:"",ver3:"",root:"რცხვენ",end:"ია",p3:"",dat:"стыдно",
+  ex:["ძალიან მრცხვენია.","Мне очень стыдно."],tip:"3‑е лицо без приставки (∅ перед რ): რცხვენია."},
+ {c:0,g:"მენატრება",r:"скучаю",ver:"ე",ver3:"ე",root:"ნატრ",suf:"ებ",end:"ა",p3:"",
+  ru:["я скучаю","ты скучаешь","он / она скучает","мы скучаем","вы скучаете","они скучают"],
+  ex:["დედა მენატრება.","Я скучаю по маме."],tip:"По кому скучают — в именительном: დედა (мама), а не «по маме»."},
+ {c:0,g:"მეეჭვება",r:"сомневаюсь",ver:"ე",ver3:"ე",root:"ეჭვ",suf:"ებ",end:"ა",p3:"",
+  ru:["я сомневаюсь","ты сомневаешься","он / она сомневается","мы сомневаемся","вы сомневаетесь","они сомневаются"],
+  ex:["ამაში მეეჭვება.","В этом я сомневаюсь."],tip:"Две е подряд: версия ე + корень ეჭვ («сомнение»)."},
+
+ {c:1,g:"მინდა",r:"хочу",ver:"ი",ver3:"უ",root:"ნდ",end:"ა",p3:"",
+  ru:["я хочу","ты хочешь","он / она хочет","мы хотим","вы хотите","они хотят"],
+  ex:["შენ გინდა ყავა?","Ты хочешь кофе?"],tip:"Окончание ‑ა остаётся, ‑თ просто добавляется: გინდა‑თ."},
+ {c:1,g:"მშია",r:"голоден",ver:"",ver3:"",root:"შ",end:"ია",p3:"",
+  ru:["я голоден / голодна","ты голоден / голодна","он голоден / она голодна","мы голодны","вы голодны","они голодны"],
+  ex:["ჩვენ გვშია.","Мы голодны."],tip:"Самый короткий корень — одна буква შ."},
+ {c:1,g:"მწყურია",r:"хочу пить",ver:"",ver3:"",root:"წყურ",end:"ია",p3:"ს",dat:"хочется пить",
+  ex:["მწყურია, წყალი მინდა.","Хочу пить, хочу воды."],tip:"3‑е лицо: ს + წყურია = სწყურია."},
+ {c:1,g:"მეძინება",r:"хочу спать",ver:"ე",ver3:"ე",root:"ძინ",suf:"ებ",end:"ა",p3:"",dat:"хочется спать",
+  ex:["უკვე მეძინება.","Мне уже хочется спать."],tip:"Суффикс ებ — «клонит, тянет»: меня клонит в сон."},
+ {c:1,g:"მეზარება",r:"лень",ver:"ე",ver3:"ე",root:"ზარ",suf:"ებ",end:"ა",p3:"",dat:"лень",
+  ex:["დღეს მეზარება.","Сегодня мне лень."],tip:"Та же модель, что მეძინება: ე + корень + ებ + ა."},
+ {c:1,g:"მეცინება",r:"смешно",ver:"ე",ver3:"ე",root:"ცინ",suf:"ებ",end:"ა",p3:"",dat:"смешно",
+  ex:["რატომ გეცინება?","Почему тебе смешно?"],tip:"Буквально «меня тянет смеяться»."},
+ {c:1,g:"მეტირება",r:"хочется плакать",ver:"ე",ver3:"ე",root:"ტირ",suf:"ებ",end:"ა",p3:"",dat:"хочется плакать",
+  ex:["ეს ფილმი რომ ვნახე, მეტირება.","Посмотрел(а) этот фильм — хочется плакать."],tip:"Пара к მეცინება: смеяться / плакать."},
+ {c:1,g:"მეჩქარება",r:"тороплюсь",ver:"ე",ver3:"ე",root:"ჩქარ",suf:"ებ",end:"ა",p3:"",
+  ru:["я тороплюсь","ты торопишься","он / она торопится","мы торопимся","вы торопитесь","они торопятся"],
+  ex:["ბოდიში, მეჩქარება.","Извините, я тороплюсь."],tip:"По‑русски «я тороплюсь», по‑грузински «мне торопится»."},
+
+ {c:2,g:"მცივა",r:"холодно",ver:"",ver3:"",root:"ცივ",end:"ა",p3:"ს",dat:"холодно",
+  ex:["შენ გცივა?","Тебе холодно?"],tip:"3‑е лицо: სცივა — ს перед ც."},
+ {c:2,g:"მცხელა",r:"жарко",ver:"",ver3:"",root:"ცხელ",end:"ა",p3:"ს",dat:"жарко",
+  ex:["მათ სცხელათ.","Им жарко."],tip:"Пара к მცივა, строится так же."},
+ {c:2,g:"მტკივა",r:"болит",ver:"",ver3:"",root:"ტკივ",end:"ა",p3:"ს",
+  ru:["у меня болит","у тебя болит","у него / неё болит","у нас болит","у вас болит","у них болит"],
+  ex:["თავი მტკივა.","У меня болит голова."],tip:"Что болит — в именительном: თავი (голова)."},
+ {c:2,g:"მძინავს",r:"сплю",ver:"",ver3:"",root:"ძინ",suf:"ავ",end:"ს",p3:"ს",
+  ru:["я сплю","ты спишь","он / она спит","мы спим","вы спите","они спят"],
+  ex:["ბავშვს სძინავს.","Ребёнок спит."],tip:"Тот же корень ძინ, что в მეძინება, но суффикс ავ — «уже спит», а не «клонит в сон»."},
+
+ {c:3,g:"მახსოვს",r:"помню",ver:"ა",ver3:"ა",root:"ხსოვ",end:"ს",p3:"",
+  ru:["я помню","ты помнишь","он / она помнит","мы помним","вы помните","они помнят"],
+  ex:["მე მახსოვს ეს ქალაქი.","Я помню этот город."],tip:"Версия ა одинакова во всех лицах."},
+ {c:3,g:"მჯერა",r:"верю",ver:"",ver3:"",root:"ჯერ",end:"ა",p3:"ს",
+  ru:["я верю","ты веришь","он / она верит","мы верим","вы верите","они верят"],
+  ex:["მე მჯერა შენი.","Я тебе верю."],tip:"Кому верят — в родительном: შენი, მისი."},
+ {c:3,g:"მესმის",r:"слышу, понимаю",ver:"ე",ver3:"ე",root:"სმ",end:"ის",p3:"",
+  ru:["я слышу / понимаю","ты слышишь / понимаешь","он / она слышит / понимает","мы слышим / понимаем","вы слышите / понимаете","они слышат / понимают"],
+  ex:["შენ გესმის ქართული?","Ты понимаешь грузинский?"],tip:"Окончание ‑ის: при ‑თ ს выпадает → გესმით."},
+ {c:3,g:"მგონია",r:"кажется",ver:"",ver3:"",root:"გონ",end:"ია",p3:"ჰ",dat:"кажется",
+  ex:["მგონია, წვიმს.","Мне кажется, идёт дождь."],tip:"3‑е лицо с ჰ‑ перед გ: ჰგონია."},
+ {c:3,g:"მიჭირს",r:"трудно",ver:"ი",ver3:"უ",root:"ჭირ",end:"ს",p3:"",dat:"трудно",
+  ex:["მიჭირს ამის თქმა.","Мне трудно это сказать."],tip:"ი → უ: უჭირს (ему трудно)."},
+
+ {c:4,g:"მაქვს",r:"имею (вещь)",ver:"ა",ver3:"ა",root:"ქვ",end:"ს",p3:"",
+  ru:["у меня есть","у тебя есть","у него / неё есть","у нас есть","у вас есть","у них есть"],
+  ex:["მე მაქვს მანქანა.","У меня есть машина."],tip:"Для неодушевлённого. Версия ა: მაქვს, აქვს, გვაქვს."},
+ {c:4,g:"მყავს",r:"имею (живое)",ver:"",ver3:"",root:"ყავ",end:"ს",p3:"ჰ",
+  ru:["у меня есть","у тебя есть","у него / неё есть","у нас есть","у вас есть","у них есть"],
+  ex:["მას ჰყავს კატა.","У неё есть кошка."],tip:"Для людей и животных. 3‑е лицо с ჰ‑ перед ყ: ჰყავს."}
+];
+VERBS.forEach(v=>{if(!v.ru)v.ru=DAT_RU.map(d=>d+" "+v.dat)});
+
+function tokens(v,p){
+  const T=[];
+  if(v.pv)T.push({t:v.pv,k:"pv"});
+  const per=["მ","გ",v.p3,"გვ","გ",v.p3][p];
+  T.push(per?{t:per,k:"per",p}:{t:"∅",k:"per",p,empty:true});
+  const ver=(p===2||p===5)?v.ver3:v.ver;
+  if(ver)T.push({t:ver,k:"ver"});
+  T.push({t:v.root,k:"root"});
+  if(v.suf)T.push({t:v.suf,k:"suf"});
+  const pl=p>=4;
+  if(pl&&v.end.endsWith("ს")){if(v.end.length>1)T.push({t:v.end.slice(0,-1),k:"end"});T.push({t:"თ",k:"pl",swap:true});}
+  else{T.push({t:v.end,k:"end"});if(pl)T.push({t:"თ",k:"pl"});}
+  return T;
+}
+const word=T=>T.filter(x=>!x.empty).map(x=>x.t).join("");
+
+const PER_EXP={
+ "მ":"<b>მ‑</b> = «мне». Отсюда название «М‑глаголы».","გ":"<b>გ‑</b> = «тебе». С ‑თ на конце — «вам».",
+ "გვ":"<b>გვ‑</b> = «нам». Уже множественное, поэтому ‑თ не нужен.",
+ "ს":"<b>ს‑</b> = «ему / ей». Ставится перед звуками ц, ц', дз, дж, т', т, д, ч, ч' (სცივა, სძულს).",
+ "ჰ":"<b>ჰ‑</b> = «ему / ей». Ставится перед г, к, к', къ, п, п' (ჰყავს, ჰგონია).",
+ "∅":"<b>∅</b> = «ему / ей», но без приставки: перед гласной (უყვარს, ეშინია, ახსოვს) и перед м, н, л, р, в (რცხვენია). Пустота тоже несёт смысл."
+};
+function explain(x){
+  switch(x.k){
+    case "pv":return "<b class='ka'>"+x.t+"</b> — преверб. Прирос к глаголу и стоит в самом начале, перед лицом.";
+    case "per":return PER_EXP[x.t]||"";
+    case "ver":return {"ი":"<b class='ka'>ი</b> — версия «для кого‑то». В 3‑м лице меняется на უ.","უ":"<b class='ka'>უ</b> — версия 3‑го лица (вместо ი): «ему / ей / им».","ე":"<b class='ka'>ე</b> — версия, одинакова во всех лицах.","ა":"<b class='ka'>ა</b> — версия, одинакова во всех лицах."}[x.t];
+    case "root":return "<b class='ka'>"+x.t+"</b> — корень, смысл глагола. Не меняется.";
+    case "suf":return ({"ებ":"<b class='ka'>ებ</b> — суффикс «клонит, тянет»: состояние накатывает (мне хочется спать, лень, смешно).","ავ":"<b class='ka'>ავ</b> — суффикс длящегося состояния: «уже спит».","დ":"<b class='ka'>დ</b> — суффикс «стал»: в прошедшем состояние превращается в событие."})[x.t]||"<b class='ka'>"+x.t+"</b> — суффикс.";
+    case "end":return {"ს":"<b class='ka'>ს</b> — окончание: то, что нравится / люблю, — «он / это» (3‑е лицо).","ა":"<b class='ka'>ა</b> — окончание: предмет чувства — «он / это».","ია":"<b class='ka'>ია</b> — окончание (ი + ა): предмет чувства — «он / это».","ის":"<b class='ka'>ის</b> — окончание (ი + ს): предмет — «он / это».","ი":"<b class='ka'>ი</b> — остаток окончания ‑ის: ს ушёл, уступив место ‑თ."}[x.t]||"";
+    case "pl":return "<b class='ka'>თ</b> — «кому» во множественном числе (вам, им)."+(x.swap?" Токен ‑ს рядом с ним выпадает: ს + თ → თ.":"");
+    case "obj":return {"ხარ":"<b class='ka'>ხარ</b> — «ты есть»: нравишься / любим именно ты.","ვარ":"<b class='ka'>ვარ</b> — «я есть»: нравлюсь / любим именно я.","ვ":"<b class='ka'>ვ‑</b> — маркер «я» (кого?). Появляется, когда для «ему» нет своей приставки."}[x.t];
+  }
+}
+
+const $=id=>document.getElementById(id),pop=$("pop");
+function tokEl(x,small){
+  const b=document.createElement("button");b.type="button";
+  b.className=`tok k-${x.k}${x.empty?" empty":""}${small?" sm":""}`;
+  b.innerHTML=`<span class="b">${x.t}</span>${small?"":`<span class="lb">${KIND[x.k]}</span>`}`;
+  b.onclick=e=>{e.stopPropagation();const h=explain(x);if(h)showPop(h,b)};
+  return b;
+}
+function toksEl(T,small){const d=document.createElement("div");d.className="toks";T.forEach(x=>d.appendChild(tokEl(x,small)));return d}
+function showPop(html,el){
+  pop.innerHTML=html;pop.classList.add("show");
+  const r=el.getBoundingClientRect(),p=pop.getBoundingClientRect();
+  let x=r.left+r.width/2-p.width/2;x=Math.max(10,Math.min(x,innerWidth-p.width-10));
+  let y=r.top-p.height-8;if(y<10)y=r.bottom+8;
+  pop.style.left=x+"px";pop.style.top=y+"px";
+}
+document.addEventListener("click",e=>{if(!pop.contains(e.target))pop.classList.remove("show")});
+addEventListener("scroll",()=>pop.classList.remove("show"),{passive:true});
+
+/* анатомия: сводная схема на примере */
+(()=>{
+  const a=$("anatomy");
+  [{t:"მო",k:"pv"},{t:"მ",k:"per"},{t:"ი",k:"ver"},{t:"ყვარ",k:"root"},{t:"ებ",k:"suf"},{t:"ს",k:"end"},{t:"თ",k:"pl"}]
+  .forEach(x=>a.appendChild(tokEl(x)));
+  const n=document.createElement("p");n.className="muted";n.style.margin="10px 0 0";
+  n.innerHTML="Схема всех мест (это не реальное слово). Реальные примеры: <span class='ka'>მო·მ·წონ·ს</span> (мне нравится), <span class='ka'>მ·ი·ყვარ·ს</span> (люблю), <span class='ka'>მ·ე·ძინ·ებ·ა</span> (хочу спать).";
+  a.after(n);
+})();
+
+
+/* типы токенов */
+const TT=[
+ {k:"pv",chip:"მო",nm:"Преверб",ka:"ზმნისწინი",one:"Приставка в самом начале: направление и завершённость",
+  sec:[["Что это","Приставка, которая стоит первой, раньше всех остальных токенов. В грузинском их около десятка: <span class='ka'>მი‑</span> (туда), <span class='ka'>მო‑</span> (сюда), <span class='ka'>შე‑</span> (внутрь), <span class='ka'>გა‑</span> (наружу), <span class='ka'>ა‑</span> (вверх), <span class='ka'>ჩა‑</span> (вниз), <span class='ka'>და‑</span>, <span class='ka'>წა‑</span>, <span class='ka'>გადა‑</span>."],
+   ["Исходная роль","Направление движения, как русские при‑, у‑, в‑, вы‑: <span class='ka'>მოდის</span> — идёт сюда, <span class='ka'>მიდის</span> — идёт туда."],
+   ["Главная функция","Делает действие законченным или будущим, как русское «писать → написать»: <span class='ka'>წერს</span> (пишет) → <span class='ka'>დაწერს</span> (напишет). Поэтому в настоящем времени превербов почти нет."],
+   ["В М‑глаголах","В настоящем он прирос только к <span class='ka'>მომწონს</span> (нравится). Зато в прошедшем превербы превращают состояние в событие: «хочу» → «захотелось», «боюсь» → «испугался»."],
+   ["Где стоит","Всегда первым. Лицо «кому» встаёт ПОСЛЕ него, внутрь слова: <span class='ka'>მო‑გვ‑წონს</span>."]],
+  ex:[[[{t:"მო",k:"pv"},{t:"მ",k:"per"},{t:"წონ",k:"root"},{t:"ს",k:"end"}],"мне нравится (сейчас)"],
+      [[{t:"მო",k:"pv"},{t:"მ",k:"per"},{t:"ი",k:"ver"},{t:"ნდ",k:"root"},{t:"ა",k:"end"}],"мне захотелось (მინდა → მომინდა)"],
+      [[{t:"შე",k:"pv"},{t:"მ",k:"per"},{t:"ე",k:"ver"},{t:"შინ",k:"root"},{t:"დ",k:"suf"},{t:"ა",k:"end"}],"я испугался (მეშინია → შემეშინდა)"],
+      [[{t:"შე",k:"pv"},{t:"მ",k:"per"},{t:"ი",k:"ver"},{t:"ყვარ",k:"root"},{t:"დ",k:"suf"},{t:"ა",k:"end"}],"я полюбил (მიყვარს → შემიყვარდა)"],
+      [[{t:"მო",k:"pv"},{t:"მ",k:"per"},{t:"შივ",k:"root"},{t:"დ",k:"suf"},{t:"ა",k:"end"}],"я проголодался (მშია → მომშივდა)"]]},
+ {k:"per",chip:"მ",nm:"Лицо «кому»",ka:"პირის ნიშანი",one:"Кто чувствует: мне, тебе, ему, нам…",
+  sec:[["Что это","Приставка из одной‑двух букв, которая показывает, КОМУ происходит чувство или состояние."],
+   ["Функция","В обычных глаголах этот же набор значит «мне / тебе» как адресат: <span class='ka'>მომცა</span> — дал мне, <span class='ka'>მოგცა</span> — дал тебе. М‑глаголы используют его для того, кто чувствует. Поэтому они буквально звучат «мне нравится», «мне хочется», а человек стоит в дательном падеже."],
+   ["Набор","<span class='ka'>მ</span> — мне · <span class='ka'>გ</span> — тебе · <span class='ka'>გვ</span> — нам · <span class='ka'>გ…თ</span> — вам · для «ему / им» один из трёх вариантов ниже."],
+   ["3‑е лицо: ს, ჰ или ∅","<b>ს‑</b> перед т, т', д, ц, ц', дз, ч, ч', дж: <span class='ka'>სცივა, სძულს</span>.<br><b>ჰ‑</b> перед г, к, к', къ, п, п': <span class='ka'>ჰყავს, ჰგონია</span>.<br><b>∅</b> (ничего) перед гласной и перед м, н, л, р, в: <span class='ka'>უყვარს, ეშინია, რცხვენია</span>."],
+   ["Где стоит","После преверба (если он есть), перед версией. Это единственный обязательный токен, кроме корня, — по нему и узнают М‑глагол."]],
+  ex:[[[{t:"მ",k:"per"},{t:"ცივ",k:"root"},{t:"ა",k:"end"}],"мне холодно"],
+      [[{t:"ს",k:"per"},{t:"ცივ",k:"root"},{t:"ა",k:"end"}],"ему холодно"],
+      [[{t:"ჰ",k:"per"},{t:"გონ",k:"root"},{t:"ია",k:"end"}],"ему кажется"],
+      [[{t:"∅",k:"per",empty:true},{t:"რცხვენ",k:"root"},{t:"ია",k:"end"}],"ему стыдно"]]},
+ {k:"ver",chip:"ი",nm:"Версия",ka:"ქცევა",one:"Гласная после лица: ი, უ, ე, ა — или ничего",
+  sec:[["Что это","Одна гласная сразу после лица."],
+   ["Функция в грамматике","В обычных глаголах показывает, для кого действие: <span class='ka'>ვწერ</span> — пишу, <span class='ka'>ვიწერ</span> — пишу себе (записываю), <span class='ka'>ვუწერ</span> — пишу ему."],
+   ["В М‑глаголах","Версия «застыла» и смысла уже не добавляет. Её просто запоминают вместе с глаголом, как род у существительного."],
+   ["Четыре типа","<b>ი → უ</b>: в 3‑м лице меняется (<span class='ka'>მიყვარს → უყვარს, მინდა → უნდა</span>).<br><b>ე</b>: одинакова везде (<span class='ka'>მეშინია → ეშინია</span>).<br><b>ა</b>: одинакова везде (<span class='ka'>მახსოვს → ახსოვს</span>).<br><b>нет</b>: (<span class='ka'>მცივა, მძულს, მშია</span>)."],
+   ["Подсказка","Глаголы с суффиксом ‑ებ‑ почти всегда берут ე: <span class='ka'>მეძინება, მეზარება, მეცინება</span>."]],
+  ex:[[[{t:"მ",k:"per"},{t:"ი",k:"ver"},{t:"ყვარ",k:"root"},{t:"ს",k:"end"}],"я люблю"],
+      [[{t:"∅",k:"per",empty:true},{t:"უ",k:"ver"},{t:"ყვარ",k:"root"},{t:"ს",k:"end"}],"он любит"],
+      [[{t:"მ",k:"per"},{t:"ე",k:"ver"},{t:"შინ",k:"root"},{t:"ია",k:"end"}],"я боюсь"],
+      [[{t:"მ",k:"per"},{t:"ა",k:"ver"},{t:"ხსოვ",k:"root"},{t:"ს",k:"end"}],"я помню"]]},
+ {k:"root",chip:"ყვარ",nm:"Корень",ka:"ძირი",one:"Смысловое ядро глагола",
+  sec:[["Что это","Часть, которая несёт значение. Все остальные токены только «настраивают» его: кому, сколько, когда."],
+   ["Функция","Отличает один глагол от другого: <span class='ka'>ცივ</span> — холод, <span class='ka'>ცხელ</span> — жар, <span class='ka'>ტკივ</span> — боль."],
+   ["Особенности","Корень может быть очень коротким: <span class='ka'>შ</span> в <span class='ka'>მშია</span>, <span class='ka'>ნდ</span> в <span class='ka'>მინდა</span>. В других временах он иногда меняется: <span class='ka'>შ → შივ</span> (<span class='ka'>მშია → მომშივდა</span>). Один корень может дать разные глаголы с разными суффиксами: <span class='ka'>მეძინება</span> (хочу спать) и <span class='ka'>მძინავს</span> (сплю)."],
+   ["Где стоит","В центре, после версии."]],
+  ex:[[[{t:"მ",k:"per"},{t:"ე",k:"ver"},{t:"ძინ",k:"root"},{t:"ებ",k:"suf"},{t:"ა",k:"end"}],"мне хочется спать"],
+      [[{t:"მ",k:"per"},{t:"ძინ",k:"root"},{t:"ავ",k:"suf"},{t:"ს",k:"end"}],"я сплю"]]},
+ {k:"suf",chip:"ებ",nm:"Суффикс",ka:"თემის ნიშანი",one:"Между корнем и окончанием: какой это процесс",
+  sec:[["Что это","Токен после корня. Он есть не у всех глаголов."],
+   ["Функция","Уточняет характер состояния и помогает образовать время."],
+   ["Варианты","<b class='ka'>ებ</b> — «накатывает, тянет»: <span class='ka'>მეძინება</span> (клонит в сон), <span class='ka'>მეზარება</span> (лень), <span class='ka'>მეცინება</span> (тянет смеяться).<br><b class='ka'>ავ</b> — длящееся состояние: <span class='ka'>მძინავს</span> (сплю).<br><b class='ka'>დ</b> — в прошедшем «стал»: <span class='ka'>მომშივდა</span> (проголодался)."],
+   ["Где стоит","После корня, перед окончанием."]],
+  ex:[[[{t:"მ",k:"per"},{t:"ე",k:"ver"},{t:"ზარ",k:"root"},{t:"ებ",k:"suf"},{t:"ა",k:"end"}],"мне лень"],
+      [[{t:"ს",k:"per"},{t:"ძინ",k:"root"},{t:"ავ",k:"suf"},{t:"ს",k:"end"}],"он спит"]]},
+ {k:"end",chip:"ს",nm:"Окончание",ka:"დაბოლოება",one:"Согласуется с тем, ЧТО нравится / болит / есть",
+  sec:[["Что это","Последний токен формы (не считая ‑თ)."],
+   ["Функция","Здесь главный «перевёртыш» М‑глаголов: окончание согласуется не с тем, кто чувствует, а с ПРЕДМЕТОМ чувства. Грамматически подлежащее — это «музыка» в «мне нравится музыка»."],
+   ["Варианты","Предмет почти всегда «он / это», поэтому окончание обычно одно из: <span class='ka'>‑ს</span> (<span class='ka'>მიყვარს</span>), <span class='ka'>‑ა</span> (<span class='ka'>მინდა, მცივა</span>), <span class='ka'>‑ია</span> (<span class='ka'>მშია, მეშინია</span>), <span class='ka'>‑ის</span> (<span class='ka'>მესმის</span>)."],
+   ["Когда меняется","Если предмет чувства — «ты» или «я», ставится <span class='ka'>ხარ / ვარ</span>: <span class='ka'>მომწონხარ</span> — ты мне нравишься (см. уровень 2)."]],
+  ex:[[[{t:"მ",k:"per"},{t:"ე",k:"ver"},{t:"სმ",k:"root"},{t:"ის",k:"end"}],"я слышу / понимаю"],
+      [[{t:"მ",k:"per"},{t:"ი",k:"ver"},{t:"ნდ",k:"root"},{t:"ა",k:"end"}],"я хочу"]]},
+ {k:"pl",chip:"თ",nm:"Множественное ‑თ",ka:"მრავლობითის ნიშანი",one:"«Вам» и «им» — кому много",
+  sec:[["Что это","Суффикс ‑თ в самом конце слова."],
+   ["Функция","Показывает, что «кому» во множественном числе: вы или они. Для «мы» не нужен — <span class='ka'>გვ‑</span> уже множественное."],
+   ["Правило стыка","‑ს и ‑თ не уживаются: ს выпадает (<span class='ka'>მიყვარს → უყვართ, მესმის → ესმით</span>). После ‑ა и ‑ია ‑თ просто дописывается (<span class='ka'>გინდათ, გშიათ</span>)."],
+   ["Ловушка","Если много ПРЕДМЕТОВ, ‑თ не ставится: <span class='ka'>მიყვარს წიგნები</span> — я люблю книги. ‑თ считает только тех, кто чувствует."]],
+  ex:[[[{t:"∅",k:"per",empty:true},{t:"უ",k:"ver"},{t:"ყვარ",k:"root"},{t:"თ",k:"pl",swap:true}],"они любят"],
+      [[{t:"გ",k:"per"},{t:"ი",k:"ver"},{t:"ნდ",k:"root"},{t:"ა",k:"end"},{t:"თ",k:"pl"}],"вы хотите"]]},
+ {k:"obj",chip:"ხარ",nm:"«Кого / что»",ka:"ობიექტი",one:"Когда предмет чувства — «ты» или «я»",
+  sec:[["Что это","Токены, которые заменяют окончание, когда нравится, любят или помнят не «его», а «тебя» или «меня»."],
+   ["Функция","Это формы глагола «быть»: <span class='ka'>ვარ</span> — я есть, <span class='ka'>ხარ</span> — ты есть. Дословно <span class='ka'>მომწონხარ</span> — «мне‑нравящийся ты есть»."],
+   ["Варианты","<span class='ka'>ხარ</span> — ты · <span class='ka'>ვარ</span> — я · <span class='ka'>ხართ</span> — вы · <span class='ka'>ვართ</span> — мы. Плюс приставка <span class='ka'>ვ‑</span> («я»), которая встаёт в начало, когда место лица пустое (∅): <span class='ka'>ვუყვარვარ</span> — он меня любит."],
+   ["Где стоит","<span class='ka'>ხარ / ვარ</span> — в конце, вместо окончания; <span class='ka'>ვ‑</span> — в самом начале."]],
+  ex:[[[{t:"მ",k:"per"},{t:"ი",k:"ver"},{t:"ყვარ",k:"root"},{t:"ხარ",k:"obj"}],"я тебя люблю"],
+      [[{t:"ვ",k:"obj"},{t:"∅",k:"per",empty:true},{t:"უ",k:"ver"},{t:"ყვარ",k:"root"},{t:"ვარ",k:"obj"}],"он меня любит"]]}
+];
+TT.forEach(T=>{
+  const d=document.createElement("details");d.className=`tt k-${T.k}`;
+  d.innerHTML=`<summary><span class="chipk">${T.chip}</span><span><span class="nm">${T.nm} <small class="ka" style="font-weight:400;color:var(--muted)">${T.ka}</small></span><span class="one">${T.one}</span></span></summary>`;
+  const body=document.createElement("div");body.className="body";
+  T.sec.forEach(([h,t])=>body.insertAdjacentHTML("beforeend",`<h4>${h}</h4><p>${t}</p>`));
+  body.insertAdjacentHTML("beforeend","<h4>Примеры</h4>");
+  const exs=document.createElement("div");exs.className="exs";
+  T.ex.forEach(([toks,ru])=>{
+    const e=document.createElement("div");e.className="ex";e.appendChild(toksEl(toks,true));
+    const w=word(toks);
+    e.insertAdjacentHTML("beforeend",`<div class="w">${w} <span class="tr" style="font-family:'PT Sans';font-weight:400">[${tl(w)}]</span></div><div>${ru}</div>`);
+    exs.appendChild(e);
+  });
+  body.appendChild(exs);d.appendChild(body);$("types").appendChild(d);
+});
+
+/* конструктор */
+let vi=0,pi=0,tabOpen=false;
+const VBTN=[];
+CATS.forEach((cname,ci)=>{
+  const h=document.createElement("div");h.className="cat";h.textContent=cname;$("verbs").appendChild(h);
+  const w=document.createElement("div");w.className="chips";$("verbs").appendChild(w);
+  VERBS.forEach((v,i)=>{if(v.c!==ci)return;
+    const b=document.createElement("button");b.type="button";b.className="chip"+(i===0?" star":"");
+    b.innerHTML=`<span class="ka">${v.g}</span> <small>${v.r}</small>`;
+    b.onclick=()=>{vi=i;renderC()};w.appendChild(b);VBTN[i]=b;});
+});
+PERS_LBL.forEach((l,i)=>{
+  const b=document.createElement("button");b.type="button";b.className="chip";
+  b.innerHTML=`${DAT_RU[i]} <small class="ka">${DAT_KA[i]}</small>`;
+  b.onclick=()=>{pi=i;renderC()};$("persons").appendChild(b);
+});
+function renderC(){
+  VBTN.forEach((b,i)=>b.classList.toggle("on",i===vi));
+  [...$("persons").children].forEach((b,i)=>b.classList.toggle("on",i===pi));
+  const v=VERBS[vi],T=tokens(v,pi),w=word(T),o=$("out");
+  o.innerHTML="";o.appendChild(toksEl(T));
+  o.insertAdjacentHTML("beforeend",`<div class="word">${DAT_KA[pi]} ${w}</div>
+   <div class="tr">[${tl(DAT_KA[pi]+" "+w)}]</div><div class="ru">${v.ru[pi]}</div>
+   <div class="tip">${v.tip}</div>
+   <div class="sent"><span class="ka">${v.ex[0]}</span><br><span class="tr">[${tl(v.ex[0])}]</span> — ${v.ex[1]}</div>`);
+  renderTab();
+}
+function renderTab(){
+  const v=VERBS[vi],t=$("tab");
+  t.innerHTML="<tr><th>кому</th><th>токены</th><th>форма</th><th>перевод</th></tr>";
+  for(let p=0;p<6;p++){
+    const T=tokens(v,p),tr=document.createElement("tr");if(p===pi)tr.className="cur";
+    const a=document.createElement("td");a.className="who";a.innerHTML=`<span class="ka">${DAT_KA[p]}</span>`;
+    const b=document.createElement("td");b.appendChild(toksEl(T,true));
+    const c=document.createElement("td");c.className="full";c.innerHTML=`${word(T)}<div class="tr" style="font-weight:400;font-family:'PT Sans'">[${tl(word(T))}]</div>`;
+    const d=document.createElement("td");d.textContent=v.ru[p];
+    tr.append(a,b,c,d);t.appendChild(tr);
+  }
+}
+$("tabBtn").onclick=()=>{tabOpen=!tabOpen;$("tabWrap").hidden=!tabOpen;$("tabBtn").textContent=tabOpen?"Скрыть таблицу":"Показать все 6 форм"};
+renderC();
+$("vcount").textContent=VERBS.length+" шт.";
+
+/* правила */
+const RULES=[
+ ["Лицо «кому» — всегда в начале",[{t:"მ",k:"per"},{t:"გ",k:"per"},{t:"∅",k:"per",empty:true},{t:"ს",k:"per"},{t:"გვ",k:"per"}],"მ — мне, გ — тебе / вам, გვ — нам. Для «ему / им» — ∅ или ს (ჰ)."],
+ ["Версия ი ⇒ უ в 3‑м лице",[{t:"ი",k:"ver"},{t:"→",k:"sym",empty:true},{t:"უ",k:"ver"}],"<span class='ka'>მიყვარს → უყვარს, მინდა → უნდა, მიხარია → უხარია</span>. А ე и ა не меняются: <span class='ka'>ეშინია, ახსოვს</span>."],
+ ["‑თ съедает ‑ს",[{t:"ს",k:"end"},{t:"+",k:"sym",empty:true},{t:"თ",k:"pl"},{t:"=",k:"sym",empty:true},{t:"თ",k:"pl"}],"<span class='ka'>მიყვარს → გიყვართ, მომწონს → მოსწონთ</span>. После ‑ა / ‑ია ‑თ просто дописывается: <span class='ka'>გინდათ, გშიათ</span>."],
+ ["«Нам» — без ‑თ",[{t:"გვ",k:"per"},{t:"ი",k:"ver"},{t:"ყვარ",k:"root"},{t:"ს",k:"end"}],"<span class='ka'>გვ‑</span> уже множественное: <span class='ka'>გვიყვარს, მოგვწონს, გვცივა</span>."],
+ ["Преверб — раньше лица",[{t:"მო",k:"pv"},{t:"გვ",k:"per"},{t:"წონ",k:"root"},{t:"ს",k:"end"}],"У «нравится» лицо стоит внутри: <span class='ka'>მო‑გვ‑წონს</span> (нам нравится), а не <span class='ka'>გვ‑მოწონს</span>."]
+];
+RULES.forEach(([h,T,txt])=>{
+  const d=document.createElement("div");d.className="rule";
+  d.innerHTML=`<h3>${h}</h3>`;d.appendChild(toksEl(T,true));
+  d.insertAdjacentHTML("beforeend",`<div style="font-size:.93rem">${txt}</div>`);
+  $("rules").appendChild(d);
+});
+
+/* уровень 2 */
+const L2=[
+ [[{t:"მო",k:"pv"},{t:"მ",k:"per"},{t:"წონ",k:"root"},{t:"ს",k:"end"}],"мне нравится (он / это)"],
+ [[{t:"მო",k:"pv"},{t:"მ",k:"per"},{t:"წონ",k:"root"},{t:"ხარ",k:"obj"}],"ты мне нравишься"],
+ [[{t:"მო",k:"pv"},{t:"გ",k:"per"},{t:"წონ",k:"root"},{t:"ვარ",k:"obj"}],"я тебе нравлюсь"],
+ [[{t:"მ",k:"per"},{t:"ი",k:"ver"},{t:"ყვარ",k:"root"},{t:"ხარ",k:"obj"}],"я тебя люблю"],
+ [[{t:"გ",k:"per"},{t:"ი",k:"ver"},{t:"ყვარ",k:"root"},{t:"ვარ",k:"obj"}],"ты меня любишь"],
+ [[{t:"∅",k:"per",empty:true},{t:"უ",k:"ver"},{t:"ყვარ",k:"root"},{t:"ხარ",k:"obj"}],"он / она тебя любит"],
+ [[{t:"ვ",k:"obj"},{t:"∅",k:"per",empty:true},{t:"უ",k:"ver"},{t:"ყვარ",k:"root"},{t:"ვარ",k:"obj"}],"он / она меня любит"]
+];
+L2.forEach(([T,ru])=>{
+  const d=document.createElement("div");d.className="item";d.appendChild(toksEl(T,true));
+  const w=word(T);
+  d.insertAdjacentHTML("beforeend",`<div class="ka" style="font-weight:700;font-size:1.15rem;margin-top:6px">${w} <span class="tr" style="font-family:'PT Sans';font-weight:400">[${tl(w)}]</span></div><div>${ru}</div>`);
+  $("l2").appendChild(d);
+});
+
+/* тренажёр */
+const TASKS=[
+ ["Тебе нравится",["მო","გ","წონ","ს"],["მ","თ","ი"]],
+ ["Им нравится",["მო","ს","წონ","თ"],["გვ","უ","ს"]],
+ ["Нам нравится",["მო","გვ","წონ","ს"],["გ","თ","მ"]],
+ ["Он любит",["უ","ყვარ","ს"],["ი","მ","თ","ს"]],
+ ["Вы хотите",["გ","ი","ნდ","ა","თ"],["უ","ს","გვ"]],
+ ["Она боится",["ე","შინ","ია"],["ი","ს","მ","თ"]],
+ ["Нам холодно",["გვ","ცივ","ა"],["ს","თ","გ"]],
+ ["Они помнят",["ა","ხსოვ","თ"],["ს","უ","გ","მ"]],
+ ["Ты мне нравишься",["მო","მ","წონ","ხარ"],["ს","გ","ვარ"]],
+ ["Им лень",["ე","ზარ","ებ","ა","თ"],["ი","ს","ავ"]],
+ ["Вы понимаете",["გ","ე","სმ","ი","თ"],["ს","ის","უ"]],
+ ["Ему кажется",["ჰ","გონ","ია"],["ს","მ","თ"]],
+ ["Ребёнок спит: ბავშვს …",["ს","ძინ","ავ","ს"],["ებ","ა","მ"]],
+ ["Я тебя люблю",["მ","ი","ყვარ","ხარ"],["გ","ს","ვარ","უ"]]
+];
+let ti=0,picked=[],score=0,answered=false,bankTiles=[];
+const shuffle=a=>{a=[...a];for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
+function loadTask(){
+  const [ru,ans,dis]=TASKS[ti];picked=[];answered=false;
+  $("task").textContent=`${ti+1}. «${ru}»`;
+  bankTiles=shuffle([...ans,...dis]).map((t,i)=>({t,i}));
+  $("fb").textContent="";$("go").textContent="Проверить";
+  $("prog").textContent=`${ti+1} / ${TASKS.length} · верно: ${score}`;
+  drawTask();
+}
+function drawTask(){
+  const s=$("slot");s.className="slot";s.innerHTML=picked.length?"":"<span class='muted'>Нажимайте токены по порядку…</span>";
+  picked.forEach(i=>{const d=document.createElement("span");d.className="tile";d.textContent=bankTiles[i].t;s.appendChild(d)});
+  const b=$("bank");b.innerHTML="";
+  bankTiles.forEach(x=>{
+    const t=document.createElement("button");t.type="button";t.className="tile"+(picked.includes(x.i)?" used":"");t.textContent=x.t;
+    t.onclick=()=>{if(answered)return;picked.push(x.i);drawTask()};b.appendChild(t);
+  });
+}
+$("undo").onclick=()=>{if(!answered){picked.pop();drawTask()}};
+$("go").onclick=()=>{
+  if(ti>=TASKS.length){ti=0;score=0;loadTask();return}
+  if(answered){ti++;if(ti>=TASKS.length){finish();return}loadTask();return}
+  if(!picked.length)return;
+  const [ru,ans]=TASKS[ti],got=picked.map(i=>bankTiles[i].t).join(""),right=ans.join("");
+  answered=true;
+  if(got===right){score++;$("slot").classList.add("ok");$("fb").innerHTML=`✓ <b class="ka">${right}</b> [${tl(right)}]`}
+  else{$("slot").classList.add("bad");$("fb").innerHTML=`✗ Правильно: <b class="ka">${ans.join(" · ")}</b> → <b class="ka">${right}</b> [${tl(right)}]`}
+  $("go").textContent=ti===TASKS.length-1?"Итог":"Дальше →";
+  $("prog").textContent=`${ti+1} / ${TASKS.length} · верно: ${score}`;
+};
+function finish(){
+  $("task").textContent=`Готово: ${score} из ${TASKS.length}`+(score===TASKS.length?" 🎉":"");
+  $("slot").className="slot";$("slot").innerHTML="";$("bank").innerHTML="";$("fb").textContent="";
+  $("go").textContent="Заново";
+}
+loadTask();
+</script>
+</body>
+</html>
