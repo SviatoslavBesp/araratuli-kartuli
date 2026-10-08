@@ -1,0 +1,154 @@
+/* Общие стили для всех страниц */
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+Georgian:wght@400;600;700&family=Noto+Sans:wght@400;600;700&display=swap");
+
+:root {
+  --bg: #fbfaf7;
+  --surface: #ffffff;
+  --text: #1f1d1a;
+  --muted: #6b665e;
+  --border: #e4e0d8;
+  --accent: #b3261e;      /* красный — как на грузинском флаге */
+  --accent-soft: #fbe9e7;
+  --ok: #1e7b3a;
+  --ok-soft: #e3f4e8;
+  --bad: #b3261e;
+  --bad-soft: #fbe9e7;
+  --radius: 10px;
+  --font: "Noto Sans", "Noto Sans Georgian", system-ui, sans-serif;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #171614;
+    --surface: #211f1c;
+    --text: #ece8e1;
+    --muted: #a39d93;
+    --border: #3a3631;
+    --accent: #ef6b5f;
+    --accent-soft: #3a211e;
+    --ok: #6fcf8a;
+    --ok-soft: #1d3324;
+    --bad: #ef6b5f;
+    --bad-soft: #3a211e;
+  }
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font);
+  font-size: 17px;
+  line-height: 1.6;
+}
+
+main, header.site, footer.site {
+  max-width: 820px;
+  margin: 0 auto;
+  padding: 0 16px;
+}
+
+header.site {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+  flex-wrap: wrap;
+  padding-top: 20px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border);
+}
+header.site .logo { font-weight: 700; color: var(--text); text-decoration: none; }
+header.site nav { display: flex; gap: 14px; }
+header.site nav a { color: var(--muted); text-decoration: none; }
+header.site nav a:hover, header.site nav a[aria-current="page"] { color: var(--accent); }
+
+footer.site { color: var(--muted); font-size: 14px; padding-top: 32px; padding-bottom: 32px; }
+
+a { color: var(--accent); }
+h1 { font-size: 1.9rem; line-height: 1.25; margin: 28px 0 8px; }
+h2 { font-size: 1.35rem; margin-top: 32px; }
+.lead { color: var(--muted); margin-top: 0; }
+
+/* Грузинский текст и транслитерация */
+.ka { font-family: "Noto Sans Georgian", var(--font); }
+.big { font-size: 1.6em; }
+.tr { color: var(--muted); font-style: italic; }
+
+/* Карточки на главной */
+.cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; margin: 24px 0; }
+.card {
+  display: block;
+  padding: 20px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  color: var(--text);
+  text-decoration: none;
+}
+.card:hover { border-color: var(--accent); }
+.card h2 { margin: 0 0 6px; }
+.card p { margin: 0; color: var(--muted); }
+
+/* Списки материалов */
+ul.materials { list-style: none; padding: 0; }
+ul.materials li { padding: 12px 0; border-bottom: 1px solid var(--border); }
+ul.materials a { font-weight: 600; text-decoration: none; }
+ul.materials .meta { display: block; color: var(--muted); font-size: 14px; }
+
+/* Таблицы */
+.table-wrap { overflow-x: auto; }
+table { border-collapse: collapse; width: 100%; background: var(--surface); }
+th, td { border: 1px solid var(--border); padding: 6px 10px; text-align: left; }
+th { background: var(--accent-soft); }
+
+/* Блоки-заметки */
+.note {
+  background: var(--accent-soft);
+  border-left: 4px solid var(--accent);
+  padding: 10px 14px;
+  border-radius: 6px;
+  margin: 16px 0;
+}
+
+/* Задания */
+.exercise {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 16px 18px;
+  margin: 20px 0;
+}
+.exercise h2 { margin-top: 0; }
+.exercise ol { padding-left: 22px; }
+.exercise li { margin: 10px 0; }
+.exercise input[type="text"] {
+  font: inherit;
+  padding: 4px 8px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--bg);
+  color: var(--text);
+  min-width: 160px;
+}
+.exercise input.correct { border-color: var(--ok); background: var(--ok-soft); }
+.exercise input.wrong { border-color: var(--bad); background: var(--bad-soft); }
+.exercise label { display: block; cursor: pointer; }
+.exercise label.correct { color: var(--ok); font-weight: 600; }
+.exercise label.wrong { color: var(--bad); }
+.exercise .actions { display: flex; gap: 10px; margin-top: 12px; flex-wrap: wrap; }
+.exercise .result { margin-top: 10px; font-weight: 600; }
+
+button {
+  font: inherit;
+  padding: 6px 14px;
+  border-radius: 6px;
+  border: 1px solid var(--accent);
+  background: var(--accent);
+  color: #fff;
+  cursor: pointer;
+}
+button.secondary { background: transparent; color: var(--accent); }
+.answer[hidden] { display: none; }
+.answer { color: var(--muted); }
