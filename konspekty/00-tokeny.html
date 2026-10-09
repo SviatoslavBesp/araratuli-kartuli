@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Токены грузинского глагола — Конспекты</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Georgian:wght@400;600;700&family=PT+Sans:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+  --bg:#EEF2F1;--paper:#FFF;--ink:#1E2A2F;--muted:#5E6B70;--line:#D5DDDB;--soft:#F5F7F6;
+  --wine:#8E2A3B;--wine-soft:#F4E4E7;--blue:#2F6FB0;--ok:#2E7D4F;--ok-soft:#E3F2E8;--bad:#C0392B;--bad-soft:#FBE5E2;
+  --pv:#6B4FA0;--mo:#A03C8C;--per:#A8324A;--ver:#B07A10;--root:#2F6FB0;--suf:#1F8A84;--end:#5B6770;--pl:#2E7D4F;--obj:#C2571A;
+  --on:#FFF;--pop:#1E2A2F;--pop-ink:#FFF;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#141A1C;--paper:#1D2528;--ink:#E7ECEB;--muted:#9AA7AB;--line:#33403F;--soft:#232D30;
+  --wine:#E07A8C;--wine-soft:#3A2228;--blue:#7AB2EA;--ok:#6BC98F;--ok-soft:#1C3325;--bad:#F08476;--bad-soft:#3C2220;
+  --pv:#B59BE8;--mo:#E58AD3;--per:#F08AA0;--ver:#E8B95A;--root:#7AB2EA;--suf:#5FCFC7;--end:#B4C0C6;--pl:#6BC98F;--obj:#F2A06B;
+  --on:#141A1C;--pop:#F1F4F3;--pop-ink:#141A1C;}}
+:root[data-theme="dark"]{
+  --bg:#141A1C;--paper:#1D2528;--ink:#E7ECEB;--muted:#9AA7AB;--line:#33403F;--soft:#232D30;
+  --wine:#E07A8C;--wine-soft:#3A2228;--blue:#7AB2EA;--ok:#6BC98F;--ok-soft:#1C3325;--bad:#F08476;--bad-soft:#3C2220;
+  --pv:#B59BE8;--mo:#E58AD3;--per:#F08AA0;--ver:#E8B95A;--root:#7AB2EA;--suf:#5FCFC7;--end:#B4C0C6;--pl:#6BC98F;--obj:#F2A06B;
+  --on:#141A1C;--pop:#F1F4F3;--pop-ink:#141A1C;}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*,*::before,*::after{box-sizing:inherit}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"PT Sans",system-ui,sans-serif;font-size:16.5px;line-height:1.5}
+.ka{font-family:"Noto Serif Georgian",Sylfaen,serif}
+main{max-width:820px;margin:0 auto;padding:22px 16px 60px}
+h1{font-family:"Noto Serif Georgian","PT Sans",serif;color:var(--wine);font-size:clamp(1.7rem,5.5vw,2.4rem);margin:6px 0 4px;line-height:1.2}
+h2{font-size:1.25rem;margin:32px 0 10px}
+h3{margin:0;font-size:1.1rem}
+.lead{color:var(--muted);margin:4px 0 0}
+section{background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:16px 16px 14px;margin-top:12px}
+p{margin:8px 0}
+ul{margin:6px 0;padding-left:20px}
+li{margin:3px 0}
+.muted{color:var(--muted)}
+.tr{color:var(--muted);font-size:.92em;font-family:"PT Sans",system-ui,sans-serif;font-weight:400}
+a{color:var(--blue)}
+
+/* цветное слово */
+.wt{font-family:"Noto Serif Georgian",Sylfaen,serif;font-weight:700;white-space:nowrap}
+.t-pv{color:var(--pv)}.t-mo{color:var(--mo)}.t-per{color:var(--per)}.t-ver{color:var(--ver)}.t-root{color:var(--root)}
+.t-suf{color:var(--suf)}.t-end{color:var(--end)}.t-pl{color:var(--pl)}.t-obj{color:var(--obj)}
+
+/* токены-чипы */
+.toks{display:flex;flex-wrap:wrap;gap:4px;align-items:flex-end}
+.tok{display:inline-flex;flex-direction:column;align-items:center;gap:2px;border:0;padding:0;background:none;cursor:pointer;font:inherit;color:inherit}
+.tok .b{font-family:"Noto Serif Georgian",serif;font-weight:700;font-size:1.5rem;line-height:1;padding:9px 10px 10px;border-radius:9px;background:var(--c);color:var(--on);min-width:40px;text-align:center}
+.tok .lb{font-size:.68rem;color:var(--c);font-weight:700;text-transform:uppercase;letter-spacing:.03em}
+.tok.empty .b{background:transparent;color:var(--c);border:2px dashed var(--c);padding:7px 8px 8px}
+.tok.sm .b{font-size:1.05rem;padding:5px 7px 6px;min-width:26px;border-radius:7px}
+.tok.sm.empty .b{padding:3px 5px 4px}
+.tok:focus-visible{outline:2px solid var(--blue);outline-offset:2px;border-radius:10px}
+.k-pv{--c:var(--pv)}.k-mo{--c:var(--mo)}.k-per{--c:var(--per)}.k-ver{--c:var(--ver)}.k-root{--c:var(--root)}
+.k-suf{--c:var(--suf)}.k-end{--c:var(--end)}.k-pl{--c:var(--pl)}.k-obj{--c:var(--obj)}.k-sym{--c:var(--muted)}
+.tok.k-sym{cursor:default}.tok.k-sym .b{background:transparent;color:var(--muted);border:0;padding-left:2px;padding-right:2px;min-width:0}
+.legend{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:.9rem;margin-top:10px}
+.legend span::before{content:"";display:inline-block;width:12px;height:12px;border-radius:3px;background:var(--c);margin-right:6px;vertical-align:-1px}
+
+.tmpl{display:flex;flex-wrap:wrap;gap:4px;align-items:flex-end}
+.tmpl .arr{color:var(--muted);align-self:center;padding-bottom:14px;font-size:.9rem}
+.note{margin-top:12px;font-size:.95rem;border-left:3px solid var(--obj);padding-left:10px}
+.tip{margin-top:10px;font-size:.93rem;border-left:3px solid var(--wine);padding-left:10px}
+
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:10px;margin-top:10px}
+.ex{background:var(--soft);border-radius:12px;padding:10px 12px;min-width:0}
+.ex .w{font-size:1.15rem;margin-top:6px}
+.ex .ru{font-size:.97rem}
+
+/* карточки типов */
+.tc .th{display:flex;gap:12px;align-items:center}
+.tc .chipk{flex:none;font-family:"Noto Serif Georgian",serif;font-weight:700;font-size:1.2rem;background:var(--c);color:var(--on);border-radius:9px;padding:6px 10px;min-width:46px;text-align:center}
+.tc .th small{display:block;color:var(--muted);font-size:.88rem}
+.tc h4{margin:14px 0 4px;font-size:.8rem;text-transform:uppercase;letter-spacing:.04em;color:var(--c)}
+.tc p{margin:4px 0}
+.slots{display:flex;gap:3px;margin-top:12px}
+.slots span{flex:1 1 0;min-width:0;text-align:center;font-size:.64rem;line-height:1.15;padding:5px 1px;border-radius:6px;border:1.5px solid var(--line);color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.slots span.on{background:var(--c);border-color:var(--c);color:var(--on);font-weight:700}
+
+/* разбор */
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{font:inherit;border:1.5px solid var(--line);background:var(--paper);color:var(--ink);border-radius:999px;padding:6px 12px;cursor:pointer;line-height:1.25;text-align:left}
+.chip small{color:var(--muted)}
+.chip.on{border-color:var(--wine);background:var(--wine-soft)}
+.chip:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+.out{background:var(--soft);border-radius:14px;padding:16px;margin-top:14px}
+.word{font-size:2rem;margin-top:10px;line-height:1.2}
+.word .wt{white-space:normal;overflow-wrap:anywhere}
+.ru{font-size:1.1rem;font-weight:700}
+.parts{list-style:none;padding:0;margin:12px 0 0;border-top:1px solid var(--line)}
+.parts li{display:flex;gap:10px;align-items:flex-start;padding:7px 0;border-bottom:1px solid var(--line);font-size:.95rem}
+.parts li .tok{flex:none}
+
+.scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;margin-top:8px}
+table{border-collapse:collapse;width:100%;min-width:480px}
+td,th{padding:7px 6px;border-top:1px solid var(--line);vertical-align:top;text-align:left}
+th{font-size:.78rem;color:var(--muted);text-transform:uppercase;letter-spacing:.03em;border-top:0}
+td .wt{font-size:1.05rem}
+td small{display:block;color:var(--muted);font-size:.82rem}
+td.who{white-space:nowrap;font-size:.92rem}
+
+.links{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:10px}
+.links a{display:block;background:var(--soft);border:1px solid var(--line);border-radius:12px;padding:12px 14px;text-decoration:none;color:var(--ink)}
+.links a:hover{border-color:var(--wine)}
+.links b{color:var(--wine)}
+.links small{display:block;color:var(--muted);margin-top:4px}
+
+.pop{position:fixed;z-index:30;max-width:min(310px,calc(100vw - 20px));background:var(--pop);color:var(--pop-ink);border-radius:12px;padding:10px 14px;box-shadow:0 8px 24px rgba(0,0,0,.25);display:none;font-size:.95rem}
+.pop.show{display:block}
+.pop b.ka{font-size:1.3rem}
+.pop .pw{margin-top:6px;font-size:.85rem;opacity:.8}
+.back{display:inline-block;margin-bottom:4px;color:var(--muted);text-decoration:none;font-size:15px}
+.back:hover{color:var(--wine)}
+</style>
+</head>
+<body>
+<main>
+<a class="back" href="./">← Все конспекты</a>
+<h1>Токены: из чего собран грузинский глагол</h1>
+<p class="lead">Грузинский глагол — это не одно слово, а набор маленьких деталей, которые всегда стоят в одном и том же порядке. Разберём каждую деталь: что она значит, зачем нужна, где стоит и какой бывает. Нажмите на любой цветной токен — появится объяснение.</p>
+
+<h2>1. Что такое токен</h2>
+<section>
+  <p><b>Токен</b> — самая маленькая часть слова, у которой есть своё значение или своя работа. Например, в <span data-w="pv:შე mo:მო per:ვ root:დი end:ვარ" data-tr></span> — «я вхожу (сюда)» — пять токенов: «внутрь» + «сюда» + «я» + «идти» + «я есть».</p>
+  <p>Представьте конструктор LEGO с <b>шаблоном</b>: у каждой детали есть своё место, и порядок мест никогда не меняется. Слово собирается слева направо:</p>
+  <div class="tmpl" id="tmpl"></div>
+  <div class="legend">
+    <span class="k-pv">преверб</span><span class="k-mo">‑მო «сюда»</span><span class="k-per">лицо</span><span class="k-ver">версия</span>
+    <span class="k-root">корень</span><span class="k-suf">суффикс</span><span class="k-end">окончание</span>
+    <span class="k-pl">мн. ‑თ</span><span class="k-obj">«кого / что»</span>
+  </div>
+  <div class="note"><b style="color:var(--obj)">«Кого / что»</b> — особый токен. Он не имеет своего места в шаблоне, а <b>заменяет</b> окончание (<span data-w="per:მ ver:ი root:ყვარ obj:ხარ"></span> — я тебя люблю) или встаёт в начало слова (<span data-w="obj:ვ per:∅ ver:უ root:ყვარ obj:ვარ"></span> — он меня любит).</div>
+
+  <h3 style="margin-top:18px">Три главных правила</h3>
+  <ul>
+    <li><b>Порядок фиксирован.</b> Лицо никогда не встанет перед превербом: <span data-w="pv:მო per:გვ root:წონ end:ს"></span> (нам нравится), а не «გვმოწონს».</li>
+    <li><b>Не каждое место занято.</b> В <span data-w="pv:მი root:დი end:ს"></span> (идёт туда) всего три токена: нет ни версии, ни суффикса, ни лица.</li>
+    <li><b>Пустое место ∅ — тоже токен.</b> <span data-w="per:მ ver:ი root:ყვარ end:ს"></span> — я люблю, <span data-w="per:∅ ver:უ root:ყვარ end:ს"></span> — он любит. То, что на месте лица <i>ничего нет</i>, и значит «ему». На схемах ∅ рисуется пунктиром.</li>
+  </ul>
+
+  <h3 style="margin-top:18px">Реальные слова по шаблону</h3>
+  <div class="grid" id="samples"></div>
+</section>
+
+<h2>2. Типы токенов</h2>
+<p class="muted" style="margin:0">Девять карточек — по одной на тип. Полоска под заголовком показывает место токена в шаблоне.</p>
+
+<section class="tc k-pv" id="c-pv">
+  <div class="th"><span class="chipk">შე</span><div><h3>Преверб</h3><small><span class="ka">ზმნისწინი</span> · приставка в самом начале</small></div></div>
+  <div class="slots" data-on="pv"></div>
+  <h4>Что означает</h4>
+  <p>Приставка, которая стоит первой, раньше всех остальных токенов. Изначально она показывает <b>направление</b> — как русские в‑, вы‑, при‑, пере‑.</p>
+  <h4>Для чего служит</h4>
+  <p><b>1. Направление движения:</b> <span data-w="pv:შე root:დი end:ს"></span> — входит, <span data-w="pv:გა root:დი end:ს"></span> — выходит, <span data-w="pv:ა root:დი end:ს"></span> — поднимается, <span data-w="pv:ჩა root:დი end:ს"></span> — спускается.</p>
+  <p><b>2. Законченность и будущее</b> — как русское «писать → написать»: <span data-w="root:წერ end:ს"></span> (пишет) → <span data-w="pv:და root:წერ end:ს"></span> (напишет). В прошедшем времени М‑глаголов преверб превращает состояние в событие: <span data-w="per:მ ver:ი root:ნდ end:ა"></span> (хочу) → <span data-w="pv:მო per:მ ver:ი root:ნდ end:ა"></span> (мне захотелось).</p>
+  <h4>Где стоит</h4>
+  <p>Всегда первым. Все остальные токены встают после него, даже лицо: <span data-w="pv:მი per:ვ root:დი end:ვარ"></span> (я иду туда), <span data-w="pv:მო per:გვ root:წონ end:ს"></span> (нам нравится).</p>
+  <h4>Варианты</h4>
+  <p><span class="wt t-pv">მი</span> туда · <span class="wt t-pv">ა</span> вверх · <span class="wt t-pv">ჩა</span> вниз · <span class="wt t-pv">შე</span> внутрь · <span class="wt t-pv">გა</span> наружу · <span class="wt t-pv">გადა</span> через · <span class="wt t-pv">წა</span> прочь · <span class="wt t-pv">და</span> туда‑сюда, а в других глаголах — законченность. Пара к <span class="wt t-pv">მი</span> — <span class="wt t-mo">მო</span> «сюда» (см. следующую карточку).</p>
+  <p class="muted"><span class="wt t-pv">წა‑</span> живёт в прошедшем и повелительном: <span data-w="pv:წა root:ვიდ end:ა"></span> — ушёл, <span data-w="pv:წა root:დი"></span> — иди (уходи)!</p>
+  <h4>Примеры</h4>
+  <div class="grid" data-ex="pv"></div>
+</section>
+
+<section class="tc k-mo" id="c-mo">
+  <div class="th"><span class="chipk">მო</span><div><h3>‑მო «сюда»</h3><small>часть сложного преверба · к говорящему</small></div></div>
+  <div class="slots" data-on="mo"></div>
+  <h4>Что означает</h4>
+  <p>«Сюда, ко мне (к нам)». Формально это часть преверба, но мы показываем его отдельным токеном, потому что у него свой, очень частый смысл.</p>
+  <h4>Для чего служит</h4>
+  <p><b>Один</b> — пара к <span class="wt t-pv">მი‑</span>: <span data-w="pv:მი root:დი end:ს"></span> — идёт туда, уходит; <span data-w="mo:მო root:დი end:ს"></span> — идёт сюда, приходит.</p>
+  <p><b>После другого преверба</b> добавляет «сюда»: <span data-w="pv:შე root:დი end:ს"></span> — входит (туда) → <span data-w="pv:შე mo:მო root:დი end:ს"></span> — входит сюда, к нам. <span class="wt t-pv">მი</span> в таких сочетаниях не пишется: <span class="wt"><span class="t-pv">ა</span><span class="t-mo">მო</span></span>, а не «ამიმო».</p>
+  <h4>Где стоит</h4>
+  <p>Сразу после преверба «куда», перед лицом: <span data-w="pv:შე mo:მო per:ვ root:დი end:ვარ"></span>. Если преверба «куда» нет — в самом начале: <span data-w="mo:მო per:ვ root:დი end:ვარ"></span> (я иду сюда).</p>
+  <h4>Варианты</h4>
+  <p>Один вариант — <span class="wt t-mo">მო</span>. Единственная особенность: у <span class="wt t-pv">გადა</span> перед ним выпадает ა: <span class="wt"><span class="t-pv">გადა</span></span> + <span class="wt t-mo">მო</span> = <span class="wt"><span class="t-pv">გად</span><span class="t-mo">მო</span></span>.</p>
+  <div class="scroll"><table id="moTab"></table></div>
+  <p class="muted">Осторожно: в <span data-w="pv:მო per:მ root:წონ end:ს"></span> (мне нравится) <b>მო</b> — застывший преверб, «сюда» он там не значит. Поэтому он окрашен как преверб.</p>
+  <h4>Примеры</h4>
+  <div class="grid" data-ex="mo"></div>
+</section>
+
+<section class="tc k-per" id="c-per">
+  <div class="th"><span class="chipk">ვ · მ</span><div><h3>Лицо</h3><small><span class="ka">პირის ნიშანი</span> · кто действует или кому происходит</small></div></div>
+  <div class="slots" data-on="per"></div>
+  <h4>Что означает</h4>
+  <p>Короткая приставка из одной‑двух букв, которая показывает <b>человека</b>. Есть два набора — в зависимости от того, «делает» человек или «с ним происходит».</p>
+  <h4>Для чего служит</h4>
+  <p><b>Набор 1 — «кто?» (глаголы движения).</b> Только <span class="wt t-per">ვ‑</span> = «я» или «мы»: <span data-w="pv:მი per:ვ root:დი end:ვარ"></span> — я иду туда, <span data-w="pv:შე mo:მო per:ვ root:რბი end:ვართ"></span> — мы вбегаем сюда. Для «ты, он, вы, они» приставки нет — лицо видно по окончанию.</p>
+  <p><b>Набор 2 — «кому?» (М‑глаголы).</b> Чувствующий стоит в дательном падеже, как в русском «<b>мне</b> нравится»:<br>
+   <span class="wt t-per">მ</span> — мне · <span class="wt t-per">გ</span> — тебе · <span class="wt t-per">გვ</span> — нам · <span class="wt t-per">გ</span>…<span class="wt t-pl">თ</span> — вам · для «ему / им» один из трёх вариантов:</p>
+  <ul>
+    <li><span class="wt t-per">ს‑</span> перед т, т', д, ц, ц', дз, ч, ч', дж: <span data-w="per:ს root:ცივ end:ა"></span> (ему холодно), <span data-w="per:ს root:ძულ end:ს"></span>;</li>
+    <li><span class="wt t-per">ჰ‑</span> перед г, к, к', къ, п, п': <span data-w="per:ჰ root:ყავ end:ს"></span>, <span data-w="per:ჰ root:გონ end:ია"></span>;</li>
+    <li><b style="color:var(--per)">∅</b> (ничего) перед гласной и перед м, н, л, р, в: <span data-w="per:∅ ver:უ root:ყვარ end:ს"></span>, <span data-w="per:∅ ver:ე root:შინ end:ია"></span>, <span data-w="per:∅ root:რცხვენ end:ია"></span>.</li>
+  </ul>
+  <h4>Где стоит</h4>
+  <p>После преверба и ‑მო (если они есть), перед версией и корнем. Если преверба нет — первым: <span data-w="per:გ ver:ი root:ყვარ end:ს"></span>.</p>
+  <h4>Варианты: два набора рядом</h4>
+  <div class="scroll"><table id="perTab"></table></div>
+  <h4>Примеры</h4>
+  <div class="grid" data-ex="per"></div>
+</section>
+
+<section class="tc k-ver" id="c-ver">
+  <div class="th"><span class="chipk">ი</span><div><h3>Версия</h3><small><span class="ka">ქცევა</span> · гласная после лица</small></div></div>
+  <div class="slots" data-on="ver"></div>
+  <h4>Что означает</h4>
+  <p>Одна гласная сразу после лица: <span class="wt t-ver">ი</span>, <span class="wt t-ver">უ</span>, <span class="wt t-ver">ე</span> или <span class="wt t-ver">ა</span> — или ничего.</p>
+  <h4>Для чего служит</h4>
+  <p>В обычных глаголах показывает, <b>для кого</b> действие: <span data-w="per:ვ root:წერ"></span> — пишу, <span data-w="per:ვ ver:ი root:წერ"></span> — пишу себе (записываю), <span data-w="per:ვ ver:უ root:წერ"></span> — пишу ему.</p>
+  <p>В М‑глаголах версия <b>застыла</b> и смысла уже не добавляет. Её запоминают вместе с глаголом, как род у существительного.</p>
+  <h4>Где стоит</h4>
+  <p>Сразу после лица, перед корнем. Даже когда лицо пустое (∅), версия остаётся на своём месте: <span data-w="per:∅ ver:უ root:ყვარ end:ს"></span>, <span data-w="pv:მი per:∅ ver:ა root:ქვ end:ს"></span>.</p>
+  <h4>Варианты</h4>
+  <ul>
+    <li><b class="ka t-ver">ი → უ</b> — в 3‑м лице меняется: <span data-w="per:მ ver:ი root:ყვარ end:ს"></span> → <span data-w="per:∅ ver:უ root:ყვარ end:ს"></span>, <span data-w="per:მ ver:ი root:ნდ end:ა"></span> → <span data-w="per:∅ ver:უ root:ნდ end:ა"></span>;</li>
+    <li><b class="ka t-ver">ე</b> — одинакова во всех лицах: <span data-w="per:მ ver:ე root:შინ end:ია"></span> → <span data-w="per:∅ ver:ე root:შინ end:ია"></span>;</li>
+    <li><b class="ka t-ver">ა</b> — одинакова во всех лицах: <span data-w="per:მ ver:ა root:ხსოვ end:ს"></span> → <span data-w="per:∅ ver:ა root:ხსოვ end:ს"></span>, <span data-w="per:მ ver:ა root:ქვ end:ს"></span> → <span data-w="per:∅ ver:ა root:ქვ end:ს"></span>;</li>
+    <li><b>нет версии</b>: <span data-w="per:მ root:ცივ end:ა"></span>, <span data-w="per:მ root:ძულ end:ს"></span>, <span data-w="per:მ root:შ end:ია"></span>. В глаголах движения (<span data-w="pv:მი root:დი end:ს"></span>) версии тоже нет.</li>
+  </ul>
+  <p class="muted">Подсказка: глаголы с суффиксом ‑ებ‑ почти всегда берут ე: <span data-w="per:მ ver:ე root:ძინ suf:ებ end:ა"></span>, <span data-w="per:მ ver:ე root:ზარ suf:ებ end:ა"></span>.</p>
+  <h4>Примеры</h4>
+  <div class="grid" data-ex="ver"></div>
+</section>
+
+<section class="tc k-root" id="c-root">
+  <div class="th"><span class="chipk">დი</span><div><h3>Корень</h3><small><span class="ka">ძირი</span> · смысловое ядро</small></div></div>
+  <div class="slots" data-on="root"></div>
+  <h4>Что означает</h4>
+  <p>Часть, которая несёт значение глагола: «идти», «любить», «холод». Все остальные токены только «настраивают» его: куда, кому, сколько, когда.</p>
+  <h4>Для чего служит</h4>
+  <p>Отличает один глагол от другого. Смените корень — получите новый глагол, а все остальные токены останутся: <span data-w="pv:შე mo:მო root:დი end:ს"></span> — входит сюда, <span data-w="pv:შე mo:მო root:რბი end:ს"></span> — вбегает сюда.</p>
+  <h4>Где стоит</h4>
+  <p>В центре: после лица и версии, перед суффиксом и окончанием. Корень есть в каждом глаголе — это единственный токен, который не бывает пустым.</p>
+  <h4>Варианты</h4>
+  <p><span class="wt t-root">დი</span> идти · <span class="wt t-root">რბი</span> бежать · <span class="wt t-root">ყვარ</span> любить · <span class="wt t-root">წონ</span> нравиться · <span class="wt t-root">ნდ</span> хотеть · <span class="wt t-root">ცივ</span> холод · <span class="wt t-root">ქვ</span> иметь (вещь) · <span class="wt t-root">ყავ</span> иметь (живое) · <span class="wt t-root">შ</span> голод.</p>
+  <p>Корень бывает очень коротким — одна буква <span class="wt t-root">შ</span> в <span data-w="per:მ root:შ end:ია"></span>. В других временах он иногда меняется: <span class="wt t-root">შ → შივ</span> (<span data-w="pv:მო per:მ root:შივ suf:დ end:ა"></span> — я проголодался).</p>
+  <h4>Примеры</h4>
+  <div class="grid" data-ex="root"></div>
+</section>
+
+<section class="tc k-suf" id="c-suf">
+  <div class="th"><span class="chipk">ებ</span><div><h3>Суффикс</h3><small><span class="ka">თემის ნიშანი</span> · между корнем и окончанием</small></div></div>
+  <div class="slots" data-on="suf"></div>
+  <h4>Что означает</h4>
+  <p>Токен сразу после корня. Есть не у всех глаголов: у <span data-w="per:მ ver:ი root:ყვარ end:ს"></span> или <span data-w="pv:მი root:დი end:ს"></span> его нет.</p>
+  <h4>Для чего служит</h4>
+  <p>Уточняет характер действия или состояния (накатывает, длится, наступило) и помогает образовать время.</p>
+  <h4>Где стоит</h4>
+  <p>После корня, перед окончанием.</p>
+  <h4>Варианты</h4>
+  <ul>
+    <li><b class="ka t-suf">ებ</b> — «накатывает, тянет»: <span data-w="per:მ ver:ე root:ძინ suf:ებ end:ა"></span> (меня клонит в сон), <span data-w="per:მ ver:ე root:ზარ suf:ებ end:ა"></span> (мне лень), <span data-w="per:მ ver:ე root:ცინ suf:ებ end:ა"></span> (мне смешно);</li>
+    <li><b class="ka t-suf">ავ</b> — длящееся состояние: <span data-w="per:მ root:ძინ suf:ავ end:ს"></span> (я сплю);</li>
+    <li><b class="ka t-suf">დ</b> — в прошедшем «стал, наступило»: <span data-w="pv:შე per:მ ver:ე root:შინ suf:დ end:ა"></span> (я испугался), <span data-w="pv:შე per:მ ver:ი root:ყვარ suf:დ end:ა"></span> (я полюбил).</li>
+  </ul>
+  <p class="muted">Один и тот же корень <span class="wt t-root">ძინ</span> с разными суффиксами: <span data-w="per:მ ver:ე root:ძინ suf:ებ end:ა"></span> — хочу спать, <span data-w="per:მ root:ძინ suf:ავ end:ს"></span> — сплю.</p>
+  <h4>Примеры</h4>
+  <div class="grid" data-ex="suf"></div>
+</section>
+
+<section class="tc k-end" id="c-end">
+  <div class="th"><span class="chipk">ს</span><div><h3>Окончание</h3><small><span class="ka">დაბოლოება</span> · последний токен формы</small></div></div>
+  <div class="slots" data-on="end"></div>
+  <h4>Что означает</h4>
+  <p>Токен в конце слова, который согласуется с <b>подлежащим</b> — с тем, кто «грамматически главный».</p>
+  <h4>Для чего служит</h4>
+  <p><b>В глаголах движения</b> подлежащее — тот, кто идёт. Окончание меняется по лицам, как глагол «быть» (<span class="wt t-end">ვარ</span> — я есть, <span class="wt t-end">ხარ</span> — ты есть):</p>
+  <div class="scroll"><table id="endTab"></table></div>
+  <p><b>В М‑глаголах</b> — главный «перевёртыш»: окончание согласуется не с тем, кто чувствует, а с <b>предметом</b> чувства («музыка» в «мне нравится музыка»). Предмет почти всегда «он / это», поэтому окончание обычно одно и то же во всех лицах: <span class="wt t-end">ს</span> (<span data-w="per:მ ver:ი root:ყვარ end:ს"></span>), <span class="wt t-end">ა</span> (<span data-w="per:მ ver:ი root:ნდ end:ა"></span>, <span data-w="per:მ root:ცივ end:ა"></span>), <span class="wt t-end">ია</span> (<span data-w="per:მ root:შ end:ია"></span>, <span data-w="per:მ ver:ე root:შინ end:ია"></span>), <span class="wt t-end">ის</span> (<span data-w="per:მ ver:ე root:სმ end:ის"></span>).</p>
+  <h4>Где стоит</h4>
+  <p>В конце слова; после него может стоять только мн. <span class="wt t-pl">‑თ</span>.</p>
+  <h4>Варианты</h4>
+  <p>Движение: <span class="wt t-end">ვარ · ხარ · ს · ვართ · ხართ · ან</span>. М‑глаголы: <span class="wt t-end">ს · ა · ია · ის</span>. Если предмет чувства — «ты» или «я», окончание заменяет токен «кого / что» (<span data-w="pv:მო per:მ root:წონ obj:ხარ"></span> — ты мне нравишься).</p>
+  <h4>Примеры</h4>
+  <div class="grid" data-ex="end"></div>
+</section>
+
+<section class="tc k-pl" id="c-pl">
+  <div class="th"><span class="chipk">თ</span><div><h3>Множественное ‑თ</h3><small><span class="ka">მრავლობითის ნიშანი</span> · «вам», «им»</small></div></div>
+  <div class="slots" data-on="pl"></div>
+  <h4>Что означает</h4>
+  <p>Буква <span class="wt t-pl">თ</span> в самом конце М‑глагола: «кому» — <b>много</b> людей.</p>
+  <h4>Для чего служит</h4>
+  <p>Отличает «тебе» от «вам» и «ему» от «им»: <span data-w="per:გ ver:ი root:ნდ end:ა"></span> — ты хочешь, <span data-w="per:გ ver:ი root:ნდ end:ა pl:თ"></span> — вы хотите; <span data-w="per:∅ ver:უ root:ყვარ end:ს"></span> — он любит, <span data-w="per:∅ ver:უ root:ყვარ pl:თ"></span> — они любят. Для «нам» не нужен: <span class="wt t-per">გვ</span> уже множественное (<span data-w="per:გვ ver:ი root:ყვარ end:ს"></span>).</p>
+  <h4>Где стоит</h4>
+  <p>Самым последним, после окончания.</p>
+  <h4>Варианты и правило стыка</h4>
+  <ul>
+    <li><span class="wt t-end">ს</span> и <span class="wt t-pl">თ</span> не уживаются — ს выпадает: <span data-w="pv:მო per:ს root:წონ end:ს"></span> → <span data-w="pv:მო per:ს root:წონ pl:თ"></span>, <span data-w="per:∅ ver:ე root:სმ end:ის"></span> → <span data-w="per:∅ ver:ე root:სმ end:ი pl:თ"></span>;</li>
+    <li>после ა и ია ‑თ просто дописывается: <span data-w="per:გ ver:ი root:ნდ end:ა pl:თ"></span>, <span data-w="per:გ root:შ end:ია pl:თ"></span>.</li>
+  </ul>
+  <p class="tip">Ловушка: ‑თ считает только тех, <b>кто чувствует</b>. Если много предметов, ‑თ не ставится: <span class="ka">მიყვარს წიგნები</span> — я люблю книги. А в глаголах движения отдельного ‑თ нет: «мы, вы, они» уже внутри окончания (<span class="wt t-end">ვართ, ხართ, ან</span>).</p>
+  <h4>Примеры</h4>
+  <div class="grid" data-ex="pl"></div>
+</section>
+
+<section class="tc k-obj" id="c-obj">
+  <div class="th"><span class="chipk">ხარ</span><div><h3>«Кого / что»</h3><small><span class="ka">ობიექტი</span> · когда предмет чувства — «ты» или «я»</small></div></div>
+  <div class="slots" data-on="obj"></div>
+  <h4>Что означает</h4>
+  <p>Токены, которые показывают, <b>кого</b> любят или кто нравится, когда это не «он / это», а «ты», «я», «вы», «мы».</p>
+  <h4>Для чего служит</h4>
+  <p>Это формы глагола «быть»: <span class="wt t-obj">ხარ</span> — ты есть, <span class="wt t-obj">ვარ</span> — я есть. Дословно <span data-w="pv:მო per:მ root:წონ obj:ხარ"></span> — «мне‑нравящийся ты есть» = ты мне нравишься.</p>
+  <h4>Где стоит</h4>
+  <p><span class="wt t-obj">ხარ / ვარ</span> — в конце, <b>вместо</b> окончания. <span class="wt t-obj">ვ‑</span> — в самом начале слова, когда место лица пустое (∅): <span data-w="obj:ვ per:∅ ver:უ root:ყვარ obj:ვარ"></span> — он меня любит.</p>
+  <h4>Варианты</h4>
+  <p><span class="wt t-obj">ხარ</span> — ты · <span class="wt t-obj">ვარ</span> — я · <span class="wt t-obj">ხართ</span> — вы · <span class="wt t-obj">ვართ</span> — мы · плюс приставка <span class="wt t-obj">ვ‑</span> («я»).</p>
+  <h4>Примеры</h4>
+  <div class="grid" data-ex="obj"></div>
+</section>
+
+<h2>3. Разобрать слово</h2>
+<section>
+  <p class="muted" style="margin-top:0">Выберите слово — оно разложится на токены. Нажмите на токен, чтобы прочитать объяснение.</p>
+  <div class="chips" id="pick"></div>
+  <div class="out" id="out"></div>
+</section>
+
+<h2>4. Какие токены где встречаются</h2>
+<section>
+  <div class="scroll"><table id="sumTab"></table></div>
+</section>
+
+<h2>5. Где это встречается</h2>
+<section>
+  <div class="links">
+    <a href="02-m-glagoly.html"><b>М‑глаголы</b><small>«мне нравится», «я люблю», «мне холодно»: лицо «кому», версия, суффикс, ‑თ и «кого / что».</small></a>
+    <a href="03-preverby.html"><b>Превербы направления</b><small>მიდის / მოდის: превербы «куда», ‑მო «сюда», лицо ვ‑ и окончания глаголов движения.</small></a>
+  </div>
+</section>
+</main>
+<div class="pop" id="pop" role="dialog"></div>
+
+<script>
+const MAP={"ა":"а","ბ":"б","გ":"г","დ":"д","ე":"е","ვ":"в","ზ":"з","თ":"т","ი":"и","კ":"к'","ლ":"л","მ":"м","ნ":"н","ო":"о","პ":"п'","ჟ":"ж","რ":"р","ს":"с","ტ":"т'","უ":"у","ფ":"п","ქ":"к","ღ":"гъ","ყ":"къ","შ":"ш","ჩ":"ч","ც":"ц","ძ":"дз","წ":"ц'","ჭ":"ч'","ხ":"х","ჯ":"дж","ჰ":"х"};
+const tl=s=>s.split(/(\s+)/).map(w=>[...w].map((c,i)=>c==="ე"&&i===0?"э":(MAP[c]||c)).join("")).join("").replace(/[.?!]/g,"");
+
+const ORDER=["pv","mo","per","ver","root","suf","end","pl"];
+const KIND={pv:"преверб",mo:"сюда",per:"лицо",ver:"версия",root:"корень",suf:"суффикс",end:"окончание",pl:"мн.",obj:"кого"};
+const NAME={pv:"преверб",mo:"‑მო «сюда»",per:"лицо",ver:"версия",root:"корень",suf:"суффикс",end:"окончание",pl:"мн. ‑თ",obj:"«кого / что»"};
+const SLOT={pv:"прев.",mo:"‑მო",per:"лицо",ver:"верс.",root:"корень",suf:"суф.",end:"оконч.",pl:"‑თ"};
+
+/* "pv:შე mo:მო per:ვ root:დი end:ვარ" → токены; ctx: "mv" — глагол движения */
+const parse=(s,ctx)=>s.trim().split(/\s+/).map(p=>{const [k,t]=p.split(":");return {k,t,empty:t==="∅",ctx}});
+const word=T=>T.filter(x=>!x.empty).map(x=>x.t).join("");
+const wt=T=>`<span class="wt">${T.filter(x=>!x.empty).map(x=>`<span class="t-${x.k}">${x.t}</span>`).join("")}</span>`;
+
+/* ---------- объяснения ---------- */
+const GEN={
+ pv:"Приставка в начале глагола. Показывает направление (внутрь, наружу, вверх…) или делает действие законченным: წერს → დაწერს.",
+ mo:"«Сюда», к говорящему. Один — пара к მი‑. После другого преверба добавляет «сюда»: შე + მო = შემო.",
+ per:"Кто действует (ვ‑ = я / мы) или кому происходит (მ — мне, გ — тебе, გვ — нам, ს / ჰ / ∅ — ему).",
+ ver:"Гласная ი, უ, ე или ა после лица. В М‑глаголах застыла — её запоминают вместе с глаголом.",
+ root:"Смысловое ядро глагола: «идти», «любить», «холод». Есть всегда.",
+ suf:"Уточняет характер состояния: ებ — накатывает, ავ — длится, დ — наступило (в прошедшем).",
+ end:"Согласуется с подлежащим: в глаголах движения — с тем, кто идёт; в М‑глаголах — с предметом чувства.",
+ pl:"‑თ: «кому» во множественном числе — вам, им. Съедает соседнее ‑ს.",
+ obj:"ხარ / ვარ вместо окончания, когда нравится или любим «ты» / «я»; ვ‑ в начале — «меня»."
+};
+const WHERE={pv:"всегда первым",mo:"после преверба «куда», перед лицом",per:"после преверба, перед версией и корнем",ver:"сразу после лица",root:"в центре слова",suf:"после корня",end:"в конце слова",pl:"самым последним",obj:"вместо окончания (ხარ, ვარ) или в начале (ვ‑)"};
+const VAL={
+ pv:{"მი":"туда, от говорящего. Пара к ‑მო.","ა":"вверх.","ჩა":"вниз; также «приехать в город», «выйти из транспорта».","შე":"внутрь.","გა":"наружу; также «уйти, убежать».","გადა":"через, на другую сторону.","გად":"это გადა‑, у которого перед ‑მო выпала ა: გადა + მო = გადმო.","წა":"прочь. Живёт в прошедшем и повелительном: წავიდა, წადი!","და":"в глаголах движения — «туда‑сюда, регулярно» (დადის — ходит); в других глаголах — законченность (წერს → დაწერს).","მო":"застывший преверб. В მომწონს он уже не значит «сюда», просто прирос к глаголу. В прошедшем делает состояние событием: მომინდა, მომშივდა."},
+ per:{"ვ":"«я» или «мы» — тот, кто действует: მივდივარ, მივდივართ. Для «ты, он, вы, они» приставки нет.","მ":"«мне». Отсюда название «М‑глаголы».","გ":"«тебе». С ‑თ на конце — «вам».","გვ":"«нам». Уже множественное, поэтому ‑თ не нужен.","ს":"«ему / ей». Ставится перед т, т', д, ц, ц', дз, ч, ч', дж: სცივა, სძულს, მოსწონს.","ჰ":"«ему / ей». Ставится перед г, к, к', къ, п, п': ჰყავს, ჰგონია.","∅":"«ему / ей / им», но без приставки: перед гласной (უყვარს, აქვს) и перед м, н, л, р, в (რცხვენია). Пустота тоже несёт смысл."},
+ ver:{"ი":"версия «для кого‑то». В 3‑м лице меняется на უ: მიყვარს → უყვარს.","უ":"версия 3‑го лица вместо ი: «ему / ей / им». А в обычных глаголах — «для него»: ვუწერ — пишу ему.","ე":"версия, одинакова во всех лицах: მეშინია → ეშინია.","ა":"версия, одинакова во всех лицах: მახსოვს → ახსოვს, მაქვს → აქვს."},
+ root:{"დი":"корень «идти».","რბი":"корень «бежать».","ყვარ":"корень «любить».","წონ":"корень «нравиться».","ნდ":"корень «хотеть».","ქვ":"корень «иметь (вещь)». С превербом — «нести»: მიაქვს.","ყავ":"корень «иметь (кого‑то живого)».","ძინ":"корень «сон».","შინ":"корень «страх».","ცივ":"корень «холод».","შ":"корень «голод» — всего одна буква.","შივ":"корень «голод» в прошедшем (შ → შივ).","წერ":"корень «писать».","სმ":"корень «слышать, понимать».","ხსოვ":"корень «помнить».","ზარ":"корень «лень»."},
+ suf:{"ებ":"суффикс «клонит, тянет»: состояние накатывает (хочется спать, лень, смешно).","ავ":"суффикс длящегося состояния: «уже спит».","დ":"суффикс «стал»: в прошедшем состояние превращается в событие."},
+ end:{"ა":"окончание: предмет чувства — «он / это».","ია":"окончание (ი + ა): предмет чувства — «он / это».","ის":"окончание (ი + ს): предмет — «он / это».","ი":"остаток окончания ‑ის: ს ушёл, уступив место ‑თ.","ვარ":"окончание «я» (кто идёт). Как глагол «быть»: ვარ — я есть.","ხარ":"окончание «ты» (кто идёт): ხარ — ты есть.","ვართ":"окончание «мы» (кто идёт): ვართ — мы есть.","ხართ":"окончание «вы» (кто идёт): ხართ — вы есть.","ან":"окончание «они» (кто идёт)."},
+ obj:{"ხარ":"«ты есть»: нравишься / любим именно ты.","ვარ":"«я есть»: нравлюсь / любим именно я.","ვ":"маркер «я» (кого?). Появляется в начале, когда место лица пустое."}
+};
+function explain(x){
+  if(x.k==="sym")return "";
+  let v;
+  if(x.gen)v=GEN[x.k];
+  else if(x.k==="mo")v=GEN.mo;
+  else if(x.k==="end"&&x.t==="ს")v=x.ctx==="mv"?"окончание «он / она» (кто идёт): მიდის.":"окончание: то, что нравится / люблю / есть, — «он / это» (3‑е лицо).";
+  else if(x.k==="pl")v="«кому» во множественном числе (вам, им)."+(x.swap?" Окончание ‑ს рядом с ним выпало: ს + თ → თ.":"");
+  else v=(VAL[x.k]&&VAL[x.k][x.t])||GEN[x.k];
+  return `<b class='ka'>${x.gen?"":x.t}</b>${x.gen?"":" · "}<b>${NAME[x.k]}</b><div>${v}</div><div class="pw">Место: ${WHERE[x.k]}.</div>`;
+}
+
+/* ---------- чипы и поповер ---------- */
+const $=id=>document.getElementById(id),pop=$("pop");
+function tokEl(x,small){
+  const b=document.createElement("button");b.type="button";
+  b.className=`tok k-${x.k}${x.empty?" empty":""}${small?" sm":""}`;
+  b.innerHTML=`<span class="b">${x.t}</span>${small||x.k==="sym"?"":`<span class="lb">${KIND[x.k]}</span>`}`;
+  b.onclick=e=>{e.stopPropagation();const h=explain(x);if(h)showPop(h,b)};
+  return b;
+}
+function toksEl(T,small){const d=document.createElement("div");d.className="toks";T.forEach(x=>d.appendChild(tokEl(x,small)));return d}
+function showPop(html,el){
+  pop.innerHTML=html;pop.classList.add("show");
+  const r=el.getBoundingClientRect(),p=pop.getBoundingClientRect();
+  let x=r.left+r.width/2-p.width/2;x=Math.max(10,Math.min(x,innerWidth-p.width-10));
+  let y=r.top-p.height-8;if(y<10)y=r.bottom+8;
+  pop.style.left=x+"px";pop.style.top=y+"px";
+}
+document.addEventListener("click",e=>{if(!pop.contains(e.target))pop.classList.remove("show")});
+addEventListener("scroll",()=>pop.classList.remove("show"),{passive:true});
+
+/* ---------- данные слов ---------- */
+// [токены, перевод, ctx]
+const W=(s,ru,ctx)=>({T:parse(s,ctx),ru,ctx});
+const SAMPLES=[
+ W("pv:შე mo:მო per:ვ root:დი end:ვარ","я вхожу (сюда)","mv"),
+ W("pv:მო per:მ root:წონ end:ს","мне нравится"),
+ W("per:მ ver:ი root:ყვარ obj:ხარ","я тебя люблю"),
+ W("per:∅ ver:უ root:ყვარ pl:თ","они любят"),
+ W("pv:მი per:∅ ver:ა root:ქვ end:ს","он несёт (вещь) туда")
+];
+SAMPLES[3].T[3].swap=true;
+const EX={
+ pv:[W("pv:მი root:დი end:ს","идёт туда, уходит","mv"),W("pv:გადა root:რბი end:ს","перебегает (туда)","mv"),W("pv:და root:წერ end:ს","напишет"),W("pv:შე per:მ ver:ე root:შინ suf:დ end:ა","я испугался (მეშინია → შემეშინდა)")],
+ mo:[W("mo:მო root:დი end:ს","идёт сюда, приходит","mv"),W("pv:ა mo:მო root:დი end:ს","поднимается сюда; восходит (о солнце)","mv"),W("pv:ჩა mo:მო root:რბი end:ან","сбегают сюда (вниз)","mv"),W("pv:გად mo:მო per:ვ root:დი end:ვართ","мы переходим сюда","mv")],
+ per:[W("pv:მი per:ვ root:დი end:ვარ","я иду туда","mv"),W("per:მ root:ცივ end:ა","мне холодно"),W("per:ს root:ცივ end:ა","ему холодно"),W("per:∅ root:რცხვენ end:ია","ему стыдно")],
+ ver:[W("per:მ ver:ი root:ყვარ end:ს","я люблю"),W("per:∅ ver:უ root:ყვარ end:ს","он любит"),W("per:მ ver:ე root:შინ end:ია","я боюсь"),W("per:მ ver:ა root:ხსოვ end:ს","я помню")],
+ root:[W("pv:შე mo:მო root:დი end:ს","входит сюда","mv"),W("pv:შე mo:მო root:რბი end:ს","вбегает сюда","mv"),W("per:მ root:შ end:ია","я голоден"),W("per:ჰ root:ყავ end:ს","у него есть (кто‑то живой)")],
+ suf:[W("per:მ ver:ე root:ზარ suf:ებ end:ა","мне лень"),W("per:ს root:ძინ suf:ავ end:ს","он спит"),W("pv:მო per:მ root:შივ suf:დ end:ა","я проголодался")],
+ end:[W("pv:მი root:დი end:ხარ","ты идёшь туда","mv"),W("pv:შე mo:მო root:რბი end:ან","они вбегают сюда","mv"),W("per:მ ver:ე root:სმ end:ის","я слышу / понимаю"),W("per:მ ver:ი root:ნდ end:ა","я хочу")],
+ pl:[W("per:∅ ver:უ root:ყვარ pl:თ","они любят"),W("per:გ ver:ი root:ნდ end:ა pl:თ","вы хотите"),W("pv:მო per:ს root:წონ pl:თ","им нравится")],
+ obj:[W("per:მ ver:ი root:ყვარ obj:ხარ","я тебя люблю"),W("pv:მო per:გ root:წონ obj:ვარ","я тебе нравлюсь"),W("per:∅ ver:უ root:ყვარ obj:ხარ","он / она тебя любит"),W("obj:ვ per:∅ ver:უ root:ყვარ obj:ვარ","он / она меня любит")]
+};
+EX.pl[0].T[3].swap=true;EX.pl[2].T[3].swap=true;
+
+function exCard(w){
+  const d=document.createElement("div");d.className="ex";d.appendChild(toksEl(w.T,true));
+  const s=word(w.T);
+  d.insertAdjacentHTML("beforeend",`<div class="w">${wt(w.T)} <span class="tr">[${tl(s)}]</span></div><div class="ru">${w.ru}</div>`);
+  return d;
+}
+
+/* шаблон */
+(()=>{
+  const t=$("tmpl"),demo={pv:"შე",mo:"მო",per:"ვ",ver:"ი",root:"დი",suf:"ებ",end:"ვარ",pl:"თ"};
+  ORDER.forEach((k,i)=>{
+    if(i){const a=document.createElement("span");a.className="arr";a.textContent="→";t.appendChild(a)}
+    t.appendChild(tokEl({k,t:demo[k],gen:true}));
+  });
+  const n=document.createElement("p");n.className="muted";n.style.margin="8px 0 0";
+  n.textContent="Это схема мест, а не настоящее слово: в реальном глаголе часть мест пустует.";
+  t.after(n);
+  SAMPLES.forEach(w=>$("samples").appendChild(exCard(w)));
+})();
+
+/* карточки */
+document.querySelectorAll(".slots").forEach(s=>{
+  const on=s.dataset.on.split(" ");const hl=s.dataset.on==="obj"?["per","end"]:on;
+  ORDER.forEach(k=>{const e=document.createElement("span");e.textContent=SLOT[k];if(hl.includes(k))e.className="on";s.appendChild(e)});
+  s.setAttribute("aria-label","Место в шаблоне");
+});
+document.querySelectorAll("[data-ex]").forEach(g=>EX[g.dataset.ex].forEach(w=>g.appendChild(exCard(w))));
+
+/* таблицы */
+const cell=(s,sub,ctx)=>{const T=parse(s,ctx);return `<td>${wt(T)}<small>[${tl(word(T))}]${sub?" · "+sub:""}</small></td>`};
+(()=>{
+  const R=[["მი‑ / მო‑","pv:მი root:დი end:ს","уходит","mo:მო root:დი end:ს","приходит"],
+   ["ა‑ вверх","pv:ა root:დი end:ს","поднимается","pv:ა mo:მო root:დი end:ს","поднимается сюда"],
+   ["ჩა‑ вниз","pv:ჩა root:დი end:ს","спускается","pv:ჩა mo:მო root:დი end:ს","спускается сюда; приезжает (в город)"],
+   ["შე‑ внутрь","pv:შე root:დი end:ს","входит","pv:შე mo:მო root:დი end:ს","входит сюда"],
+   ["გა‑ наружу","pv:გა root:დი end:ს","выходит","pv:გა mo:მო root:დი end:ს","выходит сюда"],
+   ["გადა‑ через","pv:გადა root:დი end:ს","переходит (туда)","pv:გად mo:მო root:დი end:ს","переходит сюда"]];
+  $("moTab").innerHTML="<tr><th>преверб</th><th>туда (без მო)</th><th>сюда (+ მო)</th></tr>"+
+   R.map(r=>`<tr><td class="who">${r[0]}</td>${cell(r[1],r[2],"mv")}${cell(r[3],r[4],"mv")}</tr>`).join("");
+})();
+(()=>{
+  const R=[["я","pv:მი per:ვ root:დი end:ვარ","per:მ ver:ი root:ყვარ end:ს"],["ты","pv:მი root:დი end:ხარ","per:გ ver:ი root:ყვარ end:ს"],
+   ["он / она","pv:მი root:დი end:ს","per:∅ ver:უ root:ყვარ end:ს"],["мы","pv:მი per:ვ root:დი end:ვართ","per:გვ ver:ი root:ყვარ end:ს"],
+   ["вы","pv:მი root:დი end:ხართ","per:გ ver:ი root:ყვარ pl:თ"],["они","pv:მი root:დი end:ან","per:∅ ver:უ root:ყვარ pl:თ"]];
+  const lt=["ვ‑","—","—","ვ‑","—","—"],l2=["მ","გ","∅","გვ","გ…თ","∅…თ"];
+  $("perTab").innerHTML="<tr><th>лицо</th><th>набор 1: кто идёт</th><th>набор 2: кто любит («кому»)</th></tr>"+
+   R.map((r,i)=>`<tr><td class="who">${r[0]}</td>${cell(r[1],"лицо: "+lt[i],"mv")}${cell(r[2],"лицо: "+l2[i])}</tr>`).join("");
+})();
+(()=>{
+  const R=[["я","mo:მო per:ვ root:დი end:ვარ","иду сюда"],["ты","mo:მო root:დი end:ხარ","идёшь сюда"],["он / она","mo:მო root:დი end:ს","идёт сюда"],
+   ["мы","mo:მო per:ვ root:დი end:ვართ","идём сюда"],["вы","mo:მო root:დი end:ხართ","идёте сюда"],["они","mo:მო root:დი end:ან","идут сюда"]];
+  const E=["ვარ","ხარ","ს","ვართ","ხართ","ან"];
+  $("endTab").innerHTML="<tr><th>кто</th><th>окончание</th><th>форма</th></tr>"+
+   R.map((r,i)=>`<tr><td class="who">${r[0]}</td><td><span class="wt t-end">${E[i]}</span></td>${cell(r[1],r[2],"mv")}</tr>`).join("");
+})();
+(()=>{
+  const c=(k,a,b)=>`<tr><td class="who"><span class="wt t-${k}">${NAME[k]}</span></td><td>${a}</td><td>${b}</td></tr>`;
+  const w=(s,ctx)=>wt(parse(s,ctx));
+  $("sumTab").innerHTML="<tr><th>токен</th><th>М‑глаголы (<span class='ka'>მიყვარს</span>…)</th><th>глаголы движения (<span class='ka'>მიდის</span>…)</th></tr>"+
+   c("pv","только в "+w("pv:მო per:მ root:წონ end:ს")+"; в прошедшем — часто ("+w("pv:შე per:მ ver:ე root:შინ suf:დ end:ა")+")","да — направление: მი, ა, ჩა, შე, გა, გადა…")+
+   c("mo","нет","да: "+w("pv:შე mo:მო root:დი end:ს","mv"))+
+   c("per","«кому»: მ, გ, გვ, ს / ჰ / ∅","«кто»: ვ‑ (я, мы)")+
+   c("ver","ი / უ, ე, ა или нет","нет")+
+   c("root","всегда","всегда: დი, რბი")+
+   c("suf","ებ, ავ; в прошедшем დ","нет")+
+   c("end","по предмету чувства: ს, ა, ია, ის","по тому, кто идёт: ვარ, ხარ, ს, ვართ, ხართ, ან")+
+   c("pl","‑თ: вам, им","нет (число внутри окончания)")+
+   c("obj","ხარ, ვარ, ვ‑","нет");
+})();
+
+/* разобрать слово */
+const PICK=[
+ W("pv:შე mo:მო per:ვ root:დი end:ვარ","я вхожу (сюда)","mv"),
+ W("pv:მო per:მ root:წონ end:ს","мне нравится"),
+ W("per:მ ver:ი root:ყვარ obj:ხარ","я тебя люблю"),
+ W("per:∅ ver:უ root:ყვარ pl:თ","они любят"),
+ W("pv:მი per:∅ ver:ა root:ქვ end:ს","он несёт (вещь) туда"),
+ W("per:მ ver:ე root:ძინ suf:ებ end:ა","мне хочется спать"),
+ W("pv:გად mo:მო root:რბი end:ან","они перебегают сюда","mv"),
+ W("obj:ვ per:∅ ver:უ root:ყვარ obj:ვარ","он / она меня любит"),
+ W("per:გ ver:ი root:ნდ end:ა pl:თ","вы хотите"),
+ W("pv:შე per:მ ver:ე root:შინ suf:დ end:ა","я испугался")
+];
+PICK[3].T[3].swap=true;
+let pi=0;
+PICK.forEach((w,i)=>{
+  const b=document.createElement("button");b.type="button";b.className="chip";
+  b.innerHTML=`${wt(w.T)} <small>${w.ru}</small>`;
+  b.onclick=()=>{pi=i;renderPick()};$("pick").appendChild(b);
+});
+function renderPick(){
+  [...$("pick").children].forEach((b,i)=>b.classList.toggle("on",i===pi));
+  const w=PICK[pi],o=$("out"),s=word(w.T);
+  o.innerHTML="";o.appendChild(toksEl(w.T));
+  o.insertAdjacentHTML("beforeend",`<div class="word">${wt(w.T)}</div><div class="tr">[${tl(s)}]</div><div class="ru">${w.ru}</div>
+   <div class="muted" style="margin-top:4px">${w.T.length} ${w.T.length<5?"токена":"токенов"}: ${w.T.map(x=>`<span class="wt t-${x.k}">${x.t}</span>`).join(" · ")}</div>`);
+  const ul=document.createElement("ul");ul.className="parts";
+  w.T.forEach(x=>{
+    const li=document.createElement("li");li.appendChild(tokEl(x,true));
+    const v=x.k==="mo"?GEN.mo:x.k==="end"&&x.t==="ს"?explain(x).match(/<div>(.*?)<\/div>/)[1]:x.k==="pl"?explain(x).match(/<div>(.*?)<\/div>/)[1]:(VAL[x.k]&&VAL[x.k][x.t])||GEN[x.k];
+    li.insertAdjacentHTML("beforeend",`<div><b>${NAME[x.k]}</b> — ${v}</div>`);
+    ul.appendChild(li);
+  });
+  o.appendChild(ul);
+}
+renderPick();
+
+/* цветные слова в тексте: <span data-w="pv:შე root:დი end:ს" data-tr> */
+document.querySelectorAll("[data-w]").forEach(e=>{
+  const T=parse(e.dataset.w);
+  e.outerHTML=wt(T)+(e.hasAttribute("data-tr")?` <span class="tr">[${tl(word(T))}]</span>`:"");
+});
+</script>
+</body>
+</html>
