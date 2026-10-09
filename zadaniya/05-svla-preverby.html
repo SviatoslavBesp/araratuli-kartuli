@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>წავედი, მოვედი, შევედი… — Задания</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Georgian:wght@400;600;700&family=PT+Sans:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+  --bg:#EEF2F1;--paper:#FFF;--ink:#1E2A2F;--muted:#5E6B70;--line:#D5DDDB;--soft:#F5F7F6;
+  --wine:#8E2A3B;--wine-soft:#F4E4E7;--blue:#2F6FB0;--blue-soft:#E6EFF8;
+  --ok:#2E7D4F;--ok-soft:#E3F2E8;--bad:#C0392B;--bad-soft:#FBE5E2;--pop:#1E2A2F;--pop-ink:#FFF;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#141A1C;--paper:#1D2528;--ink:#E7ECEB;--muted:#9AA7AB;--line:#33403F;--soft:#232D30;
+  --wine:#E07A8C;--wine-soft:#3A2228;--blue:#7AB2EA;--blue-soft:#1F3042;
+  --ok:#6BC98F;--ok-soft:#1C3325;--bad:#F08476;--bad-soft:#3C2220;--pop:#F1F4F3;--pop-ink:#141A1C;}}
+:root[data-theme="dark"]{
+  --bg:#141A1C;--paper:#1D2528;--ink:#E7ECEB;--muted:#9AA7AB;--line:#33403F;--soft:#232D30;
+  --wine:#E07A8C;--wine-soft:#3A2228;--blue:#7AB2EA;--blue-soft:#1F3042;
+  --ok:#6BC98F;--ok-soft:#1C3325;--bad:#F08476;--bad-soft:#3C2220;--pop:#F1F4F3;--pop-ink:#141A1C;}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*,*::before,*::after{box-sizing:inherit}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"PT Sans",system-ui,sans-serif;font-size:16px;line-height:1.45}
+.ka{font-family:"Noto Serif Georgian",Sylfaen,serif}
+main{max-width:860px;margin:0 auto;padding:20px 16px 160px}
+h1{font-family:"Noto Serif Georgian",serif;font-weight:700;font-size:clamp(1.5rem,4.6vw,2.1rem);margin:8px 0 2px;color:var(--wine)}
+.sub{color:var(--muted);margin:4px 0 14px}
+.name{display:flex;gap:8px;align-items:center;margin-bottom:12px}
+.name input{flex:1;min-width:0;font:inherit;padding:10px 12px;border:1.5px solid var(--line);border-radius:10px;background:var(--paper);color:var(--ink)}
+.tools{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px}
+details.ref{background:var(--paper);border:1px solid var(--line);border-radius:14px;margin-bottom:14px}
+details.ref summary{cursor:pointer;padding:12px 14px;font-weight:700}
+details.ref .in{padding:0 14px 14px}
+.reft{width:100%;border-collapse:collapse;font-size:.95rem}
+.reft td,.reft th{padding:6px 6px;border-top:1px solid var(--line);text-align:left}
+.reft th{border-top:0;color:var(--muted);font-size:.8rem;text-transform:uppercase}
+.reft .ka{font-weight:700;font-size:1.05rem}
+.list{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:6px 14px}
+.it{display:flex;gap:10px;padding:12px 0;border-top:1px solid var(--line);align-items:baseline}
+.it:first-child{border-top:0}
+.num{flex:none;width:2em;text-align:right;color:var(--muted);font-weight:700}
+.txt{font-size:clamp(1.05rem,3.4vw,1.2rem);line-height:2.1}
+.ru{display:none;font-family:"PT Sans",sans-serif;font-size:.85rem;color:var(--muted);line-height:1.35}
+body.showtr .ru{display:block}
+.w{cursor:pointer;border-radius:4px;border-bottom:1px dashed transparent}
+.w:hover{background:var(--blue-soft)}
+.w.on{background:var(--blue-soft);border-bottom-color:var(--blue)}
+.w:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+.gap{font:inherit;font-family:"Noto Serif Georgian",serif;font-weight:700;color:var(--blue);background:var(--blue-soft);border:0;border-bottom:2.5px solid var(--blue);border-radius:6px 6px 0 0;padding:2px 6px;margin:0 2px}
+input.gap{width:7.2em;text-align:center}
+select.gap{padding-right:4px;cursor:pointer}
+.gap:focus{outline:2px solid var(--blue);outline-offset:1px}
+.gap.ok{color:var(--ok);background:var(--ok-soft);border-color:var(--ok)}
+.gap.bad{color:var(--bad);background:var(--bad-soft);border-color:var(--bad)}
+.fix{font-family:"Noto Serif Georgian",serif;color:var(--ok);font-weight:700;font-size:.9em;margin-left:4px}
+.tag{font-size:.7rem;color:var(--muted);vertical-align:super;margin-left:2px}
+.bar{position:fixed;left:0;right:0;bottom:0;background:var(--paper);border-top:1px solid var(--line);padding:10px 16px;padding-bottom:calc(10px + env(safe-area-inset-bottom,0px));z-index:10}
+.bar .in{max-width:860px;margin:0 auto;display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.btn{font:inherit;font-weight:700;border-radius:10px;padding:10px 14px;border:1.5px solid var(--line);background:var(--paper);color:var(--ink);cursor:pointer}
+.btn.on{border-color:var(--blue);color:var(--blue)}
+.btn.main{background:var(--wine);border-color:var(--wine);color:#fff;margin-left:auto}
+.btn:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+.score{font-weight:700}
+.kb{position:fixed;left:0;right:0;z-index:12;background:var(--soft);border-top:1px solid var(--line);padding:8px 6px;display:none}
+.kb.show{display:block}
+.kb .r{display:flex;justify-content:center;gap:4px;margin:4px 0}
+.kb button{font-family:"Noto Serif Georgian",serif;font-size:1.15rem;flex:1 1 0;max-width:52px;min-width:0;height:44px;border:1px solid var(--line);border-radius:8px;background:var(--paper);color:var(--ink);cursor:pointer;padding:0;touch-action:manipulation}
+.kb button.wide{max-width:110px;flex:2 1 0;font-family:"PT Sans",sans-serif;font-size:.95rem}
+.pop{position:fixed;z-index:30;max-width:min(300px,calc(100vw - 20px));background:var(--pop);color:var(--pop-ink);border-radius:12px;padding:10px 14px;box-shadow:0 8px 24px rgba(0,0,0,.25);display:none}
+.pop.show{display:block}
+.pop .k{font-family:"Noto Serif Georgian",serif;font-size:20px;font-weight:700}
+.pop .t{opacity:.8;font-size:15px}
+.pop .r{font-size:16px;margin-top:3px}
+.pop .note{font-size:13px;opacity:.75;margin-top:4px}
+.toast{position:fixed;left:50%;bottom:90px;transform:translateX(-50%);background:var(--pop);color:var(--pop-ink);padding:10px 16px;border-radius:10px;display:none;z-index:40;max-width:90vw;text-align:center}
+.toast.show{display:block}
+.back{display:inline-block;margin-bottom:4px;color:var(--muted);text-decoration:none;font-size:15px}
+.back:hover{color:var(--wine)}
+.verb{white-space:nowrap}
+.root{font-weight:700;color:var(--wine);padding:0 1px}
+input.gap.pre{width:3.6em;margin-right:0}
+input.gap.end{width:2.6em;margin-left:0}
+select.gap.pre{margin-right:0}
+select.gap.end{margin-left:0}
+.reft.pv td:nth-child(3){color:var(--muted)}
+.reft .em{color:var(--wine)}
+</style>
+</head>
+<body class="showtr">
+<main>
+  <a class="back" href="./">← Все задания</a>
+  <h1 class="ka" id="title"></h1>
+  <p class="sub">Глагол «пойти» в прошедшем совершенном (аорист) во всех направлениях. От глагола остался только <b class="ka" style="color:var(--wine)">корень</b> — <span class="ka">ვედ</span> или <span class="ka">ვიდ</span>. Допишите <b>начало</b> (преверб + <span class="ka">ხ</span> для «ты/вы») и <b>окончание</b>. В нечётных номерах части <b>впишите</b>, в чётных — <b>выберите</b> из списка. Пометки <i>(туда)</i> / <i>(сюда)</i> в переводе подсказывают направление. Нажмите на любое слово — появится транскрипция и перевод. Теория: <a href="../konspekty/03-preverby.html">конспект «Превербы»</a>.</p>
+  <label class="name"><span>Имя:</span><input id="name" type="text" placeholder="Ваше имя" autocomplete="name"></label>
+
+  <details class="ref">
+    <summary>📋 Подсказка: лица и окончания</summary>
+    <div class="in">
+      <table class="reft">
+        <tr><th>кто?</th><th>начало</th><th>корень</th><th>окончание</th><th>пример</th></tr>
+        <tr><td class="ka">მე</td><td class="ka">წა‑</td><td class="ka">ვედ</td><td class="ka">‑ი</td><td class="ka">წა<span class="em">ვედ</span>ი</td></tr>
+        <tr><td class="ka">შენ</td><td class="ka">წა<span class="em">ხ</span>‑</td><td class="ka">ვედ</td><td class="ka">‑ი</td><td class="ka">წახ<span class="em">ვედ</span>ი</td></tr>
+        <tr><td class="ka">ის</td><td class="ka">წა‑</td><td class="ka">ვიდ</td><td class="ka">‑ა</td><td class="ka">წა<span class="em">ვიდ</span>ა</td></tr>
+        <tr><td class="ka">ჩვენ</td><td class="ka">წა‑</td><td class="ka">ვედ</td><td class="ka">‑ით</td><td class="ka">წა<span class="em">ვედ</span>ით</td></tr>
+        <tr><td class="ka">თქვენ</td><td class="ka">წა<span class="em">ხ</span>‑</td><td class="ka">ვედ</td><td class="ka">‑ით</td><td class="ka">წახ<span class="em">ვედ</span>ით</td></tr>
+        <tr><td class="ka">ისინი</td><td class="ka">წა‑</td><td class="ka">ვიდ</td><td class="ka">‑ნენ</td><td class="ka">წა<span class="em">ვიდ</span>ნენ</td></tr>
+      </table>
+      <p class="sub" style="margin:8px 0 0">Я / ты / мы / вы → корень <span class="ka">ვედ</span>; он / они → <span class="ka">ვიდ</span>. «Ты» и «вы» получают <span class="ka">ხ</span> после превербия.</p>
+    </div>
+  </details>
+
+  <details class="ref">
+    <summary>🧭 Подсказка: превербы (направления)</summary>
+    <div class="in">
+      <table class="reft pv">
+        <tr><th>туда / от говорящего</th><th>сюда / к говорящему</th><th>направление</th></tr>
+        <tr><td class="ka">მივედი</td><td class="ka">მოვედი</td><td>пришёл (к цели)</td></tr>
+        <tr><td class="ka">შევედი</td><td class="ka">შემოვედი</td><td>вошёл внутрь</td></tr>
+        <tr><td class="ka">გავედი</td><td class="ka">გამოვედი</td><td>вышел наружу</td></tr>
+        <tr><td class="ka">ავედი</td><td class="ka">ამოვედი</td><td>поднялся вверх</td></tr>
+        <tr><td class="ka">ჩავედი</td><td class="ka">ჩამოვედი</td><td>спустился; приехал (в город, из‑за границы)</td></tr>
+        <tr><td class="ka">გადავედი</td><td class="ka">გადმოვედი</td><td>перешёл, переехал</td></tr>
+        <tr><td class="ka">წავედი</td><td>—</td><td>ушёл прочь</td></tr>
+      </table>
+      <p class="sub" style="margin:8px 0 0"><span class="ka">‑მო‑</span> в превербе = движение <b>сюда</b>, к говорящему (<span class="ka">შე → შემო, გა → გამო, ა → ამო, ჩა → ჩამო, გადა → გადმო</span>).</p>
+    </div>
+  </details>
+
+  <div class="list" id="list"></div>
+</main>
+
+<div class="kb" id="kb"></div>
+<div class="bar"><div class="in">
+  <span class="score" id="score"></span>
+  <button class="btn" id="kbBtn" title="Экранная грузинская клавиатура">⌨ ქა</button>
+  <button class="btn" id="check">Проверить</button>
+  <button class="btn" id="reset">Сбросить</button>
+  <button class="btn on" id="tr">Перевод</button>
+  <button class="btn main" id="submit">Сдать</button>
+</div></div>
+<div class="pop" id="pop" role="dialog"></div>
+<div class="toast" id="toast"></div>
+
+<script>
+const TITLE="ჩასვით ზმნის ნაწილები.";
+/* [начало|корень|окончание] — корень показывается, остальное заполняет ученик */
+const S=[
+ ["მე [მი|ვედ|ი] შინ.","Я пошёл (добрался) домой. (туда)"],
+ ["ის [მი|ვიდ|ა] სახლში.","Он пошёл (добрался) домой. (туда)"],
+ ["ის [შე|ვიდ|ა] უნივერსიტეტში.","Он вошёл в университет."],
+ ["ის [წა|ვიდ|ა] უნივერსიტეტიდან.","Он ушёл из университета."],
+ ["ის [გა|ვიდ|ა] უნივერსიტეტიდან.","Он вышел из университета."],
+ ["სტელა, მე [მო|ვედ|ი] სახლში, სად ხარ?","Стела, я пришёл домой (сюда), где ты?"],
+ ["ის [მო|ვიდ|ა] სახლში გვიან.","Он пришёл домой поздно. (сюда)"],
+ ["მე [შე|ვედ|ი] შიგნით.","Я вошёл внутрь."],
+ ["ის [გა|ვიდ|ა] გარეთ და ეწევა სიგარეტს.","Он вышел на улицу и курит сигарету."],
+ ["ის [გადა|ვიდ|ა] ახალ ბინაში.","Он переехал в новую квартиру."],
+ ["გუშინ ჩემი მეგობარი [ჩამო|ვიდ|ა] გერმანიიდან.","Вчера мой друг приехал из Германии. (сюда)"],
+ ["გუშინ ჩემი მეგობარი [ამო|ვიდ|ა] ჩემთან მეხუთე სართულზე.","Вчера мой друг поднялся ко мне на пятый этаж. (сюда)"],
+ ["შენ როდის [მოხ|ვედ|ი] თბილისში?","Когда ты приехал в Тбилиси? (сюда)"],
+ ["ჩვენ [ა|ვედ|ით] მთაზე.","Мы поднялись на гору. (туда)"],
+ ["ისინი [ჩა|ვიდ|ნენ] ქვემოთ.","Они спустились вниз. (туда)"],
+ ["თქვენ [შემოხ|ვედ|ით] ოთახში?","Вы вошли в комнату? (сюда, к нам)"],
+ ["ბავშვები [გამო|ვიდ|ნენ] სკოლიდან.","Дети вышли из школы. (сюда, к нам)"],
+ ["მე [გადა|ვედ|ი] ქუჩის მეორე მხარეს.","Я перешёл на другую сторону улицы. (туда)"],
+ ["ის [გადმო|ვიდ|ა] ჩვენს მხარეს.","Он перешёл на нашу сторону. (сюда)"],
+ ["შენ [წახ|ვედ|ი] სამსახურიდან?","Ты ушёл с работы?"],
+ ["ჩვენ [ჩა|ვედ|ით] ბათუმში.","Мы съездили (спустились) в Батуми. (туда)"],
+ ["ისინი [მი|ვიდ|ნენ] აეროპორტში.","Они добрались до аэропорта. (туда)"],
+ ["თქვენ [გახ|ვედ|ით] ეზოში.","Вы вышли во двор. (туда)"],
+ ["მე [ამო|ვედ|ი] მეტროდან.","Я поднялся (вышел) из метро. (сюда, наверх)"],
+ ["ნინო [ჩამო|ვიდ|ა] კიბეზე.","Нино спустилась по лестнице. (сюда, к нам)"],
+ ["ჩვენ [შე|ვედ|ით] მაღაზიაში.","Мы зашли в магазин. (туда)"],
+ ["შენ [ახ|ვედ|ი] მეორე სართულზე?","Ты поднялся на второй этаж? (туда)"],
+ ["სტუმრები [მო|ვიდ|ნენ] საღამოს.","Гости пришли вечером. (сюда)"],
+ ["მე [გამო|ვედ|ი] ოთახიდან.","Я вышел из комнаты. (сюда, к вам)"],
+ ["ისინი [გადა|ვიდ|ნენ] სხვა ქალაქში.","Они переехали в другой город."],
+ ["თქვენ [ჩამოხ|ვედ|ით] მთიდან?","Вы спустились с горы? (сюда)"],
+ ["ის [შემო|ვიდ|ა] კლასში.","Он вошёл в класс. (сюда, к нам)"]
+];
+
+const PV=["მი","მო","შე","შემო","გა","გამო","ა","ამო","ჩა","ჩამო","გადა","გადმო","წა"];
+const OPP={"მი":"მო","მო":"მი","შე":"შემო","შემო":"შე","გა":"გამო","გამო":"გა","ა":"ამო","ამო":"ა","ჩა":"ჩამო","ჩამო":"ჩა","გადა":"გადმო","გადმო":"გადა","წა":"გა"};
+const ENDS=["ი","ა","ით","ნენ"];
+const DIR={"მი":"туда, к цели","მო":"сюда, к говорящему","შე":"внутрь","შემო":"внутрь, сюда","გა":"наружу","გამო":"наружу, сюда","ა":"вверх","ამო":"вверх, сюда","ჩა":"вниз; в город, к морю","ჩამო":"вниз, сюда; приехать","გადა":"через, на другую сторону","გადმო":"через, сюда","წა":"прочь"};
+const DICT={
+ "ჩასვით":["вставьте"],"ზმნის":["глагола (род.)"],"ნაწილები":["части"],
+ "მე":["я"],"შენ":["ты"],"ის":["он, она"],"ჩვენ":["мы"],"თქვენ":["вы"],"ისინი":["они"],
+ "შინ":["домой; дома"],"სახლში":["домой; в доме"],"უნივერსიტეტში":["в университет(е)"],"უნივერსიტეტიდან":["из университета","‑იდან = «из»"],
+ "სტელა":["Стела (имя)"],"სად":["где"],"ხარ":["(ты) есть","სად ხარ? — где ты?"],"გვიან":["поздно"],"შიგნით":["внутрь, внутри"],"გარეთ":["наружу, на улицу"],
+ "და":["и"],"ეწევა":["курит"],"სიგარეტს":["сигарету (дат.)"],"ახალ":["новую","ახალი → ახალ перед словом в дательном."],"ბინაში":["в квартиру"],
+ "გუშინ":["вчера"],"ჩემი":["мой"],"მეგობარი":["друг, подруга"],"გერმანიიდან":["из Германии"],"ჩემთან":["ко мне"],"მეხუთე":["пятый"],"სართულზე":["на этаж(е)"],
+ "როდის":["когда"],"თბილისში":["в Тбилиси"],"მთაზე":["на гору"],"ქვემოთ":["вниз, внизу"],"ოთახში":["в комнату"],"ბავშვები":["дети"],"სკოლიდან":["из школы"],
+ "ქუჩის":["улицы (род.)"],"მეორე":["второй; другой"],"მხარეს":["на сторону"],"ჩვენს":["нашу (дат.)"],"სამსახურიდან":["с работы"],"ბათუმში":["в Батуми"],
+ "აეროპორტში":["в аэропорт"],"ეზოში":["во двор"],"მეტროდან":["из метро"],"ნინო":["Нино (имя)"],"კიბეზე":["по лестнице"],"მაღაზიაში":["в магазин"],
+ "სტუმრები":["гости"],"საღამოს":["вечером"],"ოთახიდან":["из комнаты"],"სხვა":["другой"],"ქალაქში":["в город"],"მთიდან":["с горы"],"კლასში":["в класс"]
+};
+const MAP={"ა":"а","ბ":"б","გ":"г","დ":"д","ე":"е","ვ":"в","ზ":"з","თ":"т","ი":"и","კ":"к'","ლ":"л","მ":"м","ნ":"н","ო":"о","პ":"п'","ჟ":"ж","რ":"р","ს":"с","ტ":"т'","უ":"у","ფ":"п","ქ":"к","ღ":"гъ","ყ":"къ","შ":"ш","ჩ":"ч","ც":"ц","ძ":"дз","წ":"ц'","ჭ":"ч'","ხ":"х","ჯ":"дж","ჰ":"х"};
+const tl=w=>[...w].map((c,i)=>c==="ე"&&i===0?"э":(MAP[c]||c)).join("");
+
+const $=id=>document.getElementById(id),pop=$("pop");
+function words(str,parent){
+  str.split(/([ა-ჿ]+)/).forEach(p=>{
+    if(!p)return;
+    if(/^[ა-ჿ]/.test(p)){
+      const s=document.createElement("span");s.className="w";s.tabIndex=0;s.textContent=p;
+      s.addEventListener("click",e=>{e.stopPropagation();showPop(p,s)});
+      s.addEventListener("keydown",e=>{if(e.key==="Enter"){e.stopPropagation();showPop(p,s)}});
+      parent.appendChild(s);
+    }else parent.appendChild(document.createTextNode(p));
+  });
+}
+function showPop(w,el,d){
+  d=d||DICT[w]||["—"];
+  document.querySelectorAll(".w.on").forEach(x=>x.classList.remove("on"));el.classList.add("on");
+  pop.innerHTML=`<div class="k">${w}</div><div class="t">[${tl(w)}]</div><div class="r">${d[0]}</div>${d[1]?`<div class="note">${d[1]}</div>`:""}`;
+  pop.classList.add("show");
+  const r=el.getBoundingClientRect(),p=pop.getBoundingClientRect();
+  let x=r.left+r.width/2-p.width/2;x=Math.max(10,Math.min(x,innerWidth-p.width-10));
+  let y=r.top-p.height-8;if(y<10)y=r.bottom+8;
+  pop.style.left=x+"px";pop.style.top=y+"px";
+}
+function hidePop(){pop.classList.remove("show");document.querySelectorAll(".w.on").forEach(x=>x.classList.remove("on"))}
+document.addEventListener("click",e=>{if(!pop.contains(e.target))hidePop()});
+addEventListener("scroll",hidePop,{passive:true});
+
+function seeded(n){let x=n*9301+49297;return()=>((x=(x*9301+49297)%233280)/233280)}
+function shuffle(o,r){for(let k=o.length-1;k>0;k--){const j=Math.floor(r()*(k+1));[o[k],o[j]]=[o[j],o[k]]}return o}
+/* варианты начала: верный, противоположное направление, ошибка в ხ, ещё один преверб */
+function preOptions(pre,i){
+  const h=pre.endsWith("ხ"),pv=h?pre.slice(0,-1):pre,r=seeded(i+7);
+  const set=new Set([pre,OPP[pv]+(h?"ხ":""),pv+(h?"":"ხ")]);
+  const rest=shuffle(PV.filter(p=>!set.has(p+(h?"ხ":""))),r);
+  set.add(rest[0]+(h?"ხ":""));
+  return shuffle([...set],r);
+}
+
+words(TITLE,$("title"));
+const gaps=[];let lastInput=null,checked=false;
+function mkGap(kind,ans,i,opts){
+  let g;
+  if(i%2===0){
+    g=document.createElement("input");g.type="text";g.autocomplete="off";g.autocapitalize="off";g.spellcheck=false;g.setAttribute("autocorrect","off");g.placeholder="…";
+    g.addEventListener("input",()=>mark(i));
+    g.addEventListener("focus",()=>{lastInput=g;placeKb()});
+  }else{
+    g=document.createElement("select");
+    g.innerHTML=`<option value="">▾</option>`+opts.map(o=>`<option>${o}</option>`).join("");
+    g.addEventListener("change",()=>mark(i));
+  }
+  g.className="gap "+kind;
+  g.setAttribute("aria-label",`${i+1}: ${kind==="pre"?"начало":"окончание"} глагола`);
+  return g;
+}
+S.forEach(([ka,ru],i)=>{
+  const m=ka.match(/\[([^|\]]+)\|([^|\]]+)\|([^\]]+)\]/),[pre,root,end]=[m[1],m[2],m[3]];
+  const [a,b]=[ka.slice(0,m.index),ka.slice(m.index+m[0].length)];
+  const it=document.createElement("div");it.className="it";
+  it.innerHTML=`<span class="num">${i+1}.</span>`;
+  const box=document.createElement("div");
+  const t=document.createElement("div");t.className="txt ka";
+  words(a,t);
+  const v=document.createElement("span");v.className="verb";
+  const gp=mkGap("pre",pre,i,preOptions(pre,i)),ge=mkGap("end",end,i,ENDS);
+  const rt=document.createElement("span");rt.className="root";rt.textContent=root;
+  v.append(gp,rt,ge);t.appendChild(v);
+  const fix=document.createElement("span");fix.className="fix";t.appendChild(fix);
+  words(b,t);
+  box.appendChild(t);
+  const r=document.createElement("div");r.className="ru";r.textContent=ru;box.appendChild(r);
+  it.appendChild(box);$("list").appendChild(it);
+  gaps.push({gp,ge,rt,fix,pre,root,end,full:pre+root+end});
+});
+const clean=s=>s.replace(/[\s‑-]+/g,"");
+const vp=i=>clean(gaps[i].gp.value),ve=i=>clean(gaps[i].ge.value);
+const typed=i=>vp(i)+gaps[i].root+ve(i);
+const isOk=i=>vp(i)===gaps[i].pre&&ve(i)===gaps[i].end;
+const filled=i=>vp(i)&&ve(i);
+function paint(i){
+  const x=gaps[i];
+  [[x.gp,vp(i)===x.pre],[x.ge,ve(i)===x.end]].forEach(([g,ok])=>{g.classList.remove("ok","bad");g.classList.add(ok?"ok":"bad")});
+  x.fix.textContent=isOk(i)?"":"→ "+x.full;
+}
+function mark(i){
+  const x=gaps[i];
+  if(checked)paint(i);else{x.gp.classList.remove("ok","bad");x.ge.classList.remove("ok","bad");x.fix.textContent=""}
+  upd();
+}
+function upd(){
+  const done=gaps.filter((_,i)=>filled(i)).length;
+  $("score").textContent=checked?`Верно: ${okCount()} / ${S.length}`:`${done} / ${S.length}`;
+}
+const okCount=()=>gaps.reduce((s,_,i)=>s+(isOk(i)?1:0),0);
+function doCheck(){gaps.forEach((_,i)=>paint(i));checked=true;upd()}
+
+/* экранная клавиатура */
+const KB=[["ქ","წ","ე","რ","ტ","ყ","უ","ი","ო","პ"],["ა","ს","დ","ფ","გ","ჰ","ჯ","კ","ლ"],["ზ","ხ","ც","ვ","ბ","ნ","მ"],["ჭ","ღ","თ","შ","ჟ","ძ","ჩ","⌫"]];
+let kbOn=false;
+const inputs=()=>gaps.flatMap(x=>[x.gp,x.ge]).filter(g=>g.tagName==="INPUT");
+KB.forEach(row=>{const r=document.createElement("div");r.className="r";
+  row.forEach(k=>{const b=document.createElement("button");b.type="button";b.textContent=k;if(k==="⌫")b.className="wide";
+    b.addEventListener("pointerdown",e=>e.preventDefault());
+    b.onclick=()=>{if(!lastInput)return;
+      if(k==="⌫")lastInput.value=[...lastInput.value].slice(0,-1).join("");else lastInput.value+=k;
+      lastInput.dispatchEvent(new Event("input"));lastInput.focus()};
+    r.appendChild(b)});$("kb").appendChild(r)});
+function placeKb(){const bar=document.querySelector(".bar");$("kb").style.bottom=bar.offsetHeight+"px";$("kb").classList.toggle("show",kbOn&&!!lastInput)}
+$("kbBtn").onclick=()=>{kbOn=!kbOn;$("kbBtn").classList.toggle("on",kbOn);
+  inputs().forEach(g=>{if(kbOn)g.setAttribute("inputmode","none");else g.removeAttribute("inputmode")});
+  if(kbOn&&!lastInput){const f=inputs().find(g=>!g.value);if(f){lastInput=f;f.focus()}}
+  placeKb();document.querySelector("main").style.paddingBottom=kbOn?"360px":"160px"};
+
+function toast(t){const el=$("toast");el.textContent=t;el.classList.add("show");clearTimeout(toast.t);toast.t=setTimeout(()=>el.classList.remove("show"),3000)}
+$("check").onclick=doCheck;
+$("reset").onclick=()=>{gaps.forEach(x=>{[x.gp,x.ge].forEach(g=>{g.value="";g.classList.remove("ok","bad")});x.fix.textContent=""});checked=false;upd()};
+$("tr").onclick=()=>{document.body.classList.toggle("showtr");$("tr").classList.toggle("on")};
+
+/* ---------- PNG ---------- */
+async function makePNG(){
+  const KA='"Noto Serif Georgian", Sylfaen, serif',RU='"PT Sans", sans-serif';
+  try{await Promise.all([document.fonts.load(`26px ${KA}`,"ა"),document.fonts.load(`700 26px ${KA}`,"ა"),document.fonts.load(`24px ${RU}`,"Я"),document.fonts.load(`700 24px ${RU}`,"Я")])}catch(e){}
+  const W=1400,PAD=60,LH=50,FS=26,maxW=W-PAD*2-60;
+  const tmp=document.createElement("canvas").getContext("2d");
+  const rows=S.map(([ka],i)=>{
+    const ok=isOk(i),toks=[],x=gaps[i];
+    const m=ka.match(/\[[^\]]+\]/),a=ka.slice(0,m.index),b=ka.slice(m.index+m[0].length);
+    a.split(/(\s+)/).forEach(s=>s&&toks.push({t:s}));
+    toks.push({t:(vp(i)||"…")+x.root+(ve(i)||"…"),gap:true,ok});
+    if(!ok)toks.push({t:" ("+x.full+")",fix:true});
+    b.split(/(\s+)/).forEach(s=>s&&toks.push({t:s}));
+    const lines=[[]];let cx=0;
+    toks.forEach(tk=>{tmp.font=(tk.gap||tk.fix?"700 ":"")+FS+"px "+KA;
+      const ws=/^\s+$/.test(tk.t),w=tmp.measureText(tk.t).width+(tk.gap?20:0);
+      if(ws&&cx===0)return;
+      if(!ws&&cx+w>maxW&&cx>0){lines.push([]);cx=0}
+      lines[lines.length-1].push({...tk,w});cx+=w});
+    return lines;
+  });
+  const top=240,H=top+rows.reduce((s,l)=>s+l.length*LH+8,0)+60;
+  const c=document.createElement("canvas");c.width=W;c.height=H;const x=c.getContext("2d");
+  x.fillStyle="#FFF";x.fillRect(0,0,W,H);x.fillStyle="#8E2A3B";x.fillRect(0,0,W,12);
+  x.fillStyle="#8E2A3B";x.font="700 38px "+KA;x.fillText("წავედი, მოვედი, შევედი… — ჩასვით ზმნის ნაწილები",PAD,88);
+  x.font="26px "+RU;x.fillStyle="#1E2A2F";x.fillText("Ученик: "+($("name").value.trim()||"—"),PAD,138);
+  const d=new Date();x.fillStyle="#5E6B70";
+  x.fillText("Сдано: "+d.toLocaleDateString("ru-RU")+" "+d.toLocaleTimeString("ru-RU",{hour:"2-digit",minute:"2-digit"}),PAD,176);
+  const ok=okCount(),sc=`Результат: ${ok} / ${S.length}`;
+  x.font="700 30px "+RU;x.fillStyle=ok===S.length?"#2E7D4F":"#1E2A2F";x.fillText(sc,W-PAD-x.measureText(sc).width,138);
+  x.fillStyle="#D5DDDB";x.fillRect(PAD,200,W-PAD*2,2);
+  let y=top;
+  rows.forEach((lines,i)=>{
+    x.fillStyle="#5E6B70";x.font="700 22px "+RU;x.fillText((i+1)+".",PAD,y+28);
+    lines.forEach(ln=>{let px=PAD+60;
+      ln.forEach(tk=>{
+        if(tk.gap){const col=tk.ok?"#2E7D4F":"#C0392B",bg=tk.ok?"#E3F2E8":"#FBE5E2";
+          x.fillStyle=bg;x.fillRect(px,y,tk.w,LH-10);x.fillStyle=col;x.fillRect(px,y+LH-13,tk.w,3);
+          x.font="700 "+FS+"px "+KA;x.fillText(tk.t,px+10,y+30);}
+        else if(tk.fix){x.fillStyle="#2E7D4F";x.font="700 "+FS+"px "+KA;x.fillText(tk.t,px,y+30)}
+        else{x.fillStyle="#1E2A2F";x.font=FS+"px "+KA;x.fillText(tk.t,px,y+30)}
+        px+=tk.w});
+      y+=LH});
+    y+=8;
+  });
+  return await new Promise(r=>c.toBlob(r,"image/png"));
+}
+$("submit").onclick=async()=>{
+  doCheck();
+  const empty=gaps.filter((_,i)=>!filled(i)).length;
+  const blob=await makePNG();
+  const nm=($("name").value.trim()||"zadanie").replace(/[^\p{L}\p{N}_-]+/gu,"_");
+  const fn=`svla_preverby_${nm}.png`;
+  const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download=fn;document.body.appendChild(a);a.click();a.remove();
+  toast(`Сохранено: ${fn}`+(empty?` (пустых: ${empty})`:""));
+};
+upd();
+</script>
+</body>
+</html>
