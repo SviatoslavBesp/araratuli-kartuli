@@ -95,7 +95,7 @@ select.gap.end{margin-left:0}
 <main>
   <a class="back" href="./">← Все задания</a>
   <h1 class="ka" id="title"></h1>
-  <p class="sub">Глагол «пойти» в прошедшем совершенном (аорист) во всех направлениях. От глагола остался только <b class="ka" style="color:var(--wine)">корень</b> — <span class="ka">ვედ</span> или <span class="ka">ვიდ</span>. Допишите <b>начало</b> (превербий + <span class="ka">ხ</span> для «ты/вы») и <b>окончание</b>. В нечётных номерах части <b>впишите</b>, в чётных — <b>выберите</b> из списка. Пометки <i>(туда)</i> / <i>(сюда)</i> в переводе подсказывают направление. Нажмите на любое слово — появится транскрипция и перевод.</p>
+  <p class="sub">Глагол «пойти» в прошедшем совершенном (аорист) во всех направлениях. От глагола остался только <b class="ka" style="color:var(--wine)">корень</b> — <span class="ka">ვედ</span> или <span class="ka">ვიდ</span>. Допишите <b>начало</b> (преверб + <span class="ka">ხ</span> для «ты/вы») и <b>окончание</b>. В нечётных номерах части <b>впишите</b>, в чётных — <b>выберите</b> из списка. Пометки <i>(туда)</i> / <i>(сюда)</i> в переводе подсказывают направление. Нажмите на любое слово — появится транскрипция и перевод. Теория: <a href="../konspekty/03-preverby.html">конспект «Превербы»</a>.</p>
   <label class="name"><span>Имя:</span><input id="name" type="text" placeholder="Ваше имя" autocomplete="name"></label>
 
   <details class="ref">
@@ -115,7 +115,7 @@ select.gap.end{margin-left:0}
   </details>
 
   <details class="ref">
-    <summary>🧭 Подсказка: превербии (направления)</summary>
+    <summary>🧭 Подсказка: превербы (направления)</summary>
     <div class="in">
       <table class="reft pv">
         <tr><th>туда / от говорящего</th><th>сюда / к говорящему</th><th>направление</th></tr>
@@ -127,7 +127,7 @@ select.gap.end{margin-left:0}
         <tr><td class="ka">გადავედი</td><td class="ka">გადმოვედი</td><td>перешёл, переехал</td></tr>
         <tr><td class="ka">წავედი</td><td>—</td><td>ушёл прочь</td></tr>
       </table>
-      <p class="sub" style="margin:8px 0 0"><span class="ka">‑მო‑</span> в превербии = движение <b>сюда</b>, к говорящему (<span class="ka">შე → შემო, გა → გამო, ა → ამო, ჩა → ჩამო, გადა → გადმო</span>).</p>
+      <p class="sub" style="margin:8px 0 0"><span class="ka">‑მო‑</span> в превербе = движение <b>сюда</b>, к говорящему (<span class="ka">შე → შემო, გა → გამო, ა → ამო, ჩა → ჩამო, გადა → გადმო</span>).</p>
     </div>
   </details>
 
@@ -231,7 +231,7 @@ addEventListener("scroll",hidePop,{passive:true});
 
 function seeded(n){let x=n*9301+49297;return()=>((x=(x*9301+49297)%233280)/233280)}
 function shuffle(o,r){for(let k=o.length-1;k>0;k--){const j=Math.floor(r()*(k+1));[o[k],o[j]]=[o[j],o[k]]}return o}
-/* варианты начала: верный, противоположное направление, ошибка в ხ, ещё один превербий */
+/* варианты начала: верный, противоположное направление, ошибка в ხ, ещё один преверб */
 function preOptions(pre,i){
   const h=pre.endsWith("ხ"),pv=h?pre.slice(0,-1):pre,r=seeded(i+7);
   const set=new Set([pre,OPP[pv]+(h?"ხ":""),pv+(h?"":"ხ")]);
