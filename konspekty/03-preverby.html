@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Превербы направления — Конспекты</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Georgian:wght@400;600;700&family=PT+Sans:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+  --bg:#EEF2F1;--paper:#FFF;--ink:#1E2A2F;--muted:#5E6B70;--line:#D5DDDB;--soft:#F5F7F6;
+  --wine:#8E2A3B;--wine-soft:#F4E4E7;--blue:#2F6FB0;--ok:#2E7D4F;--ok-soft:#E3F2E8;--bad:#C0392B;--bad-soft:#FBE5E2;
+  --pv:#6B4FA0;--per:#A8324A;--ver:#B07A10;--root:#2F6FB0;--suf:#1F8A84;--end:#5B6770;--pl:#2E7D4F;--obj:#C2571A;
+  --mo:#B07A10;--have:#C2571A;--on:#FFF;--pop:#1E2A2F;--pop-ink:#FFF;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#141A1C;--paper:#1D2528;--ink:#E7ECEB;--muted:#9AA7AB;--line:#33403F;--soft:#232D30;
+  --wine:#E07A8C;--wine-soft:#3A2228;--blue:#7AB2EA;--ok:#6BC98F;--ok-soft:#1C3325;--bad:#F08476;--bad-soft:#3C2220;
+  --pv:#B59BE8;--per:#F08AA0;--ver:#E8B95A;--root:#7AB2EA;--suf:#5FCFC7;--end:#B4C0C6;--pl:#6BC98F;--obj:#F2A06B;
+  --mo:#E8B95A;--have:#F2A06B;--on:#141A1C;--pop:#F1F4F3;--pop-ink:#141A1C;}}
+:root[data-theme="dark"]{
+  --bg:#141A1C;--paper:#1D2528;--ink:#E7ECEB;--muted:#9AA7AB;--line:#33403F;--soft:#232D30;
+  --wine:#E07A8C;--wine-soft:#3A2228;--blue:#7AB2EA;--ok:#6BC98F;--ok-soft:#1C3325;--bad:#F08476;--bad-soft:#3C2220;
+  --pv:#B59BE8;--per:#F08AA0;--ver:#E8B95A;--root:#7AB2EA;--suf:#5FCFC7;--end:#B4C0C6;--pl:#6BC98F;--obj:#F2A06B;
+  --mo:#E8B95A;--have:#F2A06B;--on:#141A1C;--pop:#F1F4F3;--pop-ink:#141A1C;}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*,*::before,*::after{box-sizing:inherit}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"PT Sans",system-ui,sans-serif;font-size:16.5px;line-height:1.5}
+.ka{font-family:"Noto Serif Georgian",Sylfaen,serif}
+main{max-width:820px;margin:0 auto;padding:22px 16px 60px}
+h1{font-family:"Noto Serif Georgian",serif;color:var(--wine);font-size:clamp(1.7rem,5.5vw,2.4rem);margin:6px 0 4px;line-height:1.2}
+h2{font-size:1.25rem;margin:32px 0 10px}
+.lead{color:var(--muted);margin:4px 0 0}
+section{background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:16px 16px 14px;margin-top:12px}
+p{margin:8px 0}
+.muted{color:var(--muted)}
+.tr{color:var(--muted);font-size:.92em}
+
+/* токены */
+.toks{display:flex;flex-wrap:wrap;gap:4px;align-items:flex-end}
+.tok{display:inline-flex;flex-direction:column;align-items:center;gap:2px;border:0;padding:0;background:none;cursor:pointer;font:inherit;color:inherit}
+.tok .b{font-family:"Noto Serif Georgian",serif;font-weight:700;font-size:1.5rem;line-height:1;padding:9px 10px 10px;border-radius:9px;background:var(--c);color:var(--on);min-width:40px;text-align:center}
+.tok .lb{font-size:.68rem;color:var(--c);font-weight:700;text-transform:uppercase;letter-spacing:.03em}
+.tok.empty .b{background:transparent;color:var(--c);border:2px dashed var(--c);padding:7px 8px 8px}
+.tok.sm .b{font-size:1.05rem;padding:5px 7px 6px;min-width:26px;border-radius:7px}
+.tok.sm.empty .b{padding:3px 5px 4px}
+.tok:focus-visible{outline:2px solid var(--blue);outline-offset:2px;border-radius:10px}
+.k-pv{--c:var(--pv)}.k-per{--c:var(--per)}.k-ver{--c:var(--ver)}.k-root{--c:var(--root)}
+.k-suf{--c:var(--suf)}.k-end{--c:var(--end)}.k-pl{--c:var(--pl)}.k-sym{--c:var(--muted)}.k-sym .b{border:0!important}.k-obj{--c:var(--obj)}.k-mo{--c:var(--mo)}.k-have{--c:var(--have)}
+.legend{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:.9rem;margin-top:10px}
+.legend span::before{content:"";display:inline-block;width:12px;height:12px;border-radius:3px;background:var(--c);margin-right:6px;vertical-align:-1px}
+
+.formula{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0}
+.f{flex:1 1 140px;border-radius:10px;padding:8px 10px;text-align:center;background:var(--soft)}
+.f .ka{display:block;font-size:1.25rem;font-weight:700}
+.f small{color:var(--muted)}
+
+/* выбор */
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{font:inherit;border:1.5px solid var(--line);background:var(--paper);color:var(--ink);border-radius:999px;padding:6px 12px;cursor:pointer;line-height:1.2;text-align:left}
+.chip .ka{font-weight:700}
+.chip small{color:var(--muted)}
+.chip.on{border-color:var(--wine);background:var(--wine-soft)}
+.chip.star{border-color:var(--wine)}
+.chip:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+.cat{font-size:.85rem;color:var(--wine);font-weight:700;margin:10px 0 5px}
+details.tt{background:var(--paper);border:1px solid var(--line);border-radius:14px;margin-top:10px;overflow:hidden}
+details.tt summary{list-style:none;cursor:pointer;display:flex;gap:12px;align-items:center;padding:12px 14px}
+details.tt summary::-webkit-details-marker{display:none}
+details.tt summary::after{content:"＋";margin-left:auto;color:var(--muted);font-weight:700}
+details.tt[open] summary::after{content:"－"}
+details.tt summary:focus-visible{outline:2px solid var(--blue);outline-offset:-2px}
+.tt .chipk{flex:none;font-family:"Noto Serif Georgian",serif;font-weight:700;font-size:1.15rem;background:var(--c);color:var(--on);border-radius:8px;padding:6px 9px;min-width:44px;text-align:center}
+.tt .nm{font-weight:700;font-size:1.05rem;display:block}
+.tt .one{font-size:.9rem;color:var(--muted);display:block}
+.tt .body{padding:0 14px 14px;border-top:1px solid var(--line)}
+.tt .body h4{margin:12px 0 4px;font-size:.8rem;text-transform:uppercase;letter-spacing:.04em;color:var(--c)}
+.tt .body p{margin:4px 0}
+.tt .exs{display:grid;gap:8px;margin-top:6px}
+.tt .ex{background:var(--soft);border-radius:10px;padding:8px 10px}
+.tt .ex .w{font-family:"Noto Serif Georgian",serif;font-weight:700;margin-top:4px}
+.lbl{font-size:.82rem;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.04em;margin:14px 0 6px}
+.out{background:var(--soft);border-radius:14px;padding:16px;margin-top:14px}
+.word{font-family:"Noto Serif Georgian",serif;font-size:2rem;font-weight:700;margin-top:10px;line-height:1.2}
+.ru{font-size:1.1rem;font-weight:700}
+.sent{margin-top:12px;padding-top:12px;border-top:1px solid var(--line)}
+.sent .ka{font-size:1.15rem}
+.tip{margin-top:10px;font-size:.92rem;border-left:3px solid var(--wine);padding-left:10px}
+
+.scroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
+table{border-collapse:collapse;width:100%;min-width:520px}
+td,th{padding:7px 6px;border-top:1px solid var(--line);vertical-align:middle;text-align:left}
+th{font-size:.78rem;color:var(--muted);text-transform:uppercase;letter-spacing:.03em;border-top:0}
+td.who{white-space:nowrap;font-size:.9rem}
+td.full{font-family:"Noto Serif Georgian",serif;font-weight:700;font-size:1.1rem;white-space:nowrap}
+tr.cur td{background:var(--wine-soft)}
+.btn{font:inherit;font-weight:700;border-radius:10px;padding:9px 14px;border:1.5px solid var(--line);background:var(--paper);color:var(--ink);cursor:pointer}
+.btn.main{background:var(--wine);border-color:var(--wine);color:#fff}
+.btn:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+
+.rules{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:10px}
+.rule{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:12px 14px}
+.rule h3{margin:0 0 6px;font-size:1rem}
+.rule .toks{margin:6px 0}
+
+.l2{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:10px}
+.l2 .item{background:var(--soft);border-radius:12px;padding:10px 12px}
+
+/* тренажёр */
+.task{font-size:1.25rem;font-weight:700}
+.slot{min-height:64px;border:2px dashed var(--line);border-radius:12px;padding:8px;display:flex;flex-wrap:wrap;gap:4px;align-items:center;margin:10px 0}
+.slot.ok{border-color:var(--ok);background:var(--ok-soft)}
+.slot.bad{border-color:var(--bad);background:var(--bad-soft)}
+.bank{display:flex;flex-wrap:wrap;gap:6px}
+.tile{font-family:"Noto Serif Georgian",serif;font-weight:700;font-size:1.3rem;border:1.5px solid var(--line);background:var(--paper);color:var(--ink);border-radius:9px;padding:6px 12px;cursor:pointer;min-width:44px}
+.tile.used{visibility:hidden}
+.tile:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+.fb{min-height:1.5em;margin-top:8px}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:10px}
+.prog{color:var(--muted);font-size:.9rem;margin-left:auto}
+
+.pop{position:fixed;z-index:30;max-width:min(300px,calc(100vw - 20px));background:var(--pop);color:var(--pop-ink);border-radius:12px;padding:10px 14px;box-shadow:0 8px 24px rgba(0,0,0,.25);display:none;font-size:.95rem}
+.pop.show{display:block}
+.pop b.ka{font-size:1.3rem}
+.back{display:inline-block;margin-bottom:4px;color:var(--muted);text-decoration:none;font-size:15px}
+.back:hover{color:var(--wine)}
+.dirt td.ka{font-family:"Noto Serif Georgian",serif;font-weight:700;font-size:1.05rem;white-space:nowrap}
+.dirt td.na{color:var(--muted);font-weight:400}
+.dirt small{display:block;font-family:"PT Sans",sans-serif;font-weight:400;color:var(--muted);font-size:.8rem;white-space:normal}
+</style>
+</head>
+<body>
+<main>
+<a class="back" href="./">← Все конспекты</a>
+<h1>Превербы: куда движемся — <span class="ka">მიდის</span> или <span class="ka">მოდის</span>?</h1>
+<p class="lead">Приставки направления на двух глаголах: «идти» и «бежать». Нажмите на любой цветной токен — появится объяснение. Практика: <a href="../zadaniya/04-preverby.html">задание «მიდის თუ მოდის?»</a>.</p>
+
+<h2>1. Идея: две оси</h2>
+<section>
+  <p>Глагол движения собирается из корня и приставки‑<b>преверба</b>. Преверб отвечает на два вопроса:</p>
+  <div class="formula">
+    <div class="f"><span class="ka">ა · ჩა · შე · გა · გადა</span><small>КУДА? — вверх, вниз, внутрь, наружу, через</small></div>
+    <div class="f"><span class="ka">+ მო</span><small>К КОМУ? — «сюда», к говорящему</small></div>
+  </div>
+  <p>Без <span class="ka">მო</span> движение идёт «туда», от меня. С <span class="ka">მო</span> — «сюда», ко мне (к нам):</p>
+  <p><span class="ka">ის შედის.</span> <span class="tr">[ис шэдис]</span> — Он входит (туда). &nbsp;·&nbsp; <span class="ka">ის შემოდის.</span> <span class="tr">[ис шэмодис]</span> — Он входит (сюда, к нам).</p>
+  <p>Простейшая пара — <span class="ka">მი‑</span> / <span class="ka">მო‑</span>: <span class="ka">მიდის</span> — идёт туда, уходит; <span class="ka">მოდის</span> — идёт сюда, приходит. В сложных превербах <span class="ka">მი</span> не пишется: <span class="ka">ა + მო = ამო</span>.</p>
+</section>
+
+<h2>2. Анатомия</h2>
+<section>
+  <div class="toks" id="anatomy"></div>
+  <div class="legend">
+    <span class="k-pv">преверб «куда»</span><span class="k-mo">‑მო «сюда»</span><span class="k-per">лицо ვ‑ «я / мы»</span>
+    <span class="k-root">корень</span><span class="k-end">окончание</span>
+  </div>
+  <p class="muted" style="margin-top:10px">Корень «идти» — <span class="ka">დი</span>, «бежать» — <span class="ka">რბი</span>. Всё остальное у них одинаково: смените корень — получите другой глагол.</p>
+</section>
+
+<h2>3. Таблица превербов на двух глаголах</h2>
+<section>
+  <p class="muted" style="margin-top:0">Формы 3‑го лица («он / она»). Нажмите на форму, чтобы увидеть её токены.</p>
+  <div class="scroll"><table class="dirt" id="dirt"></table></div>
+  <p class="muted"><b>—</b> в настоящем времени не употребляется. <span class="ka">წა‑</span> живёт в прошедшем и повелительном: <span class="ka">წავიდა</span> — ушёл, <span class="ka">წადი!</span> — иди (уходи)!, <span class="ka">წამოდი!</span> — пойдём со мной! «Убегает» — <span class="ka">გარბის</span>.</p>
+</section>
+
+<h2>4. Конструктор</h2>
+<section>
+  <div class="lbl">Глагол</div>
+  <div class="chips" id="cVerb"></div>
+  <div class="lbl">Куда?</div>
+  <div class="chips" id="cDir"></div>
+  <div class="lbl">К кому?</div>
+  <div class="chips" id="cHither"></div>
+  <div class="lbl">Кто?</div>
+  <div class="chips" id="cPers"></div>
+  <div class="out" id="out"></div>
+</section>
+
+<h2>5. Правила стыковки</h2>
+<div class="rules" id="rules"></div>
+
+<h2>6. Уровень 2: «нести» и «вести» — это ваши მაქვს и მყავს</h2>
+<section>
+  <p>Знакомые глаголы владения + преверб = глаголы переноса. <span class="ka">აქვს</span> (у него есть вещь) → <span class="ka">მიაქვს</span> — несёт вещь туда. <span class="ka">ჰყავს</span> (у него есть кто‑то живой) → <span class="ka">მიჰყავს</span> — ведёт / везёт кого‑то туда.</p>
+  <div class="l2" id="l2"></div>
+  <div class="tip" style="margin-top:14px">Как и у <span class="ka">მაქვს / მყავს</span>, тот, кто несёт, стоит в <b>дательном</b> падеже, а то, что несут, — в именительном:<br>
+    <span class="ka">ბიჭს წიგნი მიაქვს.</span> <span class="tr">[бичс ц'игни миаквс]</span> — Мальчик несёт книгу.<br>
+    <span class="ka">დედას ბავშვი ბაღში მიჰყავს.</span> <span class="tr">[дэдас бавшви багъши михкъавс]</span> — Мама ведёт ребёнка в садик.</div>
+  <div class="lbl">Все лица</div>
+  <div class="scroll"><table id="l2tab"></table></div>
+  <p class="muted">Это только настоящее время. В прошедшем корни совсем другие: <span class="ka">მიიტანა</span> — отнёс, <span class="ka">მიიყვანა</span> — отвёл.</p>
+</section>
+
+<h2>7. Тренажёр: соберите глагол</h2>
+<section>
+  <div class="task" id="task"></div>
+  <div class="slot" id="slot"></div>
+  <div class="bank" id="bank"></div>
+  <div class="fb" id="fb"></div>
+  <div class="row">
+    <button class="btn" id="undo">← Убрать</button>
+    <button class="btn main" id="go">Проверить</button>
+    <span class="prog" id="prog"></span>
+  </div>
+</section>
+</main>
+<div class="pop" id="pop" role="dialog"></div>
+
+<script>
+const MAP={"ა":"а","ბ":"б","გ":"г","დ":"д","ე":"е","ვ":"в","ზ":"з","თ":"т","ი":"и","კ":"к'","ლ":"л","მ":"м","ნ":"н","ო":"о","პ":"п'","ჟ":"ж","რ":"р","ს":"с","ტ":"т'","უ":"у","ფ":"п","ქ":"к","ღ":"гъ","ყ":"къ","შ":"ш","ჩ":"ч","ც":"ц","ძ":"дз","წ":"ц'","ჭ":"ч'","ხ":"х","ჯ":"дж","ჰ":"х"};
+const tl=s=>s.split(/(\s+)/).map(w=>[...w].map((c,i)=>c==="ე"&&i===0?"э":(MAP[c]||c)).join("")).join("").replace(/[.?!]/g,"");
+
+/* ---------- данные ---------- */
+const PRON=["მე","შენ","ის","ჩვენ","თქვენ","ისინი"];
+const PRON_RU=["я","ты","он / она","мы","вы","они"];
+const PER=["ვ","","","ვ","",""];
+const END=["ვარ","ხარ","ს","ვართ","ხართ","ან"];
+const VERBS=[
+ {id:"go",root:"დი",nm:"идти",ru:["иду","идёшь","идёт","идём","идёте","идут"]},
+ {id:"run",root:"რბი",nm:"бежать",ru:["бегу","бежишь","бежит","бежим","бежите","бегут"]}
+];
+// направление: преверб, смысл, «сюда»-форма; gl — идиоматичный перевод 3-го лица [туда, сюда] для каждого глагола
+const DIRS=[
+ {pv:"მი",nm:"туда / сюда",ru:["туда","сюда"],
+  gl:{go:["идёт туда, уходит","идёт сюда, приходит"],run:["бежит туда","бежит сюда, прибегает"]}},
+ {pv:"ა",nm:"вверх",ru:["вверх","вверх, сюда"],
+  gl:{go:["поднимается","поднимается сюда; восходит (о солнце)"],run:["взбегает","взбегает сюда"]}},
+ {pv:"ჩა",nm:"вниз",ru:["вниз","вниз, сюда"],
+  gl:{go:["спускается; выходит (из транспорта)","спускается сюда; приезжает (в город)"],run:["сбегает вниз","сбегает сюда"]}},
+ {pv:"შე",nm:"внутрь",ru:["внутрь","внутрь, сюда"],
+  gl:{go:["входит","входит сюда"],run:["вбегает","вбегает сюда"]}},
+ {pv:"გა",nm:"наружу",ru:["наружу","наружу, сюда"],
+  gl:{go:["выходит","выходит сюда"],run:["выбегает; убегает","выбегает сюда"]}},
+ {pv:"გადა",nm:"через",ru:["через, на ту сторону","через, на эту сторону"],
+  gl:{go:["переходит (туда)","переходит сюда"],run:["перебегает (туда)","перебегает сюда"]}},
+ {pv:"წა",nm:"прочь",ru:["прочь","вместе со мной"],gl:{go:[null,null],run:[null,null]}},
+ {pv:"და",nm:"туда‑сюда",ru:["туда‑сюда, регулярно",null],
+  gl:{go:["ходит (регулярно, туда‑сюда)",null],run:["бегает (туда‑сюда)",null]}}
+];
+const dirOf=pv=>DIRS.find(d=>d.pv===pv);
+function pvToks(d,h){
+  if(d.pv==="მი")return h?[{t:"მო",k:"mo"}]:[{t:"მი",k:"pv"}];
+  if(!h)return [{t:d.pv,k:"pv"}];
+  if(d.pv==="გადა")return [{t:"გად",k:"pv",cut:true},{t:"მო",k:"mo"}];
+  return [{t:d.pv,k:"pv"},{t:"მო",k:"mo"}];
+}
+function tokens(v,d,h,p){
+  const T=pvToks(d,h);
+  if(PER[p])T.push({t:PER[p],k:"per"});
+  T.push({t:v.root,k:"root"},{t:END[p],k:"end",p});
+  return T;
+}
+const word=T=>T.map(x=>x.t).join("");
+const exists=(v,d,h)=>!!d.gl[v.id][h?1:0];
+
+/* ---------- объяснения ---------- */
+const PV_EXP={"მი":"туда, от говорящего. Пара к მო‑.","ა":"вверх.","ჩა":"вниз; также «приехать в город», «выйти из транспорта».","შე":"внутрь.","გა":"наружу; также «уйти, убежать».","გადა":"через, на другую сторону.","გად":"это გადა‑, у которого перед ‑მო выпала ა: გადა + მო = გადმო.","წა":"прочь; в настоящем почти не встречается.","და":"без направления: туда‑сюда, регулярно."};
+function explain(x){
+  switch(x.k){
+    case "pv":return `<b class='ka'>${x.t}</b> — преверб: ${PV_EXP[x.t]||""} Стоит первым.`;
+    case "mo":return "<b class='ka'>მო</b> — «сюда», к говорящему. Один — пара к მი‑ (მოდის — приходит). После другого преверба добавляет «сюда»: შე + მო = შემო.";
+    case "per":return "<b class='ka'>ვ</b> — «я» / «мы». Встаёт после преверба, перед корнем: მი‑ვ‑დივარ. Для «ты», «он», «вы», «они» его нет.";
+    case "root":return x.t==="დი"?"<b class='ka'>დი</b> — корень «идти».":"<b class='ka'>რბი</b> — корень «бежать».";
+    case "end":return `<b class='ka'>${x.t}</b> — окончание: ${["я","ты","он / она","мы","вы","они"][x.p]}. Набор ვარ · ხარ · ს · ვართ · ხართ · ან — как у глагола «быть» (ვარ, ხარ).`;
+    case "have":return `<b class='ka'>${x.t}</b> — знакомый глагол владения: ${x.t.includes("ყავ")?"для живого (кого?)":"для вещей (что?)"}.`;
+  }
+}
+
+/* ---------- отрисовка токенов ---------- */
+const KIND={pv:"преверб",mo:"сюда",per:"лицо",root:"корень",end:"окончание",have:"владение"};
+const $=id=>document.getElementById(id),pop=$("pop");
+function tokEl(x,small){
+  const b=document.createElement("button");b.type="button";
+  b.className=`tok k-${x.k}${small?" sm":""}`;
+  b.innerHTML=`<span class="b">${x.t}</span>${small?"":`<span class="lb">${KIND[x.k]}</span>`}`;
+  b.onclick=e=>{e.stopPropagation();const h=explain(x);if(h)showPop(h,b)};
+  return b;
+}
+function toksEl(T,small){const d=document.createElement("div");d.className="toks";T.forEach(x=>d.appendChild(tokEl(x,small)));return d}
+function showPop(html,el){
+  pop.innerHTML=html;pop.classList.add("show");
+  const r=el.getBoundingClientRect(),p=pop.getBoundingClientRect();
+  let x=r.left+r.width/2-p.width/2;x=Math.max(10,Math.min(x,innerWidth-p.width-10));
+  let y=r.top-p.height-8;if(y<10)y=r.bottom+8;
+  pop.style.left=x+"px";pop.style.top=y+"px";
+}
+document.addEventListener("click",e=>{if(!pop.contains(e.target))pop.classList.remove("show")});
+addEventListener("scroll",()=>pop.classList.remove("show"),{passive:true});
+
+/* 2. анатомия */
+(()=>{
+  const v=VERBS[0];
+  $("anatomy").appendChild(toksEl(tokens(v,dirOf("შე"),true,0)));
+  const n=document.createElement("p");n.className="muted";n.style.margin="10px 0 0";
+  n.innerHTML="<span class='ka'>შე·მო·ვ·დი·ვარ</span> [шэмовдивар] — я вхожу (сюда). Для бега: <span class='ka'>შე·მო·ვ·რბი·ვარ</span> — я вбегаю (сюда).";
+  $("anatomy").after(n);
+})();
+
+/* 3. таблица */
+(()=>{
+  const t=$("dirt");
+  t.innerHTML="<tr><th>куда</th><th>идти · туда</th><th>идти · сюда</th><th>бежать · туда</th><th>бежать · сюда</th></tr>";
+  DIRS.forEach(d=>{
+    const tr=document.createElement("tr");
+    tr.innerHTML=`<td class="who"><span class="ka">${d.pv}‑</span><br><small class="muted">${d.nm}</small></td>`;
+    VERBS.forEach(v=>[false,true].forEach(h=>{
+      const td=document.createElement("td");td.className="ka";
+      if(d.pv==="და"&&h){td.className="ka na";td.textContent="";}
+      else if(!exists(v,d,h)){td.className="ka na";td.textContent="—";}
+      else{
+        const T=tokens(v,d,h,2),w=word(T);
+        td.innerHTML=`${w}<small>${d.gl[v.id][h?1:0]}</small>`;td.style.cursor="pointer";
+        td.onclick=e=>{e.stopPropagation();const box=document.createElement("div");box.appendChild(toksEl(T,true));
+          showPop(box.innerHTML+`<div style="margin-top:6px">[${tl(w)}]</div>`,td)};
+      }
+      tr.appendChild(td);
+    }));
+    t.appendChild(tr);
+  });
+})();
+
+/* 4. конструктор */
+let cv=0,cd=0,ch=false,cp=0;
+function chips(id,items,get,set){
+  const w=$(id);w.innerHTML="";
+  items.forEach((it,i)=>{const b=document.createElement("button");b.type="button";b.className="chip";b.innerHTML=it;
+    b.onclick=()=>{set(i);renderC()};w.appendChild(b)});
+  [...w.children].forEach((b,i)=>b.classList.toggle("on",get()===i));
+}
+function renderC(){
+  const v=VERBS[cv],d=DIRS[cd];
+  if(d.pv==="და")ch=false;
+  chips("cVerb",VERBS.map(x=>`<span class="ka">${x.root}</span> <small>${x.nm}</small>`),()=>cv,i=>cv=i);
+  chips("cDir",DIRS.map(x=>`<span class="ka">${x.pv}‑</span> <small>${x.nm}</small>`),()=>cd,i=>cd=i);
+  chips("cHither",["туда <small>(без მო)</small>","сюда <small class='ka'>+ მო</small>"],()=>ch?1:0,i=>ch=!!i);
+  chips("cPers",PRON_RU.map((r,i)=>`${r} <small class="ka">${PRON[i]}</small>`),()=>cp,i=>cp=i);
+  const o=$("out");o.innerHTML="";
+  if(!exists(v,d,ch)){
+    o.innerHTML=d.pv==="და"?"":`<div class="tip">С превербом <span class="ka">${d.pv}‑</span> в настоящем времени этот глагол не употребляется. ${d.pv==="წა"?"Есть прошедшее <span class='ka'>წავიდა</span> (ушёл) и повелительное <span class='ka'>წადი! წამოდი!</span>":""}</div>`;
+    return;
+  }
+  const T=tokens(v,d,ch,cp),w=word(T);
+  o.appendChild(toksEl(T));
+  const dirRu=d.ru[ch?1:0];
+  o.insertAdjacentHTML("beforeend",`<div class="word">${PRON[cp]} ${w}</div>
+    <div class="tr">[${tl(PRON[cp]+" "+w)}]</div>
+    <div class="ru">${PRON_RU[cp]} ${v.ru[cp]} — ${dirRu}</div>
+    <div class="tip">Форма «он / она»: <b class="ka">${word(tokens(v,d,ch,2))}</b> — ${d.gl[v.id][ch?1:0]}.</div>`);
+}
+renderC();
+
+/* 5. правила */
+const RULES=[
+ ["მო = «сюда»",[{t:"შე",k:"pv"},{t:"+",k:"sym"},{t:"მო",k:"mo"},{t:"=",k:"sym"},{t:"შემო",k:"pv"}],"Любой преверб + მო → движение к говорящему: <span class='ka'>შედის → შემოდის, გადის → გამოდის</span>."],
+ ["მი и მო — пара",[{t:"მი",k:"pv"},{t:"↔",k:"sym"},{t:"მო",k:"mo"}],"<span class='ka'>მიდის</span> — уходит, <span class='ka'>მოდის</span> — приходит. В сложных превербах მი не пишется: <span class='ka'>ა + მო = ამო</span>, а не <span class='ka'>ამიმო</span>."],
+ ["გადა + მო = გადმო",[{t:"გად",k:"pv"},{t:"მო",k:"mo"}],"Перед ‑მო у გადა выпадает ა: <span class='ka'>გადადის → გადმოდის</span>."],
+ ["ვ — после преверба",[{t:"მი",k:"pv"},{t:"ვ",k:"per"},{t:"დი",k:"root"},{t:"ვარ",k:"end"}],"Лицо «я / мы» встаёт внутрь, между превербом и корнем: <span class='ka'>მივდივარ, შემოვრბივართ</span>."],
+ ["Корень меняется — остальное нет",[{t:"დი",k:"root"},{t:"↔",k:"sym"},{t:"რბი",k:"root"}],"<span class='ka'>შემოდის</span> — входит сюда, <span class='ka'>შემორბის</span> — вбегает сюда. Превербы и окончания одни и те же."]
+];
+RULES.forEach(([h,T,txt])=>{
+  const d=document.createElement("div");d.className="rule";
+  d.innerHTML=`<h3>${h}</h3>`;
+  d.appendChild(toksEl(T,true));
+  d.insertAdjacentHTML("beforeend",`<div style="font-size:.93rem">${txt}</div>`);
+  $("rules").appendChild(d);
+});
+// символы → серые без рамки
+document.querySelectorAll(".rules .tok.k-sym").forEach(b=>{b.classList.add("empty");b.onclick=null});
+
+/* 6. уровень 2 */
+const L2=[
+ ["მი","აქვს","несёт (вещь) туда, относит"],["მო","აქვს","несёт сюда, приносит"],
+ ["შემო","აქვს","вносит сюда"],["გა","აქვს","выносит"],
+ ["მი","ჰყავს","ведёт / везёт (кого‑то) туда"],["მო","ჰყავს","ведёт сюда, приводит"],
+ ["ჩამო","ჰყავს","привозит (в город)"],["გადა","ჰყავს","переводит (через дорогу)"]
+];
+L2.forEach(([pv,h,ru])=>{
+  const d=document.createElement("div");d.className="item";
+  const T=[{t:pv,k:pv==="მო"?"mo":"pv"},{t:h,k:"have"}];
+  d.appendChild(toksEl(T,true));const w=word(T);
+  d.insertAdjacentHTML("beforeend",`<div class="ka" style="font-weight:700;font-size:1.15rem;margin-top:6px">${w} <span class="tr" style="font-family:'PT Sans';font-weight:400">[${tl(w)}]</span></div><div>${ru}</div>`);
+  $("l2").appendChild(d);
+});
+(()=>{
+  const DAT=["მე","შენ","მას","ჩვენ","თქვენ","მათ"];
+  const HAVE=[["მაქვს","მყავს"],["გაქვს","გყავს"],["აქვს","ჰყავს"],["გვაქვს","გვყავს"],["გაქვთ","გყავთ"],["აქვთ","ჰყავთ"]];
+  const t=$("l2tab");
+  t.innerHTML="<tr><th>кто? (дат.)</th><th>есть вещь</th><th>несёт туда</th><th>есть живое</th><th>ведёт туда</th></tr>";
+  HAVE.forEach(([a,b],i)=>{
+    t.insertAdjacentHTML("beforeend",`<tr><td class="who ka">${DAT[i]}</td><td class="ka">${a}</td><td class="full">მი${a}</td><td class="ka">${b}</td><td class="full">მი${b}</td></tr>`);
+  });
+})();
+
+/* 7. тренажёр */
+const TASKS=[
+ ["Он входит сюда (к нам)",["შე","მო","დი","ს"],["ვ","გა","ვარ"]],
+ ["Я иду туда",["მი","ვ","დი","ვარ"],["მო","ს","რბი"]],
+ ["Мы поднимаемся",["ა","ვ","დი","ვართ"],["მო","ჩა","ან"]],
+ ["Дети сбегают сюда, вниз",["ჩა","მო","რბი","ან"],["დი","ვ","ს"]],
+ ["Ты выбегаешь (наружу)",["გა","რბი","ხარ"],["ვ","მო","ვარ"]],
+ ["Вы переходите сюда",["გად","მო","დი","ხართ"],["გადა","ვ","ან"]],
+ ["Солнце восходит",["ა","მო","დი","ს"],["ჩა","რბი","ვ"]],
+ ["Я бегу сюда",["მო","ვ","რბი","ვარ"],["მი","ს","დი"]],
+ ["Они ходят (регулярно)",["და","დი","ან"],["მი","ვ","ს"]],
+ ["Она перебегает (туда)",["გადა","რბი","ს"],["გად","მო","ვ"]],
+ ["Мы входим сюда",["შე","მო","ვ","დი","ვართ"],["გა","ხართ"]],
+ ["Бабушка приезжает (в город)",["ჩა","მო","დი","ს"],["ა","შე","ვ"]],
+ ["Мальчик несёт книгу: ბიჭს წიგნი …",["მი","აქვს"],["ჰყავს","მო","ვ"]],
+ ["Мама приводит ребёнка: დედას ბავშვი …",["მო","ჰყავს"],["აქვს","მი","ს"]]
+];
+let ti=0,picked=[],score=0,answered=false,bankTiles=[];
+const shuffle=a=>{a=[...a];for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
+function loadTask(){
+  const [ru,ans,dis]=TASKS[ti];picked=[];answered=false;
+  $("task").textContent=`${ti+1}. «${ru}»`;
+  bankTiles=shuffle([...ans,...dis]).map((t,i)=>({t,i}));
+  $("fb").textContent="";$("go").textContent="Проверить";
+  $("prog").textContent=`${ti+1} / ${TASKS.length} · верно: ${score}`;
+  drawTask();
+}
+function drawTask(){
+  const s=$("slot");s.className="slot";s.innerHTML=picked.length?"":"<span class='muted'>Нажимайте токены по порядку…</span>";
+  picked.forEach(i=>{const d=document.createElement("span");d.className="tile";d.textContent=bankTiles[i].t;s.appendChild(d)});
+  const b=$("bank");b.innerHTML="";
+  bankTiles.forEach(x=>{
+    const t=document.createElement("button");t.type="button";t.className="tile"+(picked.includes(x.i)?" used":"");t.textContent=x.t;
+    t.onclick=()=>{if(answered)return;picked.push(x.i);drawTask()};b.appendChild(t);
+  });
+}
+$("undo").onclick=()=>{if(!answered){picked.pop();drawTask()}};
+$("go").onclick=()=>{
+  if(ti>=TASKS.length){ti=0;score=0;loadTask();return}
+  if(answered){ti++;if(ti>=TASKS.length){finish();return}loadTask();return}
+  if(!picked.length)return;
+  const [ru,ans]=TASKS[ti],got=picked.map(i=>bankTiles[i].t).join(""),right=ans.join("");
+  answered=true;
+  if(got===right){score++;$("slot").classList.add("ok");$("fb").innerHTML=`✓ <b class="ka">${right}</b> [${tl(right)}]`}
+  else{$("slot").classList.add("bad");$("fb").innerHTML=`✗ Правильно: <b class="ka">${ans.join(" · ")}</b> → <b class="ka">${right}</b> [${tl(right)}]`}
+  $("go").textContent=ti===TASKS.length-1?"Итог":"Дальше →";
+  $("prog").textContent=`${ti+1} / ${TASKS.length} · верно: ${score}`;
+};
+function finish(){
+  ti=TASKS.length;
+  $("task").textContent=`Готово: ${score} из ${TASKS.length}`+(score===TASKS.length?" 🎉":"");
+  $("slot").className="slot";$("slot").innerHTML="";$("bank").innerHTML="";$("fb").textContent="";
+  $("go").textContent="Заново";
+}
+loadTask();
+</script>
+</body>
+</html>
